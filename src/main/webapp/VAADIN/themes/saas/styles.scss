@@ -1,0 +1,7 @@
+@import "saas.scss";
+@import "addons.scss";
+
+.saas {
+  @include addons;
+  @include saas;
+}

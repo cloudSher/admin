@@ -1,0 +1,90 @@
+@import "../valo/valo.scss";
+
+@mixin saas {
+
+    @include valo;
+
+    .v-upload .v-button {
+        width: 160px;
+        height: 200px;
+        text-align: center;
+        border: none;
+        background: url(img/common/img_add.png) no-repeat top right;
+        background-size: contain;
+        cursor: pointer;
+        position: relative;
+        @include box-shadow(0 2px 7px 1px rgba(0,0,0,.5));
+
+        &:hover {
+          outline: 2px solid #5198df;
+        }
+    }
+
+    .draft-thumb {
+      cursor: pointer;
+      position: relative;
+
+      .v-image {
+        @include box-shadow(0 2px 7px 1px rgba(0,0,0,.5));
+
+        &:hover {
+          outline: 2px solid #5198df;
+        }
+      }
+    }
+    
+    .draft-thumb .delete-button {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        display: none;
+    }
+
+    .draft-thumb:hover .delete-button {
+        display: block;
+    }
+    
+      .delete-button {
+    width: 19px;
+    height: 19px;
+    border: 1px solid #a3a7ab;
+    border-radius: 2px;
+    background: #73767a;
+    color: #fff;
+    font: inherit;
+    font-size: 16px;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(0,0,0,.25);
+    text-align: center;
+    cursor: default;
+    @include box-shadow(0 2px 4px rgba(0,0,0,.5));
+  }
+
+  .delete-button:hover {
+    background: #4e5153;
+  }
+
+  .delete-button:focus {
+    outline: none;
+  }
+
+  .delete-button:active {
+    background: #3c3f40;
+  }
+    // login screen default css - for small screens, see below
+    .login-view {
+        width: 100%;
+        .main-layout {
+            width: 80%;
+            
+            .header-layout {
+                width: 100%;
+            }
+        
+            .center-layout {
+                width: 100%;
+                height: 500px;
+            }
+        }
+    }
+}
