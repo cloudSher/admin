@@ -86,8 +86,8 @@ public class BrandBusinessListView extends BaseWorkBenchListWithSearchView {
 		BrandBusiness brandBusiness = (BrandBusiness) item;
 		return new DataGridRow(brandBusiness.getId(),
 				new Object[] { brandBusiness.getId(), brandBusiness.getEnterpriseName(), brandBusiness.getBusinessLicenseNo(),
-						brandBusiness.getContact(), brandBusiness.getContactPhone(), brandBusiness.getReviewState(), brandBusiness.getSmsFlag(),
-						brandBusiness.getLastOperateTime() });
+						brandBusiness.getEnterpriseAddress(), brandBusiness.getReviewState(), brandBusiness.getLastOperateTime(),
+						brandBusiness.getSmsFlag() });
 	}
 
 	@Override
@@ -109,13 +109,12 @@ public class BrandBusinessListView extends BaseWorkBenchListWithSearchView {
 	protected void setupGridModel(DataGridModel gridModel) {
 
 		gridModel.addColumn(new DataGridColumn("品牌商编号", Long.class));
-		gridModel.addColumn(new DataGridColumn("企业名称", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
 		gridModel.addColumn(new DataGridColumn("工商执照注册号", String.class));
-		gridModel.addColumn(new DataGridColumn("联系人", String.class));
-		gridModel.addColumn(new DataGridColumn("联系方式", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌商地址", String.class));
 		gridModel.addColumn(new DataGridColumn("审核状态", String.class));
-		gridModel.addColumn(new DataGridColumn("已发送开户短信", String.class));
 		gridModel.addColumn(new DataGridColumn("最后操作时间", String.class));
+		gridModel.addColumn(new DataGridColumn("备注", String.class));
 
 		gridModel.addCommonAction(new ActionCommand("create", "新增品牌商"));
 		gridModel.addCommonAction(new ActionCommand("export", "导出数据"));

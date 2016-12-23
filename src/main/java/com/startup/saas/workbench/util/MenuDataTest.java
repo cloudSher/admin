@@ -53,10 +53,15 @@ public class MenuDataTest {
 		menuList.add(trade_manage);
 
 		Resource community_manage = new Resource(3000L, "社区运营", false, false, null, null, null);
-		community_manage.appenMenuItem(new Resource(3001L, "话题", false, false, null, null, "user_list.view"));
-		community_manage.appenMenuItem(new Resource(3002L, "动态", false, false, null, null, "role_list.view"));
-		community_manage.appenMenuItem(new Resource(3003L, "评论", false, false, null, null, "role_list.view"));
-		community_manage.appenMenuItem(new Resource(3004L, "设置", false, false, null, null, "role_list.view"));
+		community_manage.appenMenuItem(new Resource(3001L, "话题", false, false, null, null, null));
+		community_manage.appenMenuItem(new Resource(300101L, "话题列表", false, false, null, null, "topic_list.view"));
+		community_manage.appenMenuItem(new Resource(300102L, "话题推荐", false, false, null, null, "user_list.view"));
+		community_manage.appenMenuItem(new Resource(3002L, "动态", false, false, null, null, null));
+		community_manage.appenMenuItem(new Resource(300201L, "动态管理", false, false, null, null, "role_list.view"));
+		community_manage.appenMenuItem(new Resource(3003L, "评论", false, false, null, null, null));
+		community_manage.appenMenuItem(new Resource(300301L, "评论管理", false, false, null, null, "role_list.view"));
+		community_manage.appenMenuItem(new Resource(3004L, "设置", false, false, null, null, null));
+		community_manage.appenMenuItem(new Resource(300401L, "关键词屏蔽", false, false, null, null, "role_list.view"));
 		menuList.add(community_manage);
 
 		Resource marketing_manage = new Resource(4000L, "营销", false, false, null, null, null);

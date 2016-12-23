@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.startup.sass.workbench</groupId>
@@ -17,6 +15,7 @@
     </parent>
 
     <properties>
+        <productionMode>true</productionMode>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -28,6 +27,43 @@
         <javax_ws_version>2.0</javax_ws_version>
         <resteasy_version>3.0.7.Final</resteasy_version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>production-mode</id>
+            <properties>
+                <productionMode>true</productionMode>
+            </properties>
+            <activation>
+                <property>
+                    <name>productionMode</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin-maven-plugin</artifactId>
+                        <version>${vaadin.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                </configuration>
+                                <goals>
+                                    <goal>resources</goal>
+                                    <goal>update-widgetset</goal>
+                                    <goal>compile</goal>
+                                    <goal>compile-theme</goal>
+                                    <goal>update-theme</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -63,7 +99,7 @@
             <artifactId>mvel2</artifactId>
             <version>2.2.8.Final</version>
         </dependency>
-        
+
         <!-- 服务api -->
         <dependency>
             <groupId>com.lashou.startup.saas.api</groupId>
@@ -71,24 +107,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>2.4</version>
-            <classifier>jdk15</classifier>
-        </dependency>
-        
         <!-- dubbo -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -157,13 +175,20 @@
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
-                <version>7.6.8</version>
+                <version>${vaadin.plugin.version}</version>
                 <configuration>
                     <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                     <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
@@ -179,6 +204,7 @@
                         <configuration>
                         </configuration>
                         <goals>
+                            <goal>resources</goal>
                             <goal>update-theme</goal>
                             <goal>update-widgetset</goal>
                             <goal>compile-theme</goal>
@@ -209,6 +235,33 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-javadoc-plugin</artifactId>  
+                <configuration>  
+                    <aggregate>true</aggregate>  
+                </configuration>  
+                <executions>  
+                    <execution>  
+                        <id>attach-javadocs</id>  
+                        <goals>  
+                            <goal>jar</goal>  
+                        </goals>  
+                    </execution>  
+                </executions>  
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
