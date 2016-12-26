@@ -160,7 +160,7 @@ public class TreeTableFieldEditor extends BaseFormFieldEditor {
 		IFormDataHelper dataHelper = this.getFormAgent().getDataHelper();
 		for (Object item : itemList) {
 			if (item != null) {
-				Object itemId = dataHelper.getProperty(item, valuePropertyName);
+				final Object itemId = dataHelper.getProperty(item, valuePropertyName);
 				itemsMap.put(itemId, item);
 				CheckBox checkBox = new CheckBox();
 				checkBox.addValueChangeListener(new Property.ValueChangeListener() {

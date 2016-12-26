@@ -184,8 +184,8 @@ public class ImageUploadEditor extends BaseFormFieldEditor {
 		}
 	};
 
-	private Component buildImageView(File file) {
-		VerticalLayout vLayout = new VerticalLayout();
+	private Component buildImageView(final File file) {
+		final VerticalLayout vLayout = new VerticalLayout();
 		vLayout.setSpacing(true);
 		vLayout.addStyleName("draft-thumb");
 
