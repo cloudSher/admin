@@ -198,21 +198,6 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>  
-                <groupId>org.apache.maven.plugins</groupId>  
-                <artifactId>maven-javadoc-plugin</artifactId>  
-                <configuration>  
-                    <aggregate>true</aggregate>  
-                </configuration>  
-                <executions>  
-                    <execution>  
-                        <id>attach-javadocs</id>  
-                        <goals>  
-                            <goal>jar</goal>  
-                        </goals>  
-                    </execution>  
-                </executions>  
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
