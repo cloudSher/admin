@@ -135,6 +135,7 @@
     </dependencies>
 
     <build>
+        <finalName>s-workbench</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
