@@ -2,6 +2,9 @@ package com.lastartupsaas.workbench.util;
 
 import javax.servlet.http.Cookie;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinResponse;
 import com.vaadin.server.VaadinService;
@@ -13,6 +16,8 @@ import com.vaadin.server.WrappedSession;
  * @author lifeilong
  */
 public class SessionUtil {
+
+	public static final Logger logger = LoggerFactory.getLogger(CaptchaUtil.class);
 
 	/**
 	 * 获取request
@@ -26,7 +31,7 @@ public class SessionUtil {
 		}
 		return request;
 	}
-	
+
 	/**
 	 * 获取response
 	 * 
@@ -39,7 +44,7 @@ public class SessionUtil {
 		}
 		return response;
 	}
-	
+
 	/**
 	 * 获取Session
 	 * 
@@ -48,16 +53,17 @@ public class SessionUtil {
 	public static WrappedSession getSession() {
 		return getCurrentRequest().getWrappedSession();
 	}
-	
+
 	/**
 	 * 往Session中存值
 	 * 
 	 * @return
 	 */
 	public static void setToSession(String key, Object value) {
+		logger.info("往Session中存值,key:{},value:{},SessionId:{}", key, value, getSession().getId());
 		getSession().setAttribute(key, value);
 	}
-	
+
 	/**
 	 * 获取Session中的值
 	 * 
@@ -66,7 +72,7 @@ public class SessionUtil {
 	public static Object getFromSession(String key) {
 		return getSession().getAttribute(key);
 	}
-	
+
 	/**
 	 * 往Cookies中存值
 	 * 
@@ -76,11 +82,12 @@ public class SessionUtil {
 		Cookie cookie = new Cookie(key, value);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(1209600);
-//		cookie.setPath(getCurrentRequest().getContextPath());
-		cookie.setPath("/");
+		cookie.setPath(getCurrentRequest().getContextPath());
+		// cookie.setPath("/");
+		logger.info("往Cookies中存值,key:{},value:{},path:{}", key, value, cookie.getPath());
 		getCurrentResponse().addCookie(cookie);
 	}
-	
+
 	/**
 	 * 获取Cookies中的值
 	 * 

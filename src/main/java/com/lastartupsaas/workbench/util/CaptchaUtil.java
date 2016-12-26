@@ -12,6 +12,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.StreamResource.StreamSource;
 
@@ -22,6 +25,7 @@ import com.vaadin.server.StreamResource.StreamSource;
  */
 public class CaptchaUtil {
 
+	public static final Logger logger = LoggerFactory.getLogger(CaptchaUtil.class);
 	public static final String CAPTCHA_CODE = "CAPTCHA_CODE";
 
 	/**
@@ -29,6 +33,8 @@ public class CaptchaUtil {
 	 */
 	public static StreamResource makeCaptchaImg() {
 		StreamResource streamResource = new StreamResource(new StreamSource() {
+			private static final long serialVersionUID = -3475648024374885261L;
+
 			@Override
 			public InputStream getStream() {
 
@@ -71,6 +77,7 @@ public class CaptchaUtil {
 						g.drawString(rand, 13 * i + 14, 20);
 					}
 
+					logger.info("生成动态验证码：【{}】", sRand.toString());
 					// 将认证码存入SESSION
 					SessionUtil.setToSession(CAPTCHA_CODE, sRand.toString());
 
@@ -82,6 +89,7 @@ public class CaptchaUtil {
 					return new ByteArrayInputStream(out.toByteArray());
 				} catch (Throwable ex) {
 					ex.printStackTrace();
+					logger.error("生成动态验证码发生异常：", ex);
 					return null;
 				} finally {
 					if (null != out) {
@@ -111,6 +119,7 @@ public class CaptchaUtil {
 		try {
 			// 从session中获取验证码
 			String codeInSession = (String) SessionUtil.getFromSession(CAPTCHA_CODE);
+			logger.info("验证动态验证码，用户输入的验证码为：【{}】，session中的验证码为：【{}】", captcha, codeInSession);
 			if (captcha.equalsIgnoreCase(codeInSession))
 				return true;
 		} catch (Throwable ex) {
