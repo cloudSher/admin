@@ -8,5 +8,5 @@
     
     <dubbo:registry address="zookeeper://10.1.34.216:2181" check="false"></dubbo:registry>
     
-    <dubbo:reference id="topicsResource" interface="com.startup.saas.api.resource.TopicsResource"/>
+    <!--<dubbo:reference id="topicsResource" interface="com.lastartupsaas.api.client.resource.TopicsResource" check="false"/>-->
 </beans>
