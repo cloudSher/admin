@@ -40,7 +40,7 @@
             <Host name="localhost" appBase="webapps"
                   unpackWARs="true" autoDeploy="true">
 
-                <Context path="/" docBase="/data/projects/s-workbench">
+                <Context path="/s-workbench" docBase="/data/projects/s-workbench">
                     <Valve className="org.apache.catalina.valves.RemoteAddrValve"
                            allow="10\.\d+\.\d+\.\d+"/>
                     <Valve className="org.apache.catalina.valves.RemoteIpValve"
