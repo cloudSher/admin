@@ -103,7 +103,7 @@ public class CaptchaUtil {
 				}
 			}
 		}, new Random().nextFloat() + "Captcha.jpeg");
-		streamResource.setCacheTime(10);
+		streamResource.setCacheTime(0);
 
 		return streamResource;
 	}
