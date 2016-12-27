@@ -26,20 +26,6 @@
         <javax_ws_version>2.0</javax_ws_version>
         <resteasy_version>3.0.7.Final</resteasy_version>
     </properties>
-    
-    <distributionManagement>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>User Porject Snapshot</name>
-            <url>http://devops.lashou-inc.com:8081/content/repositories/snapshots/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-        <repository>
-            <id>nexus-releases</id>
-            <name>User Porject Release</name>
-            <url>http://devops.lashou-inc.com:8081/content/repositories/releases/</url>
-        </repository>
-    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -232,4 +218,44 @@
             </plugin>
         </plugins>
     </build>
+    <!-- 上传到nexus私服配置 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>User Porject Snapshot</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>User Porject Release</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>lashou_nexus</id>
+            <name>Maven Lashou Mirror</name>
+            <url>http://devops.lashou-inc.com:8081/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>lashou_nexus</id>
+            <name>Maven Lashou Mirror</name>
+            <url>http://devops.lashou-inc.com:8081/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
