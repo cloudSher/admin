@@ -26,6 +26,20 @@
         <javax_ws_version>2.0</javax_ws_version>
         <resteasy_version>3.0.7.Final</resteasy_version>
     </properties>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>User Porject Snapshot</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>User Porject Release</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -62,12 +76,12 @@
             <version>2.2.8.Final</version>
         </dependency>
 
-        <!-- s-api-client 
+        <!-- s-api-client -->
         <dependency>
             <groupId>com.lastartupsaas.api.client</groupId>
             <artifactId>s-api-client</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>-->
+        </dependency>
 
         <!-- dubbo -->
         <dependency>
