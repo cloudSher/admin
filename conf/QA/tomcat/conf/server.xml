@@ -20,7 +20,7 @@
                   maxThreads="500" minSpareThreads="20" maxIdleTime="60000"/>
 
         <!-- disable keepAlive, Nginx only support Http 1.0 -->
-        <Connector port="8102" protocol="org.apache.coyote.http11.Http11AprProtocol"
+        <Connector port="8088" protocol="org.apache.coyote.http11.Http11AprProtocol"
                    executor="tomcatThreadPool"
                    connectionTimeout="10000" maxKeepAliveRequests="1"
                    redirectPort="-1"
