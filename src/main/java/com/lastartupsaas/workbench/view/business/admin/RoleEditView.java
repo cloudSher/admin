@@ -12,11 +12,15 @@ import com.lastartupsaas.workbench.view.ViewContext;
 import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
 import com.lastartupsaas.workbench.view.form.impl.TreeTableFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * Author: alvin Date: 2016-08-26
+ * 角色编辑页
+ * 
+ * @author lifeilong
+ * @date 2016-12-29
  */
 @SpringView(name = RoleEditView.VIEW_NAME)
 public class RoleEditView extends BaseWorkBenchEditorView {
@@ -25,12 +29,13 @@ public class RoleEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected String getObjectName(Object obj) {
-		return "当前位置：系统管理 > 权限管理 > 权限组";
+		return "当前位置：系统管理 > 权限管理 > 角色";
 	}
 
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
-		formAgent.addField(new FormField("权限组名", "roleName", InputFieldEditor.class, true, null, true).setInputDescr("为权限组设置特定名称，便于添加管理员时选择使用"));
+		formAgent.addField(new FormField("角色名称", "roleName", InputFieldEditor.class, true, null, true).setInputDescr("为权限组设置特定名称，便于添加管理员时选择使用"));
+		formAgent.addField(new FormField("状态", "state", new RadioboxYesOrNoEditor("正常", "禁用"), true, null, true));
 		List<Resource> resources = MenuDataTest.getInstance().getMenuData();
 		formAgent.addField(new FormField("权限设置", "resources", new TreeTableFieldEditor(resources, "id", "name", "resourceList"), true, null, true));
 	}
@@ -54,7 +59,7 @@ public class RoleEditView extends BaseWorkBenchEditorView {
 	protected Object loadEdittingDataFromContext(ViewContext vc) {
 		String id = vc.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
-			Role role = new Role(1L, "超级管理员");
+			Role role = new Role(1L, "超级管理员", "0");
 
 			Resource system_manage = new Resource(6000L, "系统管理", false, false, null, null, null);
 			Resource authority_manage = new Resource(6001L, "权限管理", false, false, null, null, null);

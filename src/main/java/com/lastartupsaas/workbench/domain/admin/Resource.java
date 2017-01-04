@@ -24,6 +24,7 @@ public class Resource extends BaseObject{
     private String icon;
     private String styleName;
     private String active;
+    private String state;
 //    @Embedded
     private List<Resource> resourceList;
 
@@ -41,7 +42,19 @@ public class Resource extends BaseObject{
         this.resourceList = new ArrayList<Resource>();
     }
 
-    public Long getId() {
+    public Resource(Long id, String name, boolean checkable, boolean checked, String icon, String styleName, String active, String state) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.checkable = checkable;
+		this.checked = checked;
+		this.icon = icon;
+		this.styleName = styleName;
+		this.active = active;
+		this.state = state;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -104,4 +117,12 @@ public class Resource extends BaseObject{
     public void appenMenuItem(Resource resource){
         this.resourceList.add(resource);
     }
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 }

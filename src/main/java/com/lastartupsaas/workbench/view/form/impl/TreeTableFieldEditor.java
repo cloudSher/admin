@@ -146,6 +146,7 @@ public class TreeTableFieldEditor extends BaseFormFieldEditor {
 	@Override
 	protected Component createComponent() {
 		this.treeTable = new TreeTable();
+		treeTable.setWidth("100%");
 		treeTable.setImmediate(true);
 		treeTable.addContainerProperty("__SELECT__", CheckBox.class, false, "选择", null, Table.Align.LEFT);
 		treeTable.addContainerProperty("名称", String.class, null);

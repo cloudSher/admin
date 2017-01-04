@@ -59,7 +59,7 @@ public class MainView extends VerticalLayout {
 		navigator.addViewChangeListener(viewChangeListener);
 
 		mainFrameUI.setNavigator(navigator);
-		navigator.navigateTo("topic_list.view");
+		navigator.navigateTo("brand_business_list.view");
 	}
 
 	/**

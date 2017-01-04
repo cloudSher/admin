@@ -7,26 +7,47 @@ import com.lastartupsaas.workbench.domain.BaseObject;
  * Date: 2016-08-26
  */
 public class User extends BaseObject {
+	/** ID */
 	private Long id;
-	private String name;
+	/** 员工ID */
+	private String jobNumber;
+	/** 登录名 */
+	private String loginName;
+	/** 真实姓名 */
+	private String realName;
+	/** 密码 */
 	private String password;
+	
+	/** 创建者 */
+	private String createUser;
+	/** 创建时间 */
 	private String createTime;
+	/** 更新者 */
+	private String updateUser;
+	/** 更新时间 */
 	private String updateTime;
+	/** 上次登录时间 */
 	private String lastLoadTime;
-	private Role role;
+	/** 岗位 */
+	private Post post;
 
 	public User() {
 	}
 
-	public User(Long id, String name, String password, String createTime, String updateTime, String lastLoadTime,Role role) {
+	public User(Long id, String jobNumber, String loginName, String realName, String password, String createUser, String createTime,
+			String updateUser, String updateTime, String lastLoadTime, Post post) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.jobNumber = jobNumber;
+		this.loginName = loginName;
+		this.realName = realName;
 		this.password = password;
+		this.createUser = createUser;
 		this.createTime = createTime;
+		this.updateUser = updateUser;
 		this.updateTime = updateTime;
 		this.lastLoadTime = lastLoadTime;
-		this.role = role;
+		this.post = post;
 	}
 
 	public Long getId() {
@@ -37,12 +58,28 @@ public class User extends BaseObject {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getJobNumber() {
+		return jobNumber;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setJobNumber(String jobNumber) {
+		this.jobNumber = jobNumber;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 
 	public String getPassword() {
@@ -53,12 +90,28 @@ public class User extends BaseObject {
 		this.password = password;
 	}
 
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
 	public String getCreateTime() {
 		return createTime;
 	}
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
 	}
 
 	public String getUpdateTime() {
@@ -77,11 +130,11 @@ public class User extends BaseObject {
 		this.lastLoadTime = lastLoadTime;
 	}
 
-	public Role getRole() {
-		return role;
+	public Post getPost() {
+		return post;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 }

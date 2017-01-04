@@ -25,6 +25,8 @@
         <zkclient_version>0.1</zkclient_version>
         <javax_ws_version>2.0</javax_ws_version>
         <resteasy_version>3.0.7.Final</resteasy_version>
+        
+        <s_api_client_version>1.0.2-SNAPSHOT</s_api_client_version>
     </properties>
 
     <dependencyManagement>
@@ -66,7 +68,7 @@
         <dependency>
             <groupId>com.lastartupsaas.api.client</groupId>
             <artifactId>s-api-client</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${s_api_client_version}</version>
         </dependency>
 
         <!-- dubbo -->

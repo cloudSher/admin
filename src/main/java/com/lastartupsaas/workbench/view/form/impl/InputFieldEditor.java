@@ -57,6 +57,7 @@ public class InputFieldEditor extends BaseFormFieldEditor {
         this.textField.setWidth(this.width);
         if(this.field.getInputDescr()!=null){
             this.textField.setInputPrompt(this.field.getInputDescr());
+            this.textField.setDescription(this.field.getInputDescr());
         }
         return this.textField;
     }

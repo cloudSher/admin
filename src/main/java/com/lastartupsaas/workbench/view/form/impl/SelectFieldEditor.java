@@ -35,7 +35,8 @@ public class SelectFieldEditor extends BaseFormFieldEditor {
     @Override
     public void setValue(Object value) {
         if(value!=null){
-            this.comboBox.setValue(value);
+        	Object oid = this.getFormAgent().getDataHelper().getProperty(value, valuePropertyName);
+        	this.comboBox.select(oid);
         }
     }
 
@@ -48,6 +49,10 @@ public class SelectFieldEditor extends BaseFormFieldEditor {
     protected Component createComponent() {
         this.comboBox = new ComboBox();
         this.comboBox.setWidth("100%");
+        if(this.field.getInputDescr()!=null){
+            this.comboBox.setInputPrompt(this.field.getInputDescr());
+            this.comboBox.setDescription(this.field.getInputDescr());
+        }
 
         if(field.getDictType()!=null && field.getDictType().length()>0){
             comboBox.setNewItemsAllowed(false);

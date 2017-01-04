@@ -79,7 +79,9 @@ public class MenuDataTest {
 		Resource authority_manage = new Resource(6001L, "权限管理", false, false, null, null, null);
 		system_manage.appenMenuItem(authority_manage);
 		authority_manage.appenMenuItem(new Resource(600101L, "管理员", false, false, null, null, "user_list.view"));
-		authority_manage.appenMenuItem(new Resource(600102L, "权限组", false, false, null, null, "role_list.view"));
+		authority_manage.appenMenuItem(new Resource(600102L, "岗位", false, false, null, null, "post_list.view"));
+		authority_manage.appenMenuItem(new Resource(600103L, "角色", false, false, null, null, "role_list.view"));
+		authority_manage.appenMenuItem(new Resource(600104L, "资源", false, false, null, null, "resource_list.view"));
 		menuList.add(system_manage);
 
 		return menuList;

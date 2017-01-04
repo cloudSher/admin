@@ -13,21 +13,21 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
 
 /**
- * Checkbox Group
+ * Multilevel Checkbox Group
  * 
  * @author lifeilong
  */
-public class CheckboxGroupFieldEditor extends BaseFormFieldEditor {
+public class CheckboxMultilevelGroupEditor extends BaseFormFieldEditor {
 
 	private OptionGroup optionGroup;
 	private List<?> items;
 	private String valuePropertyName;
 	private String displayPropertyName;
 
-	public CheckboxGroupFieldEditor() {
+	public CheckboxMultilevelGroupEditor() {
 	}
 
-	public CheckboxGroupFieldEditor(List<?> items, String valuePropertyName, String displayPropertyName) {
+	public CheckboxMultilevelGroupEditor(List<?> items, String valuePropertyName, String displayPropertyName) {
 		super();
 		this.items = items;
 		this.valuePropertyName = valuePropertyName;

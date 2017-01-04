@@ -15,14 +15,17 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
 /**
- * Author: alvin Date: 2016-09-21
+ * 主界面
+ * 
+ * @author lifeilong
+ * @date 2016-12-12
  */
 @Theme("saas")
 @Title("运营管理后台")
 @SpringUI(path = "")
 @SuppressWarnings("serial")
 public class MainFrameUI extends UI {
-	
+
 	@Autowired
 	private SpringViewProvider viewProvider;
 

@@ -3,10 +3,10 @@ package com.lastartupsaas.workbench.view.business.admin;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lastartupsaas.workbench.domain.admin.Post;
-import com.lastartupsaas.workbench.domain.admin.Role;
-import com.lastartupsaas.workbench.domain.admin.User;
+import com.lastartupsaas.workbench.domain.admin.Resource;
+import com.lastartupsaas.workbench.util.MenuDataTest;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
+import com.lastartupsaas.workbench.view.BaseWorkbenchTreeListView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -20,34 +20,36 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
+
+import android.R.string;
 
 /**
- * 管理员列表页
+ * 资源列表页
  * 
  * @author lifeilong
- * @date 2016-12-26
+ * @date 2016-12-29
  */
-@SpringView(name = UserListView.VIEW_NAME)
-public class UserListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = ResourceListView.VIEW_NAME)
+public class ResourceListView extends BaseWorkbenchTreeListView {
 
-	public static final String VIEW_NAME = "user_list.view";
-
+	public static final String VIEW_NAME = "resource_list.view";
 	private FormAgent searchAgent;
 
 	private String searchName;
 
-	public UserListView() {
-		this.setViewCaption("当前位置：系统管理 > 权限管理 > 管理员");
-		this.withFilterSection = false;
+	public ResourceListView() {
+		this.setViewCaption("当前位置：系统管理 > 权限管理 > 资源");
+		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
 		if (command.isActionId("create")) {
-			this.navigateToView("user_add.view");
+			this.navigateToView("resource_edit.view");
 		}
 		if (command.isActionId("edit")) {
-			this.navigateToView("user_edit.view/id=" + parameters[0]);
+			this.navigateToView("resource_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
 			System.out.println("del");
@@ -61,7 +63,7 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(2);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		searchAgent.addField(new FormField("", "name", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的登录名或姓名"));
+		searchAgent.addField(new FormField("资源名称", "ResourceName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的资源名称"));
 
 		FormBuildLayout form = searchAgent.buildForm();
 		form.setWidth("100%");
@@ -85,41 +87,27 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		User user = (User) item;
-		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
+		Resource resource = (Resource) item;
+		return new DataGridRow(resource.getId(), new Object[] { resource.getId().toString(), resource.getName(), "0".equals(resource.getState()) ? "禁用" : "正常" }, resource.getResourceList());
 	}
 
 	@Override
 	public int getDataCount() {
-		return 1;
+		return 10;
 	}
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		List<User> users = new ArrayList<User>();
-		User user = new User(1L, "102299", "admin", "张三", "123456", "admin", "", "admin", "", "2016-12-30 16:00:54",
-				new Post(1L, "运营总监", null, null, null, null, null, null));
-		User user1 = new User(2L, "102124", "admin", "李四", "123456", "admin", "", "admin", "", "2016-12-21 11:30:23",
-				new Post(1L, "财务总监", null, null, null, null, null, null));
-		User user2 = new User(3L, "102890", "admin", "王武", "123456", "admin", "", "admin", "", "2016-11-13 09:02:51",
-				new Post(1L, "人力总监", null, null, null, null, null, null));
-		users.add(user);
-		users.add(user1);
-		users.add(user2);
-		return users;
+		return MenuDataTest.getInstance().getMenuData();
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
+		gridModel.addColumn(new DataGridColumn("资源编码", String.class));
+		gridModel.addColumn(new DataGridColumn("资源名称", String.class));
+		gridModel.addColumn(new DataGridColumn("状态", String.class));
 
-		gridModel.addColumn(new DataGridColumn("登录名", String.class));
-		gridModel.addColumn(new DataGridColumn("员工号", String.class));
-		gridModel.addColumn(new DataGridColumn("姓名", String.class));
-		gridModel.addColumn(new DataGridColumn("岗位", String.class));
-		gridModel.addColumn(new DataGridColumn("上次登录时间", String.class));
-
-		gridModel.addCommonAction(new ActionCommand("create", "新增管理员"));
+		gridModel.addCommonAction(new ActionCommand("create", "新增资源"));
 		gridModel.addItemAction(new ActionCommand("del", "删除"));
 		gridModel.addItemAction(new ActionCommand("edit", "编辑"));
 	}
