@@ -6,16 +6,13 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.lastartupsaas.workbench.domain.admin.Post;
-import com.lastartupsaas.workbench.domain.admin.Resource;
 import com.lastartupsaas.workbench.domain.admin.Role;
-import com.lastartupsaas.workbench.util.MenuDataTest;
 import com.lastartupsaas.workbench.view.BaseWorkBenchEditorView;
 import com.lastartupsaas.workbench.view.ViewContext;
 import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
-import com.lastartupsaas.workbench.view.form.impl.TreeTableFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.TwinColSelectEditor;
 import com.vaadin.spring.annotation.SpringView;
 
@@ -28,6 +25,7 @@ import com.vaadin.spring.annotation.SpringView;
 @SpringView(name = PostEditView.VIEW_NAME)
 public class PostEditView extends BaseWorkBenchEditorView {
 
+	private static final long serialVersionUID = -46222197307210170L;
 	public static final String VIEW_NAME = "post_edit.view";
 
 	@Override
@@ -37,13 +35,14 @@ public class PostEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
-		formAgent.addField(new FormField("岗位名称", "postName", InputFieldEditor.class, true, null, true).setInputDescr("2-10位汉字组成"));
+		List<FormField> base_message = new ArrayList<FormField>();
+		base_message.add(new FormField("岗位名称", "postName", InputFieldEditor.class, true, null, true).setInputDescr("2-10位汉字组成"));
 
 		List<Post> postList = new ArrayList<>();
 		postList.add(new Post(1L, "执行总裁", null, null, null, null, null, null));
 		postList.add(new Post(2L, "运营总监", null, null, null, null, null, null));
 		postList.add(new Post(3L, "财务总监", null, null, null, null, null, null));
-		formAgent.addField(
+		base_message.add(
 				new FormField("所属上级", "superiorPost", new SelectFieldEditor(postList, "id", "postName"), true, null, true).setInputDescr("选择所属上级岗位"));
 
 		List<Role> roleList = new ArrayList<>();
@@ -60,7 +59,9 @@ public class PostEditView extends BaseWorkBenchEditorView {
 		roleList.add(new Role(11L, "测试8"));
 		roleList.add(new Role(12L, "测试9"));
 		roleList.add(new Role(13L, "测试10"));
-		formAgent.addField(new FormField("角色", "roles", new TwinColSelectEditor(roleList,"id", "roleName"), true, null, true).setInputDescr("选择角色"));
+		base_message.add(new FormField("角色", "roles", new TwinColSelectEditor(roleList, "id", "roleName"), true, null, true).setInputDescr("选择角色"));
+
+		formAgent.addFieldListToMap("岗位信息", base_message);
 	}
 
 	@Override

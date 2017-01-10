@@ -68,9 +68,10 @@ public class CheckboxGroupEditor extends BaseFormFieldEditor {
 
 	@Override
 	public Object getValue() {
-		if (this.optionGroup == null)
-			return null;
-		return this.optionGroup.getValue();
+		if (this.optionGroup != null && this.optionGroup.isVisible()) {
+			return this.optionGroup.getValue();
+		}
+		return null;
 	}
 
 	@Override

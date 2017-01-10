@@ -26,6 +26,7 @@ public class FormField {
     private String inputDescr;
     private String width;
     private String height;
+    private boolean visible;
     public FormField() {
         super();
         this.dictType = null;
@@ -36,6 +37,7 @@ public class FormField {
         this.required = false;
         this.width = null;
         this.height = null;
+        this.visible = true;
     }
 
     public FormField(String title, String name, Object editor, boolean required, String validators, boolean fullMode) {
@@ -47,9 +49,20 @@ public class FormField {
         this.required = required;
         this.validators = validators;
         this.fullMode = fullMode;
+        this.visible = true;
     }
-
-
+    
+    public FormField(String title, String name, Object editor, boolean required, String validators, boolean fullMode, boolean visible) {
+    	this();
+    	this.title = title;
+    	this.name = name;
+    	this.editor = editor;
+    	this.dictType = null;
+    	this.required = required;
+    	this.validators = validators;
+    	this.fullMode = fullMode;
+    	this.visible = visible;
+    }
 
     public FormField(String title, String name, Object editor, boolean fullMode) {
         super();
@@ -150,5 +163,11 @@ public class FormField {
         return this;
     }
 
+	public boolean isVisible() {
+		return visible;
+	}
 
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 }

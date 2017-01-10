@@ -12,15 +12,9 @@ import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
 import com.lastartupsaas.workbench.view.datagrid.DataGridRow;
 import com.lastartupsaas.workbench.view.datagrid.DataListRequest;
 import com.lastartupsaas.workbench.view.form.FormAgent;
-import com.lastartupsaas.workbench.view.form.FormBuildLayout;
-import com.lastartupsaas.workbench.view.form.FormDataHelper;
-import com.lastartupsaas.workbench.view.form.FormField;
-import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 /**
@@ -32,6 +26,7 @@ import com.vaadin.ui.UI;
 @SpringView(name = PostListView.VIEW_NAME)
 public class PostListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = -1191121791880909757L;
 	public static final String VIEW_NAME = "post_list.view";
 	private FormAgent searchAgent;
 
@@ -70,7 +65,7 @@ public class PostListView extends BaseWorkBenchListWithSearchView {
 		// searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		// searchAgent.addField(new FormField("岗位", "roleName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的岗位"));
 		//
-		// FormBuildLayout form = searchAgent.buildForm();
+		// FormBuildLayout form = searchAgent.buildSearchForm();
 		// form.setWidth("100%");
 		// form.setSpacing(true);
 		//

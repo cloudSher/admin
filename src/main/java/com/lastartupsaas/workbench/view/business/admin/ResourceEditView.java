@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lastartupsaas.workbench.domain.admin.Resource;
+import com.lastartupsaas.workbench.util.CaptchaUtil;
 import com.lastartupsaas.workbench.util.MenuDataTest;
 import com.lastartupsaas.workbench.view.BaseWorkBenchEditorView;
 import com.lastartupsaas.workbench.view.ViewContext;
@@ -15,6 +18,9 @@ import com.lastartupsaas.workbench.view.form.impl.CheckboxGroupEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
 import com.lastartupsaas.workbench.view.form.impl.SelectFieldGroupEditor;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
@@ -26,6 +32,8 @@ import com.vaadin.spring.annotation.SpringView;
 @SpringView(name = ResourceEditView.VIEW_NAME)
 public class ResourceEditView extends BaseWorkBenchEditorView {
 
+	private static final long serialVersionUID = -9186249530389566221L;
+	private Logger logger = LoggerFactory.getLogger(CaptchaUtil.class);
 	public static final String VIEW_NAME = "resource_edit.view";
 
 	@Override
@@ -34,20 +42,40 @@ public class ResourceEditView extends BaseWorkBenchEditorView {
 	}
 
 	@Override
-	protected void declareFormAgent(FormAgent formAgent) {
-		formAgent.addField(new FormField("资源名称", "name", InputFieldEditor.class, true, null, true));
+	protected void declareFormAgent(final FormAgent formAgent) {
+		logger.info("拼装资源页面");
+		List<FormField> base_message = new ArrayList<FormField>();
+		
+		base_message.add(new FormField("资源名称", "name", InputFieldEditor.class, true, null, true));
+		
 		List<Resource> resources = MenuDataTest.getInstance().getMenuData();
-		formAgent.addField(new FormField("所属模块", "resource", new SelectFieldGroupEditor(resources, "id", "name", "resourceList"), true, null, true));
-		formAgent.addField(new FormField("资源类型", "active", new RadioboxYesOrNoEditor("父节点", "子节点"), true, null, true));
+		base_message.add(new FormField("所属模块", "resource", new SelectFieldGroupEditor(resources, "id", "name", "resourceList"), true, null, true));
+		
+		RadioboxYesOrNoEditor radioboxYesOrNoEditor = new RadioboxYesOrNoEditor("父节点", "子节点");
+		Property.ValueChangeListener listener = new ValueChangeListener() {
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				if ("0".equals(event.getProperty().getValue())) {
+					formAgent.setFormRowVisible(0, 3);
+				} else {
+					formAgent.setFormRowHide(0, 3);
+				}
+			}
+		};
+		radioboxYesOrNoEditor.addValueChangeListener(listener);
+		base_message.add(new FormField("资源类型", "active", radioboxYesOrNoEditor, true, null, true));
+		
 
 		List<Resource> btns = new ArrayList<>();
 		btns.add(new Resource(1L, "新增", false, false, null, null, null));
 		btns.add(new Resource(2L, "编辑", false, false, null, null, null));
 		btns.add(new Resource(3L, "删除", false, false, null, null, null));
 		btns.add(new Resource(4L, "审核", false, false, null, null, null));
-		formAgent.addField(new FormField("资源按钮", "btns", new CheckboxGroupEditor(btns, "id", "name"), true, null, true));
+		base_message.add(new FormField("资源按钮", "btns", new CheckboxGroupEditor(btns, "id", "name"), true, null, true, false));
 
-		formAgent.addField(new FormField("状态", "state", new RadioboxYesOrNoEditor("正常", "禁用"), true, null, true));
+		base_message.add(new FormField("状态", "state", new RadioboxYesOrNoEditor("正常", "禁用"), true, null, true));
+		
+		formAgent.addFieldListToMap("资源信息", base_message);
 	}
 
 	@Override

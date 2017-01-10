@@ -18,7 +18,6 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 
 /**
  * 角色列表页
@@ -29,6 +28,7 @@ import com.vaadin.ui.Notification;
 @SpringView(name = RoleListView.VIEW_NAME)
 public class RoleListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = 5968454062856339893L;
 	public static final String VIEW_NAME = "role_list.view";
 	private FormAgent searchAgent;
 
@@ -61,7 +61,7 @@ public class RoleListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("权限组", "roleName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的权限组"));
 
-		FormBuildLayout form = searchAgent.buildForm();
+		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
 		form.setSpacing(true);
 

@@ -28,6 +28,8 @@ import com.vaadin.ui.HorizontalLayout;
 @SpringView(name = BrandBusinessListView.VIEW_NAME)
 public class BrandBusinessListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = 4329138122433258222L;
+
 	public static final String VIEW_NAME = "brand_business_list.view";
 
 	private FormAgent searchAgent;
@@ -57,11 +59,11 @@ public class BrandBusinessListView extends BaseWorkBenchListWithSearchView {
 		searchAgent = new FormAgent();
 		searchAgent.setDataHelper(new FormDataHelper());
 		searchAgent.setSearchMode(true);
-		searchAgent.setFieldColumnCount(2);
+		searchAgent.setFieldColumnCount(3);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("企业名称", "enterpriseName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的企业名称"));
 
-		FormBuildLayout form = searchAgent.buildForm();
+		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
 		form.setSpacing(true);
 

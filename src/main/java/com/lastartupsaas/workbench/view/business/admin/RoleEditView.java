@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -25,6 +26,7 @@ import com.vaadin.spring.annotation.SpringView;
 @SpringView(name = RoleEditView.VIEW_NAME)
 public class RoleEditView extends BaseWorkBenchEditorView {
 
+	private static final long serialVersionUID = -8563519246837149689L;
 	public static final String VIEW_NAME = "role_edit.view";
 
 	@Override
@@ -34,10 +36,13 @@ public class RoleEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
-		formAgent.addField(new FormField("角色名称", "roleName", InputFieldEditor.class, true, null, true).setInputDescr("为权限组设置特定名称，便于添加管理员时选择使用"));
-		formAgent.addField(new FormField("状态", "state", new RadioboxYesOrNoEditor("正常", "禁用"), true, null, true));
+		List<FormField> base_message = new ArrayList<FormField>();
+		base_message.add(new FormField("角色名称", "roleName", InputFieldEditor.class, true, null, true).setInputDescr("为权限组设置特定名称，便于添加管理员时选择使用"));
+		base_message.add(new FormField("状态", "state", new RadioboxYesOrNoEditor("正常", "禁用"), true, null, true));
 		List<Resource> resources = MenuDataTest.getInstance().getMenuData();
-		formAgent.addField(new FormField("权限设置", "resources", new TreeTableFieldEditor(resources, "id", "name", "resourceList"), true, null, true));
+		base_message.add(new FormField("权限设置", "resources", new TreeTableFieldEditor(resources, "id", "name", "resourceList"), true, null, true));
+		
+		formAgent.addFieldListToMap("角色信息", base_message);
 	}
 
 	@Override

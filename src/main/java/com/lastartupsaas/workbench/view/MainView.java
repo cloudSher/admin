@@ -1,12 +1,11 @@
 package com.lastartupsaas.workbench.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.MainFrameUI;
 import com.lastartupsaas.workbench.domain.admin.Resource;
-import com.lastartupsaas.workbench.domain.admin.Role;
 import com.lastartupsaas.workbench.util.MenuDataTest;
+import com.lastartupsaas.workbench.view.business.admin.PasswordEditWindow;
 import com.lastartupsaas.workbench.view.menu.MenuBars;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
@@ -22,6 +21,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -30,6 +30,7 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 public class MainView extends VerticalLayout {
 
+	private static final long serialVersionUID = -1064859646213580974L;
 	private Navigator navigator;
 
 	public MainView(MainFrameUI mainFrameUI, ViewProvider provider) {
@@ -82,14 +83,22 @@ public class MainView extends VerticalLayout {
 		headLayout.setComponentAlignment(headerImg, Alignment.MIDDLE_LEFT);
 		headLayout.setComponentAlignment(headerTitle, Alignment.BOTTOM_LEFT);
 		headLayout.setExpandRatio(headerTitle, 1);
-		
+
 		// logout menu item
 		MenuBar logoutMenu = new MenuBar();
 		logoutMenu.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
-		logoutMenu.addItem("账号设置", FontAwesome.USER, new Command() {
+		MenuBar.MenuItem account = logoutMenu.addItem("admin", FontAwesome.USER, null);
+		account.addItem("个人信息修改", FontAwesome.WRENCH, new Command() {
 			@Override
 			public void menuSelected(com.vaadin.ui.MenuBar.MenuItem selectedItem) {
 				Notification.show("账号设置", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			}
+		});
+		account.addItem("密码修改", FontAwesome.LOCK, new Command() {
+			@Override
+			public void menuSelected(com.vaadin.ui.MenuBar.MenuItem selectedItem) {
+				PasswordEditWindow formWindow = new PasswordEditWindow("");
+				UI.getCurrent().addWindow(formWindow);
 			}
 		});
 		logoutMenu.addItem("退出", FontAwesome.SIGN_OUT, new Command() {
@@ -114,13 +123,13 @@ public class MainView extends VerticalLayout {
 		HorizontalLayout menuLayout = new HorizontalLayout();
 		menuLayout.setWidth("100%");
 
-//		User user = SystemInitialization.getDatastore().createQuery(User.class).filter("id", 1L).get();
+		// User user = SystemInitialization.getDatastore().createQuery(User.class).filter("id", 1L).get();
 
 		// 查询获取菜单数据
 		List<Resource> resources = MenuDataTest.getInstance().getMenuData();
-//		for (Role r : user.getRoles()) {
-//			resources.addAll(r.getResources());
-//		}
+		// for (Role r : user.getRoles()) {
+		// resources.addAll(r.getResources());
+		// }
 
 		// 组装菜单数据
 		MenuBars menuBars = new MenuBars(ValoTheme.MENUBAR_BORDERLESS, resources, navigator);

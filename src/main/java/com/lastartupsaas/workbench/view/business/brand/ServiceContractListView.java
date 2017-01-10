@@ -3,10 +3,6 @@ package com.lastartupsaas.workbench.view.business.brand;
 import java.util.ArrayList;
 import java.util.List;
 
-//import javax.ws.rs.core.Response;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 //import com.lastartupsaas.api.client.resource.TopicsResource;
 //import com.lastartupsaas.api.client.resource.TopicsResource.XLaFormat;
 //import com.lastartupsaas.api.client.resource.TopicsResource.XLaSignMethod;
@@ -36,14 +32,16 @@ import com.vaadin.ui.HorizontalLayout;
 @SpringView(name = ServiceContractListView.VIEW_NAME)
 public class ServiceContractListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = 3881039585232874853L;
+
 	public static final String VIEW_NAME = "service_contract_list.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
-	
-//	@Autowired
-//	private TopicsResource topicsResource;
+
+	// @Autowired
+	// private TopicsResource topicsResource;
 
 	public ServiceContractListView() {
 		this.setViewCaption("当前位置：品牌 > 品牌商 > 服务合同");
@@ -74,7 +72,7 @@ public class ServiceContractListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.addField(new FormField("开始签约时间", "signBeginTime", InputFieldEditor.class, false, null, false));
 		searchAgent.addField(new FormField("结束签约时间", "signEndTime", InputFieldEditor.class, false, null, false));
 
-		FormBuildLayout form = searchAgent.buildForm();
+		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
 		form.setSpacing(true);
 
@@ -108,21 +106,25 @@ public class ServiceContractListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		
+
 		try {
-//			GetTopicsByTopicIdResponse response = topicsResource.getTopicsByTopicId("1", "oauth2.0", XLaFormat.json, "123456", XLaSignMethod.MD5, "C71F538BC1243D2903D3AB935949379B");
-//			Response response = topicsResource.getTopicsByTopicId("10", "oauth2.0", XLaFormat.json, "123456", XLaSignMethod.MD5, "C71F538BC1243D2903D3AB935949379B");
-//			response.getEntity();
-//			System.out.println(response.readEntity(Topic.class).getTitle());
-//			
-//			Response resp = topicsResource.getTopicsByFieldSelectors(":()", "oauth2.0", XLaFormat.json, "123456", XLaSignMethod.MD5, "","", 10, 1, "C71F538BC1243D2903D3AB935949379B");
-//			System.out.println(resp.readEntity(Topic.class));
-			
-//			System.out.println(topicsResource.getTopicsByFieldSelectors("title", "xLaAuthorization", XLaFormat.json, "xLaAppKey", XLaSignMethod.MD5, "keywords", "tags", 10, 1, "sign"));
+			// GetTopicsByTopicIdResponse response = topicsResource.getTopicsByTopicId("1", "oauth2.0", XLaFormat.json, "123456", XLaSignMethod.MD5,
+			// "C71F538BC1243D2903D3AB935949379B");
+			// Response response = topicsResource.getTopicsByTopicId("10", "oauth2.0", XLaFormat.json, "123456", XLaSignMethod.MD5,
+			// "C71F538BC1243D2903D3AB935949379B");
+			// response.getEntity();
+			// System.out.println(response.readEntity(Topic.class).getTitle());
+			//
+			// Response resp = topicsResource.getTopicsByFieldSelectors(":()", "oauth2.0", XLaFormat.json, "123456", XLaSignMethod.MD5, "","", 10, 1,
+			// "C71F538BC1243D2903D3AB935949379B");
+			// System.out.println(resp.readEntity(Topic.class));
+
+			// System.out.println(topicsResource.getTopicsByFieldSelectors("title", "xLaAuthorization", XLaFormat.json, "xLaAppKey",
+			// XLaSignMethod.MD5, "keywords", "tags", 10, 1, "sign"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		List<ServiceContract> serviceContractList = new ArrayList<ServiceContract>();
 		serviceContractList.add(new ServiceContract(1L, "00000001", "周黑鸭", "刘翔", "2016-12-09 16:26:22", "3年", "100201612090011", "100201612090011",
 				"张三", "张三", "62258888888888888", "招商银行", "1年", "年", "是", "businessLicenceImg00001.jpg", "organizationCodeImg00001.jpg",

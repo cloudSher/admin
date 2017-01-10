@@ -6,6 +6,7 @@ import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 /**
@@ -61,7 +62,10 @@ public abstract class FormWindow extends Window {
             }
         }));
 
-        this.setContent(form);
+        VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        layout.addComponent(form);
+        this.setContent(layout);
 
     }
 
@@ -87,6 +91,36 @@ public abstract class FormWindow extends Window {
 
     protected void setupFormData(FormAgent fa) {
 
+    }
+    
+    /**
+     * 展示Confirm会话
+     * @param caption
+     * @param text
+     * @param confirmListener
+     */
+    protected void showConfirmDialog(String caption, String text, ConfirmYesNoDialog.ConfirmListener confirmListener) {
+        ConfirmYesNoDialog dlg = new ConfirmYesNoDialog(caption, text);
+        dlg.addConfirmListener(confirmListener);
+        UI.getCurrent().addWindow(dlg);
+    }
+    
+    /**
+     * 展示通知
+     * @param caption
+     * @param text
+     */
+    protected void showNotification(String caption, String text) {
+        Notification.show(caption, text, Notification.Type.WARNING_MESSAGE);
+    }
+
+    /**
+     *
+     * @param caption
+     * @param text
+     */
+    protected void showTrayNotification(String caption, String text) {
+        Notification.show(caption, text, Notification.Type.TRAY_NOTIFICATION);
     }
 
 

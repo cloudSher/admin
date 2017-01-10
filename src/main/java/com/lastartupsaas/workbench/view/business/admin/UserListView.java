@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.domain.admin.Post;
-import com.lastartupsaas.workbench.domain.admin.Role;
 import com.lastartupsaas.workbench.domain.admin.User;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
@@ -29,6 +28,8 @@ import com.vaadin.ui.HorizontalLayout;
  */
 @SpringView(name = UserListView.VIEW_NAME)
 public class UserListView extends BaseWorkBenchListWithSearchView {
+
+	private static final long serialVersionUID = 6074628817603712546L;
 
 	public static final String VIEW_NAME = "user_list.view";
 
@@ -63,7 +64,7 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("", "name", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的登录名或姓名"));
 
-		FormBuildLayout form = searchAgent.buildForm();
+		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
 		form.setSpacing(true);
 

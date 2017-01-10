@@ -9,7 +9,6 @@ import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.lastartupsaas.workbench.widgets.FormActionButton;
 import com.lastartupsaas.workbench.widgets.SubPanel;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Panel;
 
 /**
  * @author shixin
@@ -27,10 +26,10 @@ public abstract class BaseWorkBenchEditorView extends BaseWorkbenchView {
     @Override
     public void initView() {
 //        formPanel = new SubPanel(this.getObjectName(null));
-        formPanel = new SubPanel("");
-        this.getViewRoot().addComponent(formPanel);
+//        formPanel = new SubPanel("");
+//        this.getViewRoot().addComponent(formPanel);
         formAgent = new FormAgent();
-        formAgent.setFieldColumnCount(1);
+        formAgent.setFieldColumnCount(2);
         formAgent.setDataHelper(new FormDataHelper());
         this.declareFormAgent(formAgent);
         
@@ -38,7 +37,8 @@ public abstract class BaseWorkBenchEditorView extends BaseWorkbenchView {
         buildForm.setWidth("100%");
         buildForm.setMargin(true);
         buildForm.setSpacing(true);
-        formPanel.setContent(buildForm);
+        this.getViewRoot().addComponent(buildForm);
+//        formPanel.setContent(buildForm);
 
         FormActionButton saveButton = new FormActionButton("保 存", new Button.ClickListener() {
             @Override

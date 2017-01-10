@@ -1,11 +1,13 @@
 package com.lastartupsaas.workbench.view.business.community;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchEditorView;
 import com.lastartupsaas.workbench.view.ViewContext;
@@ -26,6 +28,7 @@ import com.vaadin.spring.annotation.SpringView;
 @SpringView(name = TopicEditView.VIEW_NAME)
 public class TopicEditView extends BaseWorkBenchEditorView {
 
+	private static final long serialVersionUID = -8666918143468897045L;
 	Logger logger = LoggerFactory.getLogger(TopicListView.class);
     public static final String VIEW_NAME = "topic_edit.view";
     
@@ -44,14 +47,17 @@ public class TopicEditView extends BaseWorkBenchEditorView {
 
     @Override
     protected void declareFormAgent(FormAgent formAgent) {
-		formAgent.addField(new FormField("话题ID", "id", new LabelFieldEditor("系统自动生成", "100%"), false, null, true));
-        formAgent.addField(new FormField("话题名称", "title", InputFieldEditor.class, true, null, true));
-        formAgent.addField(new FormField("话题描述", "desc", TextFieldEditor.class, true, null, true));
-        formAgent.addField(new FormField("话题图片", "image", ImageUploadEditor.class, true, null, true));
-        formAgent.addField(new FormField("是否有子标签", "tags", InputFieldEditor.class, true, null, true));
-        formAgent.addField(new FormField("品牌话题", "tags", InputFieldEditor.class, true, null, true));
-        formAgent.addField(new FormField("推荐首页", "status", InputFieldEditor.class, true, null, true));
-        formAgent.addField(new FormField("推荐热门", "status", InputFieldEditor.class, true, null, true));
+    	
+    	List<FormField> base_message = new ArrayList<FormField>();
+    	base_message.add(new FormField("话题ID", "id", new LabelFieldEditor("系统自动生成", "100%"), false, null, true));
+    	base_message.add(new FormField("话题名称", "title", InputFieldEditor.class, true, null, true));
+    	base_message.add(new FormField("话题描述", "desc", TextFieldEditor.class, true, null, true));
+    	base_message.add(new FormField("话题图片", "image", ImageUploadEditor.class, true, null, true));
+    	base_message.add(new FormField("是否有子标签", "tags", InputFieldEditor.class, true, null, true));
+    	base_message.add(new FormField("品牌话题", "tags", InputFieldEditor.class, true, null, true));
+    	base_message.add(new FormField("推荐首页", "status", InputFieldEditor.class, true, null, true));
+    	base_message.add(new FormField("推荐热门", "status", InputFieldEditor.class, true, null, true));
+        formAgent.addFieldListToMap("话题信息", base_message);
     }
 
     @Override

@@ -12,14 +12,8 @@ import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
 import com.lastartupsaas.workbench.view.datagrid.DataGridRow;
 import com.lastartupsaas.workbench.view.datagrid.DataListRequest;
 import com.lastartupsaas.workbench.view.form.FormAgent;
-import com.lastartupsaas.workbench.view.form.FormBuildLayout;
-import com.lastartupsaas.workbench.view.form.FormDataHelper;
-import com.lastartupsaas.workbench.view.form.FormField;
-import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 
 /**
  * 岗位列表页
@@ -30,6 +24,7 @@ import com.vaadin.ui.Notification;
 @SpringView(name = LowerPostListView.VIEW_NAME)
 public class LowerPostListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = 2714143026768026023L;
 	public static final String VIEW_NAME = "lower_post_list.view";
 	private FormAgent searchAgent;
 

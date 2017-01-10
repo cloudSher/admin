@@ -1,11 +1,9 @@
 package com.lastartupsaas.workbench.view.business.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.domain.admin.Resource;
 import com.lastartupsaas.workbench.util.MenuDataTest;
-import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.BaseWorkbenchTreeListView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
@@ -20,9 +18,6 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
-
-import android.R.string;
 
 /**
  * 资源列表页
@@ -65,7 +60,7 @@ public class ResourceListView extends BaseWorkbenchTreeListView {
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("资源名称", "ResourceName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的资源名称"));
 
-		FormBuildLayout form = searchAgent.buildForm();
+		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
 		form.setSpacing(true);
 

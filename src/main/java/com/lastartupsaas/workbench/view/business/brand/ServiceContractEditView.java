@@ -1,5 +1,8 @@
 package com.lastartupsaas.workbench.view.business.brand;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.lastartupsaas.workbench.domain.brand.ServiceContract;
@@ -10,7 +13,6 @@ import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.DateFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
-import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
@@ -22,6 +24,7 @@ import com.vaadin.spring.annotation.SpringView;
 @SpringView(name = ServiceContractEditView.VIEW_NAME)
 public class ServiceContractEditView extends BaseWorkBenchEditorView {
 
+	private static final long serialVersionUID = 7711318237355148033L;
 	public static final String VIEW_NAME = "service_contract_edit.view";
 
 	@Override
@@ -31,23 +34,44 @@ public class ServiceContractEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
-		formAgent.addField(new FormField("服务合同编号", "contractNo", InputFieldEditor.class, false, null, true));
-		formAgent.addField(new FormField("甲方", "firstParty", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("乙方", "secondParty", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("签约时间", "signTime", DateFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("合作有效期", "cooperateEffeDate", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("税务登记证号", "taxNo", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("法定代表人", "legalPerson", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("户名", "accountName", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("银行账号", "accountNo", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("开户行", "bankName", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("结算周期", "settlementPeriod", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("结算维度", "settlementDimension", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("是否分账", "splitFlag", InputFieldEditor.class, true, null, true));
-		formAgent.addField(new FormField("营业执照照片", "businessLicenceImg", ImageUploadEditor.class, true, null, true));
-		formAgent.addField(new FormField("组织机构代码照片", "organizationCodeImg", ImageUploadEditor.class, true, null, true));
-		formAgent.addField(new FormField("合同照片", "contractImg", new ImageUploadEditor(true), true, null, true));
+		List<FormField> base_message = new ArrayList<FormField>();
+		base_message.add(new FormField("系统服务合同编号", "contractNo", InputFieldEditor.class, false, null, true));
+		base_message.add(new FormField("线下服务合同编号", "contractNo", InputFieldEditor.class, false, null, true));
+		base_message.add(new FormField("品牌编号", "firstParty", InputFieldEditor.class, true, null, true));
+		base_message.add(new FormField("甲方", "firstParty", InputFieldEditor.class, true, null, true));
+		base_message.add(new FormField("乙方", "secondParty", InputFieldEditor.class, true, null, true));
+		base_message.add(new FormField("签约时间", "signTime", DateFieldEditor.class, true, null, true));
+		base_message.add(new FormField("合作有效期", "cooperateEffeDate", InputFieldEditor.class, true, null, true));
+		formAgent.addFieldListToMap("基本信息", base_message);
+		
+		List<FormField> firstParty_message = new ArrayList<FormField>();
+		firstParty_message.add(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, true, null, true));
+		firstParty_message.add(new FormField("税务登记证号", "taxNo", InputFieldEditor.class, true, null, true));
+		firstParty_message.add(new FormField("法定代表人", "legalPerson", InputFieldEditor.class, true, null, true));
+		formAgent.addFieldListToMap("甲方信息", firstParty_message);
+		
+		List<FormField> settlement_message = new ArrayList<FormField>();
+		settlement_message.add(new FormField("平台抽佣比率", "settlementPeriod", InputFieldEditor.class, true, null, true));
+		settlement_message.add(new FormField("保证金", "settlementDimension", InputFieldEditor.class, true, null, true));
+		formAgent.addFieldListToMap("结算", settlement_message);
+		
+		List<FormField> account_message = new ArrayList<FormField>();
+		account_message.add(new FormField("户名", "accountName", InputFieldEditor.class, true, null, true));
+		account_message.add(new FormField("银行账号", "accountNo", InputFieldEditor.class, true, null, true));
+		account_message.add(new FormField("开户行", "bankName", InputFieldEditor.class, true, null, true));
+		formAgent.addFieldListToMap("甲方账户信息", account_message);
+		
+		List<FormField> contacts_message = new ArrayList<FormField>();
+		contacts_message.add(new FormField("姓名", "splitFlag", InputFieldEditor.class, true, null, true));
+		contacts_message.add(new FormField("手机号", "splitFlag", InputFieldEditor.class, true, null, true));
+		formAgent.addFieldListToMap("联系人信息", settlement_message);
+		
+		List<FormField> img_message = new ArrayList<FormField>();
+		img_message.add(new FormField("营业执照照片", "businessLicenceImg", ImageUploadEditor.class, true, null, true));
+		img_message.add(new FormField("组织机构代码照片", "organizationCodeImg", ImageUploadEditor.class, true, null, true));
+		img_message.add(new FormField("合同照片", "contractImg", new ImageUploadEditor(true), true, null, true));
+		formAgent.addFieldListToMap("附件", img_message);
+		
 	}
 
 	@Override
@@ -57,15 +81,11 @@ public class ServiceContractEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected boolean saveObject(Object data) {
-		System.out.println("==========================ServiceContractEditView saveObject===================================");
-		System.out.println(data);
 		return true;
 	}
 
 	@Override
 	protected boolean updateObject(Object data) {
-		System.out.println("==========================ServiceContractEditView updateObject===================================");
-		System.out.println(data);
 		return true;
 	}
 

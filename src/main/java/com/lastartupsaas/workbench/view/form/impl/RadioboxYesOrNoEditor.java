@@ -1,6 +1,7 @@
 package com.lastartupsaas.workbench.view.form.impl;
 
 import com.lastartupsaas.workbench.view.form.BaseFormFieldEditor;
+import com.vaadin.data.Property;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
@@ -28,6 +29,7 @@ public class RadioboxYesOrNoEditor extends BaseFormFieldEditor {
 		super();
 		this.itemYesCaption = itemYesCaption;
 		this.itemNoCaption = itemNoCaption;
+		this.optionGroup = new OptionGroup();
 	}
 
 	@Override
@@ -67,7 +69,6 @@ public class RadioboxYesOrNoEditor extends BaseFormFieldEditor {
 		VerticalLayout vl = new VerticalLayout();
 		vl.setSizeUndefined();
 		vl.setSpacing(true);
-		this.optionGroup = new OptionGroup();
 		this.optionGroup.setStyleName("horizontal");
 
 		this.optionGroup.addItem("1");
@@ -84,4 +85,9 @@ public class RadioboxYesOrNoEditor extends BaseFormFieldEditor {
 		return vl;
 	}
 
+	public void addValueChangeListener(Property.ValueChangeListener listener) {
+		if (this.optionGroup != null) {
+			this.optionGroup.addValueChangeListener(listener);
+		}
+	}
 }

@@ -37,6 +37,7 @@ import com.vaadin.ui.HorizontalLayout;
 @SpringView(name = TopicListView.VIEW_NAME)
 public class TopicListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = -4321949134324373021L;
 	Logger logger = LoggerFactory.getLogger(TopicListView.class);
 	public static final String VIEW_NAME = "topic_list.view";
 
@@ -80,7 +81,7 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("话题名称", "enterpriseName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的话题名称"));
 
-		FormBuildLayout form = searchAgent.buildForm();
+		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
 		form.setSpacing(true);
 

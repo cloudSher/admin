@@ -44,7 +44,7 @@ public abstract class BaseWorkbenchView extends VerticalLayout implements View{
         viewHeader.setWidth("100%");
         viewHeader.setHeight("28px");
 
-        viewCaptionLabel = new Label("视图名称");
+        viewCaptionLabel = new Label();
         viewCaptionLabel.setWidth("100%");
         viewCaptionLabel.addStyleName(ValoTheme.LABEL_LIGHT);
         viewCaptionLabel.addStyleName(ValoTheme.LABEL_SMALL);

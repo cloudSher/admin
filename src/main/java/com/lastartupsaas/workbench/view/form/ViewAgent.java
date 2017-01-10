@@ -147,14 +147,14 @@ public class ViewAgent {
         for(FormFieldMapping fm : this.mappings){
             FormGridRC rc = fm.getFieldRC();
             //label
-            gridLayout.addComponent(fm.getFieldLabel(), rc.getCol()*2, rc.getRow());
-            gridLayout.addComponent(fm.getFieldEditor().getEditorComponent(), rc.getCol()*2+1, rc.getRow(), rc.getCol2()*2+1, rc.getRow());
+//            gridLayout.addComponent(fm.getFieldLabel(), rc.getCol()*2, rc.getRow());
+//            gridLayout.addComponent(fm.getFieldEditor().getEditorComponent(), rc.getCol()*2+1, rc.getRow(), rc.getCol2()*2+1, rc.getRow());
             gridLayout.setComponentAlignment(fm.getFieldLabel(), this.captionAlignment);
             gridLayout.setComponentAlignment(fm.getFieldEditor().getEditorComponent(), Alignment.MIDDLE_LEFT);
         }
 
         for(int i=0;i<this.fieldColumnCount;i++){
-            gridLayout.setColumnExpandRatio(i*2+1, 1);
+//            gridLayout.setColumnExpandRatio(i*2+1, 1);
         }
 
         return gridLayout;
@@ -177,9 +177,9 @@ public class ViewAgent {
     }
 
 
-    public GridLayout getGridLayout() {
-        return gridLayout;
-    }
+//    public GridLayout getGridLayout() {
+//        return gridLayout;
+//    }
 
     private IFormFieldEditor getFieldEditor(FormField field) {
         if(field.getEditor() instanceof IFormFieldEditor){
