@@ -24,7 +24,7 @@
         <zookeeper_version>3.4.6</zookeeper_version>
         <zkclient_version>0.1</zkclient_version>
         <javax_ws_version>2.0</javax_ws_version>
-        <resteasy_version>3.0.7.Final</resteasy_version>
+        <resteasy_version>3.1.0.Final</resteasy_version>
         
         <s_api_client_version>1.0.2-SNAPSHOT</s_api_client_version>
     </properties>
