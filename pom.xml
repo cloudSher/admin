@@ -241,15 +241,20 @@
                     </filesets>
                 </configuration>
             </plugin>
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <packagingExcludes>WEB-INF/classes/VAADIN/gwt-unitCache/**,
-                        WEB-INF/classes/VAADIN/widgetsets/WEB-INF/**</packagingExcludes>
-                </configuration>
-            </plugin> -->
         </plugins>
     </build>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>User Porject Snapshot</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>User Porject Release</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 </project>

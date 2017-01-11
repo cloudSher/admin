@@ -71,8 +71,10 @@ public class MenuDataTest {
 		menuList.add(marketing_manage);
 
 		Resource vip_manage = new Resource(5000L, "会员", false, false, null, null, null);
-		vip_manage.appenMenuItem(new Resource(5001L, "会员管理", false, false, null, null, "user_list.view"));
-		vip_manage.appenMenuItem(new Resource(5002L, "潜能报告", false, false, null, null, "role_list.view"));
+		vip_manage.appenMenuItem(new Resource(5001L, "会员管理", false, false, null, null, null));
+		vip_manage.appenMenuItem(new Resource(500101L, "会员列表", false, false, null, null, "member_list.view"));
+		vip_manage.appenMenuItem(new Resource(5002L, "潜能报告", false, false, null, null, null));
+		vip_manage.appenMenuItem(new Resource(500201L, "潜能报告", false, false, null, null, "role_list.view"));
 		menuList.add(vip_manage);
 
 		Resource system_manage = new Resource(6000L, "系统管理", false, false, null, null, null);

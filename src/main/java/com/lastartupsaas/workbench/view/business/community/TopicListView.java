@@ -2,17 +2,10 @@ package com.lastartupsaas.workbench.view.business.community;
 
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lastartupsaas.api.client.resource.TopicsResource;
-import com.lastartupsaas.api.client.resource.TopicsResource.XLaFormat;
-import com.lastartupsaas.api.client.resource.TopicsResource.XLaSignMethod;
-import com.lastartupsaas.api.model.Topic;
-import com.lastartupsaas.api.model.Topics;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
@@ -46,11 +39,11 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 	private int totalCount;
 
 	@Autowired
-	private TopicsResource topicsResource;
+//	private TopicsResource topicsResource;
 	private String xLaAuthorization = "oauth2.0";
-	private XLaFormat xLaFormat = XLaFormat.json;
+//	private XLaFormat xLaFormat = XLaFormat.json;
 	private String xLaAppKey = "123456";
-	private XLaSignMethod xLaSignMethod = XLaSignMethod.MD5;
+//	private XLaSignMethod xLaSignMethod = XLaSignMethod.MD5;
 	private String sign = "C71F538BC1243D2903D3AB935949379B";
 
 	public TopicListView() {
@@ -103,20 +96,21 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		Topic topic = (Topic) item;
-		return new DataGridRow(topic.getId(),
-				new Object[] { topic.getId(), // 话题ID
-						topic.getTitle(), // 话题名称
-						topic.getTags(), // 二级标签
-						topic.getTags(), // 品牌话题
-						topic.getPublisher().getName(), // 创建用户
-						topic.getPublishTime(), // 创建时间
-						topic.getFans().getTotalCount(), // 关注人数
-						topic.getPosters().getTotalCount(), // 动态数
-						topic.getStatus(), // 状态
-						topic.getPublisher().getName(), // 审核人
-						topic.getPublishTime(), // 审核时间
-						topic.getDesc() });// 备注
+//		Topic topic = (Topic) item;
+//		return new DataGridRow(topic.getId(),
+//				new Object[] { topic.getId(), // 话题ID
+//						topic.getTitle(), // 话题名称
+//						topic.getTags(), // 二级标签
+//						topic.getTags(), // 品牌话题
+//						topic.getPublisher().getName(), // 创建用户
+//						topic.getPublishTime(), // 创建时间
+//						topic.getFans().getTotalCount(), // 关注人数
+//						topic.getPosters().getTotalCount(), // 动态数
+//						topic.getStatus(), // 状态
+//						topic.getPublisher().getName(), // 审核人
+//						topic.getPublishTime(), // 审核时间
+//						topic.getDesc() });// 备注
+		return null;
 
 	}
 
@@ -128,16 +122,16 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 		try {
-			Response response = topicsResource.getTopicsByFieldSelectors(":()", xLaAuthorization, xLaFormat, xLaAppKey, xLaSignMethod, "", "", 10, 1,
-					sign);
-			logger.info("查询话题列表结束,返回状态码[{}]", response.getStatus());
-			if (response.getStatus() == 200) {
-				Topics topics = (Topics) response.getEntity();
-				if (topics != null) {
-					totalCount = topics.getTotalCount().intValue();
-					return topics.getTopics();
-				}
-			}
+//			Response response = topicsResource.getTopicsByFieldSelectors(":()", xLaAuthorization, xLaFormat, xLaAppKey, xLaSignMethod, "", "", 10, 1,
+//					sign);
+//			logger.info("查询话题列表结束,返回状态码[{}]", response.getStatus());
+//			if (response.getStatus() == 200) {
+//				Topics topics = (Topics) response.getEntity();
+//				if (topics != null) {
+//					totalCount = topics.getTotalCount().intValue();
+//					return topics.getTopics();
+//				}
+//			}
 		} catch (Exception e) {
 			logger.error("查询话题列表发生错误", e);
 		}
