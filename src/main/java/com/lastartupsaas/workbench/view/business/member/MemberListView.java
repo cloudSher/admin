@@ -3,7 +3,7 @@ package com.lastartupsaas.workbench.view.business.member;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.lastartupsaas.api.model.Member;
+import com.lastartupsaas.workbench.domain.KeyValueObject;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
@@ -15,6 +15,7 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -44,6 +45,9 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
+		if (command.isActionId("create")) {
+			this.navigateToView("member_edit.view");
+		}
 		if (command.isActionId("viewPort")) {
 			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
 			Notification.show("账号设置", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
@@ -58,8 +62,14 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 		searchAgent = new FormAgent();
 		searchAgent.setDataHelper(new FormDataHelper());
 		searchAgent.setSearchMode(true);
-		searchAgent.setFieldColumnCount(2);
+		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
+		
+		List<KeyValueObject> list = new ArrayList<>();
+		list.add(new KeyValueObject("0", "真实会员"));
+		list.add(new KeyValueObject("1", "运营会员"));
+		
+		searchAgent.addField(new FormField("会员类型", "member_type", new SelectFieldEditor(list, "key", "value"), false, null, false));
 		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的ID或手机号"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
@@ -132,6 +142,7 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addColumn(new DataGridColumn("可提现金额(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("冻结金额(元)", String.class));
 
+		gridModel.addCommonAction(new ActionCommand("create", "新增运营会员"));
 		gridModel.addItemAction(new ActionCommand("disable", "禁/启用"));
 		gridModel.addItemAction(new ActionCommand("viewPort", "查看潜能报告"));
 	}

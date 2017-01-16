@@ -40,7 +40,6 @@ public abstract class BaseWorkbenchView extends VerticalLayout implements View{
 
         HorizontalLayout viewHeader = new HorizontalLayout();
         //TODO:此处可以改成css
-        viewHeader.setSizeFull();
         viewHeader.setWidth("100%");
         viewHeader.setHeight("28px");
 

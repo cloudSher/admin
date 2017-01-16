@@ -2,6 +2,9 @@ package com.lastartupsaas.workbench.view;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import com.lastartupsaas.workbench.MainFrameUI;
 import com.lastartupsaas.workbench.domain.admin.Resource;
 import com.lastartupsaas.workbench.util.MenuDataTest;
@@ -36,7 +39,7 @@ public class MainView extends VerticalLayout {
 	public MainView(MainFrameUI mainFrameUI, ViewProvider provider) {
 
 		// root布局,vertical
-		this.setWidth("100%");
+		this.setSizeFull();
 		this.setMargin(true);
 
 		// header布局
@@ -49,7 +52,7 @@ public class MainView extends VerticalLayout {
 
 		// body布局
 		VerticalLayout body = new VerticalLayout();
-		body.setWidth("100%");
+		body.setSizeFull();
 		// 组装布局
 		addComponent(body);
 		setExpandRatio(body, 1);
@@ -61,6 +64,7 @@ public class MainView extends VerticalLayout {
 
 		mainFrameUI.setNavigator(navigator);
 		navigator.navigateTo("brand_business_list.view");
+		navigator.setErrorView(ErrorView.class);
 	}
 
 	/**
@@ -104,7 +108,8 @@ public class MainView extends VerticalLayout {
 		logoutMenu.addItem("退出", FontAwesome.SIGN_OUT, new Command() {
 			@Override
 			public void menuSelected(com.vaadin.ui.MenuBar.MenuItem selectedItem) {
-				VaadinSession.getCurrent().getSession().invalidate();
+				
+				SecurityUtils.getSubject().logout();
 				Page.getCurrent().reload();
 			}
 		});
@@ -142,14 +147,21 @@ public class MainView extends VerticalLayout {
 	ViewChangeListener viewChangeListener = new ViewChangeListener() {
 		@Override
 		public boolean beforeViewChange(ViewChangeEvent event) {
-			return true;
+			System.out.println("==================beforeViewChange==================");
+			System.out.println(event.getViewName());
+			System.out.println(event.getParameters());
+			
+			Subject currentUser = SecurityUtils.getSubject();
+			if (currentUser.isPermitted(event.getViewName())) {
+				return true;
+			} else {
+				UI.getCurrent().getNavigator().navigateTo("error");
+				return false;
+			}
 		}
 
 		@Override
 		public void afterViewChange(ViewChangeEvent event) {
-			System.out.println("==================afterViewChange==================");
-			System.out.println(event.getViewName());
-			System.out.println(event.getParameters());
 		}
 	};
 }

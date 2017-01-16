@@ -2,6 +2,7 @@ package com.lastartupsaas.workbench.util;
 
 import javax.servlet.http.Cookie;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,8 +83,11 @@ public class SessionUtil {
 		Cookie cookie = new Cookie(key, value);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(1209600);
-		cookie.setPath(getCurrentRequest().getContextPath());
-		// cookie.setPath("/");
+		if (StringUtils.isBlank(getCurrentRequest().getContextPath())) {
+			cookie.setPath("/");
+		} else {
+			cookie.setPath(getCurrentRequest().getContextPath());
+		}
 		logger.info("往Cookies中存值,key:{},value:{},path:{}", key, value, cookie.getPath());
 		getCurrentResponse().addCookie(cookie);
 	}

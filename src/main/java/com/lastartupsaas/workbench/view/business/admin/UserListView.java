@@ -38,7 +38,11 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 
 	public UserListView() {
-		this.setViewCaption("当前位置：系统管理 > 权限管理 > 管理员");
+		this("当前位置：系统管理 > 权限管理 > 管理员");
+	}
+	
+	public UserListView(String caption) {
+		this.setViewCaption(caption);
 		this.withFilterSection = false;
 	}
 
