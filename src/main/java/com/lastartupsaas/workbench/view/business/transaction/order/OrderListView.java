@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.member;
+package com.lastartupsaas.workbench.view.business.transaction.order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,33 +28,32 @@ import com.vaadin.ui.Notification;
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = MemberListView.VIEW_NAME)
-public class MemberListView extends BaseWorkBenchListWithSearchView {
-
-	private static final long serialVersionUID = 3179536072154522556L;
+@SpringView(name = OrderListView.VIEW_NAME)
+public class OrderListView extends BaseWorkBenchListWithSearchView {
 
 	public static final String VIEW_NAME = "member_list.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
+	private String processFlag;// 流程标识：1加盟流程、2服务流程、3服务完成
 
-	public MemberListView() {
-		this.setViewCaption("当前位置：会员 > 会员管理 > 会员列表");
+	public OrderListView() {
+	}
+	
+	public OrderListView(String processFlag) {
+		this.processFlag = processFlag;
 		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
-		if (command.isActionId("create")) {
-			this.navigateToView("member_edit.view");
-		}
-		if (command.isActionId("viewPort")) {
+		if (command.isActionId("view")) {
 			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
-			Notification.show("账号设置", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
-		if (command.isActionId("disable")) {
-			Notification.show("账号设置", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+		if (command.isActionId("cancel")) {
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
 
@@ -66,12 +65,7 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		
-		List<KeyValueObject> list = new ArrayList<>();
-		list.add(new KeyValueObject("0", "真实会员"));
-		list.add(new KeyValueObject("1", "运营会员"));
-		
-		searchAgent.addField(new FormField("会员类型", "member_type", new SelectFieldEditor(list, "key", "value"), false, null, false));
-		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的ID或手机号"));
+		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的订单编号或手机号"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -96,8 +90,8 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public DataGridRow convertRowData(Object item) {
 		Member member = (Member) item;
-		return new DataGridRow(member.getId(), new Object[] { member.getId(), member.getNickName(), "男", "18612345678", "2016-10-11 12:41:25", "是",
-				"正常", "2016-10-11 12:41:25", "12", "32", "3", "32", "3", "50000", "10000", "40000" });
+		return new DataGridRow(member.getId(), new Object[] { member.getId(),"2016-10-11 12:41:25","1000000001", member.getNickName(), "18612345678",  "30000",
+				"10001", "黄焖鸡米饭", "待支付启动金"});
 //		return null;
 	}
 
@@ -126,25 +120,19 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("会员ID", String.class));
-		gridModel.addColumn(new DataGridColumn("昵称", String.class));
-		gridModel.addColumn(new DataGridColumn("会员性别", String.class));
-		gridModel.addColumn(new DataGridColumn("会员手机", String.class));
-		gridModel.addColumn(new DataGridColumn("注册时间", String.class));
-		gridModel.addColumn(new DataGridColumn("潜能报告", String.class));
-		gridModel.addColumn(new DataGridColumn("状态", String.class));
-		gridModel.addColumn(new DataGridColumn("最后登录时间", String.class));
-		gridModel.addColumn(new DataGridColumn("发布动态", String.class));
-		gridModel.addColumn(new DataGridColumn("关注人数", String.class));
-		gridModel.addColumn(new DataGridColumn("关注品牌数", String.class));
-		gridModel.addColumn(new DataGridColumn("粉丝数", String.class));
-		gridModel.addColumn(new DataGridColumn("申请数", String.class));
-		gridModel.addColumn(new DataGridColumn("启动金账户(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("可提现金额(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("冻结金额(元)", String.class));
+		gridModel.addColumn(new DataGridColumn("订单编号", String.class));
+		gridModel.addColumn(new DataGridColumn("申请时间", String.class));
+		gridModel.addColumn(new DataGridColumn("用户id", String.class));
+		gridModel.addColumn(new DataGridColumn("申请用户", String.class));
+		gridModel.addColumn(new DataGridColumn("用户手机号", String.class));
+		gridModel.addColumn(new DataGridColumn("启动金额(元)", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
+		gridModel.addColumn(new DataGridColumn("订单状态", String.class));
 
-		gridModel.addCommonAction(new ActionCommand("create", "新增运营会员"));
-		gridModel.addItemAction(new ActionCommand("disable", "禁/启用"));
-		gridModel.addItemAction(new ActionCommand("viewPort", "查看潜能报告"));
+		gridModel.addItemAction(new ActionCommand("view", "查看"));
+		if ("1".equals(processFlag)) {
+			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
+		}
 	}
 }

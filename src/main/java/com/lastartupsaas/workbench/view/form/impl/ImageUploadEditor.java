@@ -125,7 +125,6 @@ public class ImageUploadEditor extends BaseFormFieldEditor {
 	@Override
 	protected Component createComponent() {
 		this.rootLayout = new HorizontalLayout();
-		rootLayout.setSpacing(true);
 
 		imageLayout = new HorizontalLayout();
 		imageLayout.setSpacing(true);
@@ -181,6 +180,7 @@ public class ImageUploadEditor extends BaseFormFieldEditor {
 				imageLayout.removeAllComponents();
 			}
 			imageLayout.addComponent(buildImageView(file));
+			rootLayout.setSpacing(true);
 		}
 	};
 
@@ -204,6 +204,9 @@ public class ImageUploadEditor extends BaseFormFieldEditor {
 				imageLayout.removeComponent(vLayout);
 				if (file.exists()) {
 					file.delete();
+				}
+				if (imageLayout.isEnabled()) {
+					rootLayout.setSpacing(false);
 				}
 			}
 		});

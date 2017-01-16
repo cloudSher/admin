@@ -25,7 +25,8 @@
         <zkclient_version>0.1</zkclient_version>
         <javax_ws_version>2.0</javax_ws_version>
         <resteasy_version>3.0.7.Final</resteasy_version>
-        
+        <shiro.version>1.2.5</shiro.version>
+
         <s_api_client_version>1.0.2-SNAPSHOT</s_api_client_version>
     </properties>
 
@@ -51,6 +52,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <!--Apache Shiro所需的jar包 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${shiro.version}</version>
         </dependency>
 
         <dependency>
@@ -243,18 +255,4 @@
             </plugin>
         </plugins>
     </build>
-    
-    <distributionManagement>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>User Porject Snapshot</name>
-            <url>http://devops.lashou-inc.com:8081/content/repositories/snapshots/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-        <repository>
-            <id>nexus-releases</id>
-            <name>User Porject Release</name>
-            <url>http://devops.lashou-inc.com:8081/content/repositories/releases/</url>
-        </repository>
-    </distributionManagement>
 </project>

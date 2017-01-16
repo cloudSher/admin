@@ -35,7 +35,11 @@ public class RoleListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 
 	public RoleListView() {
-		this.setViewCaption("当前位置：系统管理 > 权限管理 > 角色");
+		this("当前位置：系统管理 > 权限管理 > 角色");
+	}
+	
+	public RoleListView(String caption) {
+		this.setViewCaption(caption);
 		this.withFilterSection = false;
 	}
 
