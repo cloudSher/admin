@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.transaction.order;
+package com.lastartupsaas.workbench.view.business.community.dynamic;
 
 import java.util.List;
 
@@ -24,31 +24,37 @@ import com.vaadin.ui.Notification;
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = OrderListView.VIEW_NAME)
-public class OrderListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = DynamicListView.VIEW_NAME)
+public class DynamicListView extends BaseWorkBenchListWithSearchView {
 
-	public static final String VIEW_NAME = "order.view";
+	private static final long serialVersionUID = 8782207053101461308L;
+	public static final String VIEW_NAME = "dynamic.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
-	private String processFlag;// 流程标识：1加盟流程、2服务流程、3服务完成
+	private String dynamicFlag;// 推荐标识：1首页、2热门
 
-	public OrderListView() {
+	public DynamicListView() {
 	}
 	
-	public OrderListView(String processFlag) {
-		this.processFlag = processFlag;
-		this.withFilterSection = true;
+	public DynamicListView(String processFlag) {
+		this.dynamicFlag = processFlag;
+		if ("1".equals(dynamicFlag)) {
+			this.withFilterSection = true;
+		}
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
+		if (command.isActionId("create")) {
+			this.navigateToView("dynamic_edit.view");
+		}
 		if (command.isActionId("view")) {
 			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
-		if (command.isActionId("cancel")) {
+		if (command.isActionId("del")) {
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
@@ -61,7 +67,7 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		
-		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的订单编号或手机号"));
+		searchAgent.addField(new FormField("发布者", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的发布者"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -116,19 +122,19 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("订单编号", String.class));
-		gridModel.addColumn(new DataGridColumn("申请时间", String.class));
-		gridModel.addColumn(new DataGridColumn("用户id", String.class));
-		gridModel.addColumn(new DataGridColumn("申请用户", String.class));
-		gridModel.addColumn(new DataGridColumn("用户手机号", String.class));
-		gridModel.addColumn(new DataGridColumn("启动金额(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
-		gridModel.addColumn(new DataGridColumn("订单状态", String.class));
+		gridModel.addColumn(new DataGridColumn("动态ID", String.class));
+		gridModel.addColumn(new DataGridColumn("动态标题", String.class));
+		gridModel.addColumn(new DataGridColumn("所属话题", String.class));
+		gridModel.addColumn(new DataGridColumn("发布者", String.class));
+		gridModel.addColumn(new DataGridColumn("发布时间", String.class));
+		gridModel.addColumn(new DataGridColumn("点赞数", String.class));
+		gridModel.addColumn(new DataGridColumn("分享数", String.class));
+		gridModel.addColumn(new DataGridColumn("评论数", String.class));
 
-		gridModel.addItemAction(new ActionCommand("view", "查看"));
-		if ("1".equals(processFlag)) {
-			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
+		if ("1".equals(dynamicFlag)) {
+			gridModel.addCommonAction(new ActionCommand("create", "创建动态"));
+			gridModel.addItemAction(new ActionCommand("del", "删除"));
+			gridModel.addItemAction(new ActionCommand("view", "查看"));
 		}
 	}
 }

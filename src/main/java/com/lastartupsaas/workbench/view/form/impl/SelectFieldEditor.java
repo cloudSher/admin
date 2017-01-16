@@ -2,6 +2,8 @@ package com.lastartupsaas.workbench.view.form.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.lastartupsaas.workbench.view.form.BaseFormFieldEditor;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
@@ -16,6 +18,7 @@ public class SelectFieldEditor extends BaseFormFieldEditor {
     private List<?> items;
     private String valuePropertyName;
     private String displayPropertyName;
+    private String defaultValue;
     private String width;
 
     public SelectFieldEditor() {
@@ -35,6 +38,15 @@ public class SelectFieldEditor extends BaseFormFieldEditor {
     	this.items = items;
     	this.valuePropertyName = valuePropertyName;
     	this.displayPropertyName = displayPropertyName;
+    	this.width = width;
+    }
+    
+    public SelectFieldEditor(List<?> items, String valuePropertyName, String displayPropertyName, String defaultValue, String width) {
+    	super();
+    	this.items = items;
+    	this.valuePropertyName = valuePropertyName;
+    	this.displayPropertyName = displayPropertyName;
+    	this.defaultValue = defaultValue;
     	this.width = width;
     }
 
@@ -90,6 +102,9 @@ public class SelectFieldEditor extends BaseFormFieldEditor {
                 }
             }
         }
+        if (StringUtils.isNotBlank(defaultValue)) {
+        	comboBox.setValue(defaultValue);
+		}
 
         return this.comboBox;
     }

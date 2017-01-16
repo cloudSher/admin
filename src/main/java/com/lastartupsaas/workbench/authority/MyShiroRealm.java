@@ -64,6 +64,9 @@ public class MyShiroRealm extends AuthorizingRealm  {
 			info.addStringPermission("role_list.view");
 			info.addStringPermission("order_list.view");
 			info.addStringPermission("resource_list.view");
+			info.addStringPermission("complain_list.view");
+			info.addStringPermission("balance_list.view");
+			info.addStringPermission("not_out_account_list.view");
 
 			// 用户的角色集合
 			// info.setRoles(user.getRolesName());

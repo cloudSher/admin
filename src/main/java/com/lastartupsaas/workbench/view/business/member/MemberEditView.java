@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.lastartupsaas.api.model.Member;
-import com.lastartupsaas.workbench.domain.admin.Post;
-import com.lastartupsaas.workbench.domain.admin.User;
 import com.lastartupsaas.workbench.view.BaseWorkBenchEditorView;
 import com.lastartupsaas.workbench.view.ViewContext;
 import com.lastartupsaas.workbench.view.form.FormAgent;
@@ -15,7 +12,6 @@ import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
-import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
@@ -49,7 +45,8 @@ public class MemberEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected Object createVirginObject() {
-		return new Member();
+//		return new Member();
+		return null;
 	}
 
 	@Override
@@ -67,15 +64,15 @@ public class MemberEditView extends BaseWorkBenchEditorView {
 	protected Object loadEdittingDataFromContext(ViewContext vc) {
 		String id = vc.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
-			Member member = new Member();
-			member.setId("2017011000001");
-			member.setNickName("张三");
-			member.setType("1");
-			member.setEmail("test001@lashou-inc.com");
-			member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-			member.setStatus("1");
-			member.setAdditionalProperty("测试", "111111111");
-			return member;
+//			Member member = new Member();
+//			member.setId("2017011000001");
+//			member.setNickName("张三");
+//			member.setType("1");
+//			member.setEmail("test001@lashou-inc.com");
+//			member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
+//			member.setStatus("1");
+//			member.setAdditionalProperty("测试", "111111111");
+//			return member;
 		}
 		return null;
 	}

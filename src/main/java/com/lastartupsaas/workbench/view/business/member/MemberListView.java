@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.domain.KeyValueObject;
-import com.lastartupsaas.api.model.Member;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
@@ -95,10 +94,10 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		Member member = (Member) item;
-		return new DataGridRow(member.getId(), new Object[] { member.getId(), member.getNickName(), "男", "18612345678", "2016-10-11 12:41:25", "是",
-				"正常", "2016-10-11 12:41:25", "12", "32", "3", "32", "3", "50000", "10000", "40000" });
-//		return null;
+//		Member member = (Member) item;
+//		return new DataGridRow(member.getId(), new Object[] { member.getId(), member.getNickName(), "男", "18612345678", "2016-10-11 12:41:25", "是",
+//				"正常", "2016-10-11 12:41:25", "12", "32", "3", "32", "3", "50000", "10000", "40000" });
+		return null;
 	}
 
 	@Override
@@ -109,18 +108,18 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 
-		List<Member> members = new ArrayList<Member>();
-		Member member = new Member();
-		member.setId("2017011000001");
-		member.setNickName("张三");
-		member.setType("1");
-		member.setEmail("test001@lashou-inc.com");
-		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-		member.setStatus("1");
-		member.setAdditionalProperty("测试", "111111111");
-		members.add(member);
-		return members;
-//		return null;
+//		List<Member> members = new ArrayList<Member>();
+//		Member member = new Member();
+//		member.setId("2017011000001");
+//		member.setNickName("张三");
+//		member.setType("1");
+//		member.setEmail("test001@lashou-inc.com");
+//		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
+//		member.setStatus("1");
+//		member.setAdditionalProperty("测试", "111111111");
+//		members.add(member);
+//		return members;
+		return null;
 	}
 
 	@Override

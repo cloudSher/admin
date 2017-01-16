@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.community;
+package com.lastartupsaas.workbench.view.business.community.topic;
 
 import java.util.ArrayList;
 import java.util.List;

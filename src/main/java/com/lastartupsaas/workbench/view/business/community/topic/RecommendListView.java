@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.transaction.order;
+package com.lastartupsaas.workbench.view.business.community.topic;
 
 import java.util.List;
 
@@ -24,22 +24,23 @@ import com.vaadin.ui.Notification;
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = OrderListView.VIEW_NAME)
-public class OrderListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = RecommendListView.VIEW_NAME)
+public class RecommendListView extends BaseWorkBenchListWithSearchView {
 
-	public static final String VIEW_NAME = "order.view";
+	private static final long serialVersionUID = 8782207053101461308L;
+	public static final String VIEW_NAME = "recommend_topic.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
-	private String processFlag;// 流程标识：1加盟流程、2服务流程、3服务完成
+	private String recommendFlag;// 推荐标识：1首页、2热门
 
-	public OrderListView() {
+	public RecommendListView() {
 	}
 	
-	public OrderListView(String processFlag) {
-		this.processFlag = processFlag;
-		this.withFilterSection = true;
+	public RecommendListView(String processFlag) {
+		this.recommendFlag = processFlag;
+		this.withFilterSection = false;
 	}
 
 	@Override
@@ -116,19 +117,22 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("订单编号", String.class));
-		gridModel.addColumn(new DataGridColumn("申请时间", String.class));
-		gridModel.addColumn(new DataGridColumn("用户id", String.class));
-		gridModel.addColumn(new DataGridColumn("申请用户", String.class));
-		gridModel.addColumn(new DataGridColumn("用户手机号", String.class));
-		gridModel.addColumn(new DataGridColumn("启动金额(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
-		gridModel.addColumn(new DataGridColumn("订单状态", String.class));
+		gridModel.addColumn(new DataGridColumn("排序", String.class));
+		gridModel.addColumn(new DataGridColumn("话题ID", String.class));
+		gridModel.addColumn(new DataGridColumn("话题名称", String.class));
+		gridModel.addColumn(new DataGridColumn("话题图片", String.class));
+		gridModel.addColumn(new DataGridColumn("二级标签", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌话题", String.class));
+		gridModel.addColumn(new DataGridColumn("创建用户", String.class));
+		gridModel.addColumn(new DataGridColumn("创建时间", String.class));
+		gridModel.addColumn(new DataGridColumn("关注人数", String.class));
+		gridModel.addColumn(new DataGridColumn("动态数", String.class));
+		gridModel.addColumn(new DataGridColumn("状态", String.class));
+		gridModel.addColumn(new DataGridColumn("备注", String.class));
 
-		gridModel.addItemAction(new ActionCommand("view", "查看"));
-		if ("1".equals(processFlag)) {
-			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
-		}
+		gridModel.addItemAction(new ActionCommand("del", "删除"));
+//		if ("1".equals(recommendFlag)) {
+//			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
+//		}
 	}
 }

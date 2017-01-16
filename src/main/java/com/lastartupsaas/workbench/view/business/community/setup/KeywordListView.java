@@ -1,9 +1,7 @@
-package com.lastartupsaas.workbench.view.business.community;
+package com.lastartupsaas.workbench.view.business.community.setup;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -20,6 +18,7 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 
 /**
  * 品牌商列表页面
@@ -27,12 +26,11 @@ import com.vaadin.ui.HorizontalLayout;
  * @author lifeilong
  * @date: 2016-12-09
  */
-@SpringView(name = TopicListView.VIEW_NAME)
-public class TopicListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = KeywordListView.VIEW_NAME)
+public class KeywordListView extends BaseWorkBenchListWithSearchView {
 
-	private static final long serialVersionUID = -4321949134324373021L;
-	Logger logger = LoggerFactory.getLogger(TopicListView.class);
-	public static final String VIEW_NAME = "topic_list.view";
+	private static final long serialVersionUID = -7763777633023836230L;
+	public static final String VIEW_NAME = "keyword_list.view";
 
 	private FormAgent searchAgent;
 	private String searchName;
@@ -46,22 +44,18 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 //	private XLaSignMethod xLaSignMethod = XLaSignMethod.MD5;
 	private String sign = "C71F538BC1243D2903D3AB935949379B";
 
-	public TopicListView() {
-		logger.info("进入话题列表页面");
-		this.setViewCaption("当前位置：社区运营 > 话题 > 话题列表");
+	public KeywordListView() {
+		this.setViewCaption("当前位置：社区运营 > 设置 > 关键词屏蔽");
 		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
-		if (command.isActionId("create")) {
-			this.navigateToView("topic_edit.view");
-		}
-		if (command.isActionId("edit")) {
-			this.navigateToView("topic_edit.view/id=" + parameters[0]);
+		if (command.isActionId("multi_del")) {
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 		if (command.isActionId("del")) {
-			System.out.println("del");
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
 
@@ -72,7 +66,7 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(2);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		searchAgent.addField(new FormField("话题名称", "enterpriseName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的话题名称"));
+		searchAgent.addField(new FormField("关键词", "enterpriseName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的关键词"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -133,7 +127,6 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 //				}
 //			}
 		} catch (Exception e) {
-			logger.error("查询话题列表发生错误", e);
 		}
 		return null;
 	}
@@ -141,21 +134,12 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("话题ID", Long.class));
-		gridModel.addColumn(new DataGridColumn("话题名称", String.class));
-		gridModel.addColumn(new DataGridColumn("二级标签", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌话题", String.class));
-		gridModel.addColumn(new DataGridColumn("创建用户", String.class));
-		gridModel.addColumn(new DataGridColumn("创建时间", String.class));
-		gridModel.addColumn(new DataGridColumn("关注人数", String.class));
-		gridModel.addColumn(new DataGridColumn("动态数", String.class));
-		gridModel.addColumn(new DataGridColumn("状态", String.class));
-		gridModel.addColumn(new DataGridColumn("审核人", String.class));
-		gridModel.addColumn(new DataGridColumn("审核时间", String.class));
-		gridModel.addColumn(new DataGridColumn("备注", String.class));
+		gridModel.addColumn(new DataGridColumn("关键词ID", String.class));
+		gridModel.addColumn(new DataGridColumn("关键词", String.class));
+		gridModel.addColumn(new DataGridColumn("添加时间", String.class));
+		gridModel.addColumn(new DataGridColumn("添加者", String.class));
 
-		gridModel.addCommonAction(new ActionCommand("create", "创建话题"));
+		gridModel.addListAction(new ActionCommand("multi_del", "批量删除"));
 		gridModel.addItemAction(new ActionCommand("del", "删除"));
-		gridModel.addItemAction(new ActionCommand("edit", "编辑"));
 	}
 }
