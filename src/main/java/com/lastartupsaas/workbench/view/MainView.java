@@ -3,7 +3,6 @@ package com.lastartupsaas.workbench.view;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 
 import com.lastartupsaas.workbench.MainFrameUI;
 import com.lastartupsaas.workbench.domain.admin.Resource;
@@ -16,7 +15,6 @@ import com.vaadin.navigator.ViewProvider;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
@@ -39,7 +37,7 @@ public class MainView extends VerticalLayout {
 	public MainView(MainFrameUI mainFrameUI, ViewProvider provider) {
 
 		// root布局,vertical
-		this.setSizeFull();
+		this.setWidth("100%");
 		this.setMargin(true);
 
 		// header布局
@@ -52,7 +50,7 @@ public class MainView extends VerticalLayout {
 
 		// body布局
 		VerticalLayout body = new VerticalLayout();
-		body.setSizeFull();
+		body.setWidth("100%");
 		// 组装布局
 		addComponent(body);
 		setExpandRatio(body, 1);
@@ -151,13 +149,13 @@ public class MainView extends VerticalLayout {
 			System.out.println(event.getViewName());
 			System.out.println(event.getParameters());
 			
-			Subject currentUser = SecurityUtils.getSubject();
-			if (currentUser.isPermitted(event.getViewName())) {
+//			Subject currentUser = SecurityUtils.getSubject();
+//			if (currentUser.isPermitted(event.getViewName())) {
 				return true;
-			} else {
-				UI.getCurrent().getNavigator().navigateTo("error");
-				return false;
-			}
+//			} else {
+//				UI.getCurrent().getNavigator().navigateTo("error");
+//				return false;
+//			}
 		}
 
 		@Override

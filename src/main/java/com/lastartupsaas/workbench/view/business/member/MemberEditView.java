@@ -3,7 +3,7 @@ package com.lastartupsaas.workbench.view.business.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchEditorView;
 import com.lastartupsaas.workbench.view.ViewContext;
@@ -15,7 +15,7 @@ import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * 管理员编辑页
+ * 会员编辑页
  * 
  * @author lifeilong
  * @date 2016-12-26

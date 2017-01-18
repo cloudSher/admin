@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
@@ -22,7 +21,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 
 /**
- * 品牌商列表页面
+ * 话题列表页面
  * 
  * @author lifeilong
  * @date: 2016-12-09
@@ -38,7 +37,7 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 	private int totalCount;
 
-	@Autowired
+//	@Autowired
 //	private TopicsResource topicsResource;
 	private String xLaAuthorization = "oauth2.0";
 //	private XLaFormat xLaFormat = XLaFormat.json;

@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.transaction.balance;
+package com.lastartupsaas.workbench.view.business.marketing.assistance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,38 +14,40 @@ import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
+import com.lastartupsaas.workbench.view.form.impl.DateFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 
 /**
- * 未出账交易单列表页
+ * 助理金查看列表页
  * 
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = NotOutAccountListView.VIEW_NAME)
-public class NotOutAccountListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = ReceiveListView.VIEW_NAME)
+public class ReceiveListView extends BaseWorkBenchListWithSearchView {
 
-	private static final long serialVersionUID = -8642461705265612627L;
-	public static final String VIEW_NAME = "not_out_account_list.view";
+	private static final long serialVersionUID = -1216252899975275359L;
+	public static final String VIEW_NAME = "receive_list.view";
+
 	private FormAgent searchAgent;
+
 	private String searchName;
 
-	public NotOutAccountListView() {
-		this.setViewCaption("当前位置：交易 > 结算管理 > 未出账交易单");
+	public ReceiveListView() {
+		this("当前位置：社区运营 > 创业助力 > 助理金查看");
+	}
+	
+	public ReceiveListView(String caption) {
+		this.setViewCaption(caption);
 		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
-		if (command.isActionId("export")) {
-			// this.navigateToView("post_edit.view");
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
-		}
 	}
 
 	@Override
@@ -55,17 +57,16 @@ public class NotOutAccountListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(2);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-
+		searchAgent.addField(new FormField("领取时间", "start_time", DateFieldEditor.class, false, null, false).setInputDescr("开始领取时间"));
+		searchAgent.addField(new FormField("~", "end_time", DateFieldEditor.class, false, null, false).setInputDescr("结束领取时间"));
 		List<KeyValueObject> list = new ArrayList<>();
-		list.add(new KeyValueObject("1", "品牌名称"));
-		list.add(new KeyValueObject("2", "品牌编号"));
-		list.add(new KeyValueObject("3", "交易单号"));
-		list.add(new KeyValueObject("4", "订单编号"));
+		list.add(new KeyValueObject("1", "会员ID"));
+		list.add(new KeyValueObject("2", "手机号"));
 		searchAgent.addField(new FormField("", "search_model", new SelectFieldEditor(list, "key", "value", "1", "100%"), false, null, false));
 		searchAgent.addField(new FormField("", "search_value", InputFieldEditor.class, false, null, false));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
-		form.setWidth("50%");
+		form.setWidth("100%");
 		form.setSpacing(true);
 
 		layout.addComponent(form);
@@ -80,14 +81,15 @@ public class NotOutAccountListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	protected void doSearchAction() {
-		this.searchName = (String) this.searchAgent.getFieldValue("search_value");
+		this.searchName = (String) this.searchAgent.getFieldValue("name");
 		this.dataGrid.reloadDatas();
 	}
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		// Post post = (Post) item;
-		// return new DataGridRow(post.getId(), new Object[] { post.getId(), post.getPostName() });
+//		User user = (User) item;
+//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
+//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
 		return null;
 	}
 
@@ -103,17 +105,16 @@ public class NotOutAccountListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
-		gridModel.addColumn(new DataGridColumn("品牌名称", Long.class));
-		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
-		gridModel.addColumn(new DataGridColumn("交易单号", String.class));
-		gridModel.addColumn(new DataGridColumn("用户确认时间", String.class));
-		gridModel.addColumn(new DataGridColumn("用户ID", String.class));
-		gridModel.addColumn(new DataGridColumn("用户手机号", String.class));
-		gridModel.addColumn(new DataGridColumn("交易单金额", String.class));
-		gridModel.addColumn(new DataGridColumn("平台分成(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("划账金额(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("订单编号", String.class));
 
-		gridModel.addCommonAction(new ActionCommand("export", "导出数据"));
+		gridModel.addColumn(new DataGridColumn("助力金编号", String.class));
+		gridModel.addColumn(new DataGridColumn("会员昵称", String.class));
+		gridModel.addColumn(new DataGridColumn("会员ID", String.class));
+		gridModel.addColumn(new DataGridColumn("手机号", String.class));
+		gridModel.addColumn(new DataGridColumn("助力金额", String.class));
+		gridModel.addColumn(new DataGridColumn("领取时间", String.class));
+		gridModel.addColumn(new DataGridColumn("有效期至", String.class));
+		gridModel.addColumn(new DataGridColumn("品类", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌", String.class));
+		gridModel.addColumn(new DataGridColumn("状态", String.class));
 	}
 }

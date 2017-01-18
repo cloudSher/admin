@@ -7,7 +7,7 @@ import com.lastartupsaas.workbench.view.BaseWorkbenchView;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * 交易管理列表页面
+ * 结算单管理页面
  * 
  * @author lifeilong
  * @date: 2016-12-09

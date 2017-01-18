@@ -19,7 +19,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 
 /**
- * 会员列表页
+ * 交易管理列表页
  * 
  * @author lifeilong
  * @date 2016-12-26
@@ -27,6 +27,7 @@ import com.vaadin.ui.Notification;
 @SpringView(name = OrderListView.VIEW_NAME)
 public class OrderListView extends BaseWorkBenchListWithSearchView {
 
+	private static final long serialVersionUID = 3830671701433487097L;
 	public static final String VIEW_NAME = "order.view";
 
 	private FormAgent searchAgent;

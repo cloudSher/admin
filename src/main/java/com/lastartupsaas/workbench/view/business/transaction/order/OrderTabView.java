@@ -4,13 +4,10 @@ import java.util.Map;
 
 import com.lastartupsaas.workbench.view.BaseWorkbenchTabView;
 import com.lastartupsaas.workbench.view.BaseWorkbenchView;
-import com.lastartupsaas.workbench.view.business.admin.RoleListView;
-import com.lastartupsaas.workbench.view.business.admin.UserEditView;
-import com.lastartupsaas.workbench.view.business.admin.UserListView;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * 交易管理列表页面
+ * 交易管理页面
  * 
  * @author lifeilong
  * @date: 2016-12-09

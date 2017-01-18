@@ -1,10 +1,8 @@
-package com.lastartupsaas.workbench.view.business.admin;
+package com.lastartupsaas.workbench.view.business.marketing.messagepush;
 
 import java.util.List;
 
-import com.lastartupsaas.workbench.domain.admin.Resource;
-import com.lastartupsaas.workbench.util.MenuDataTest;
-import com.lastartupsaas.workbench.view.BaseWorkbenchTreeListView;
+import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -20,32 +18,37 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 
 /**
- * 资源列表页
+ * 消息用户管理列表页
  * 
  * @author lifeilong
- * @date 2016-12-29
+ * @date 2016-12-26
  */
-@SpringView(name = ResourceListView.VIEW_NAME)
-public class ResourceListView extends BaseWorkbenchTreeListView {
+@SpringView(name = MessageUserListView.VIEW_NAME)
+public class MessageUserListView extends BaseWorkBenchListWithSearchView {
 
-	private static final long serialVersionUID = 1946274487874257014L;
-	public static final String VIEW_NAME = "resource_list.view";
+	private static final long serialVersionUID = 5327409628409266664L;
+	public static final String VIEW_NAME = "message_user_list.view";
+
 	private FormAgent searchAgent;
 
 	private String searchName;
 
-	public ResourceListView() {
-		this.setViewCaption("当前位置：系统管理 > 权限管理 > 资源");
+	public MessageUserListView() {
+		this("当前位置：社区运营 > 消息推送 > 消息用户管理");
+	}
+	
+	public MessageUserListView(String caption) {
+		this.setViewCaption(caption);
 		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
 		if (command.isActionId("create")) {
-			this.navigateToView("resource_edit.view");
+			this.navigateToView("message_user_edit.view");
 		}
 		if (command.isActionId("edit")) {
-			this.navigateToView("resource_edit.view/id=" + parameters[0]);
+			this.navigateToView("message_user_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
 			System.out.println("del");
@@ -59,7 +62,7 @@ public class ResourceListView extends BaseWorkbenchTreeListView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(2);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		searchAgent.addField(new FormField("资源名称", "ResourceName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的资源名称"));
+		searchAgent.addField(new FormField("用户分类查询", "search_value", InputFieldEditor.class, false, null, false));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -77,33 +80,38 @@ public class ResourceListView extends BaseWorkbenchTreeListView {
 
 	@Override
 	protected void doSearchAction() {
-		this.searchName = (String) this.searchAgent.getFieldValue("name");
+		this.searchName = (String) this.searchAgent.getFieldValue("search_value");
 		this.dataGrid.reloadDatas();
 	}
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		Resource resource = (Resource) item;
-		return new DataGridRow(resource.getId(), new Object[] { resource.getId().toString(), resource.getName(), "0".equals(resource.getState()) ? "禁用" : "正常" }, resource.getResourceList());
+//		User user = (User) item;
+//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
+//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
+		return null;
 	}
 
 	@Override
 	public int getDataCount() {
-		return 10;
+		return 1;
 	}
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return MenuDataTest.getInstance().getMenuData();
+		return null;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
-		gridModel.addColumn(new DataGridColumn("资源编码", String.class));
-		gridModel.addColumn(new DataGridColumn("资源名称", String.class));
-		gridModel.addColumn(new DataGridColumn("状态", String.class));
 
-		gridModel.addCommonAction(new ActionCommand("create", "新增资源"));
+		gridModel.addColumn(new DataGridColumn("用户分类ID", String.class));
+		gridModel.addColumn(new DataGridColumn("用户分类名称", String.class));
+		gridModel.addColumn(new DataGridColumn("推送用户文件地址", String.class));
+		gridModel.addColumn(new DataGridColumn("数据量", String.class));
+		gridModel.addColumn(new DataGridColumn("上传时间", String.class));
+
+		gridModel.addCommonAction(new ActionCommand("create", "新增"));
 		gridModel.addItemAction(new ActionCommand("del", "删除"));
 		gridModel.addItemAction(new ActionCommand("edit", "编辑"));
 	}
