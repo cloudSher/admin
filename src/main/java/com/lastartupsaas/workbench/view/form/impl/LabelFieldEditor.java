@@ -62,6 +62,7 @@ public class LabelFieldEditor extends BaseFormFieldEditor {
 	@Override
 	protected Component createComponent() {
 		this.label = new Label();
+		this.label.addStyleName(ValoTheme.LABEL_SMALL);
 		this.label.addStyleName(ValoTheme.LABEL_LIGHT);
 		this.label.setWidth(this.width);
 		if (StringUtils.isNotBlank(defaultValue)) {

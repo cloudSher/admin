@@ -8,6 +8,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * @author shixin
@@ -17,14 +18,18 @@ public abstract class FormWindow extends Window {
 
     private static final long serialVersionUID = 1190213018808378729L;
     private FormBuildLayout form;
+    private String viewFlag;// 查看标识，为1代表是查看页面，否则为编辑页面
 
     public FormWindow(String caption) {
+        this(caption, null);
+    }
+    
+    public FormWindow(String caption, String viewFlag ) {
         super(caption);
-
+        this.viewFlag = viewFlag;
         this.setModal(true);
         this.center();
         this.setWidth("750px");
-
         this.setup();
     }
 
@@ -38,29 +43,37 @@ public abstract class FormWindow extends Window {
         form.setMargin(true);
         form.setSpacing(true);
         form.setWidth("100%");
-
         this.setupFormData(fa);
 
-        form.addActionComponent(new FormActionButton("确定", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                if(!fa.validateForm()){
-                    Notification.show("数据填写不完整!", "请检查字段右侧的提示信息.", Notification.Type.WARNING_MESSAGE);
-                    return;
+        if ("1".equals(viewFlag)) {
+        	form.addActionComponent(new FormActionButton("关闭", new Button.ClickListener() {
+                @Override
+                public void buttonClick(Button.ClickEvent event) {
+                	FormWindow.this.close();
                 }
-                boolean ret = doDoneActione(fa);
-                if(ret) {
-                    FormWindow.this.close();
-                }
-                postDoneAction(fa, ret);
-            }
-        }));
-        form.addActionComponent(new FormActionButton("取消", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                FormWindow.this.close();
-            }
-        }));
+            }));
+		} else {
+			form.addActionComponent(new FormActionButton("确定", new Button.ClickListener() {
+				@Override
+				public void buttonClick(Button.ClickEvent event) {
+					if(!fa.validateForm()){
+						Notification.show("数据填写不完整!", "请检查字段右侧的提示信息.", Notification.Type.WARNING_MESSAGE);
+						return;
+					}
+					boolean ret = doDoneActione(fa);
+					if(ret) {
+						FormWindow.this.close();
+					}
+					postDoneAction(fa, ret);
+				}
+			}));
+			form.addActionComponent(new FormActionButton("取消", new Button.ClickListener() {
+				@Override
+				public void buttonClick(Button.ClickEvent event) {
+					FormWindow.this.close();
+				}
+			}));
+		}
 
         VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);

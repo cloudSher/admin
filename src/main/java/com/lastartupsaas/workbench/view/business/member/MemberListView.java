@@ -30,16 +30,19 @@ import com.vaadin.ui.Notification;
 @SpringView(name = MemberListView.VIEW_NAME)
 public class MemberListView extends BaseWorkBenchListWithSearchView {
 
-	private static final long serialVersionUID = 3179536072154522556L;
-
-	public static final String VIEW_NAME = "member_list.view";
+	private static final long serialVersionUID = -6929641655748673968L;
+	public static final String VIEW_NAME = "member.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
+	private String memberFlag;// 会员标识：1真实会员、2运营会员
 
 	public MemberListView() {
-		this.setViewCaption("当前位置：会员 > 会员管理 > 会员列表");
+	}
+
+	public MemberListView(String memberFlag) {
+		this.memberFlag = memberFlag;
 		this.withFilterSection = true;
 	}
 
@@ -47,13 +50,12 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 	public void performAction(ActionCommand command, Object... parameters) {
 		if (command.isActionId("create")) {
 			this.navigateToView("member_edit.view");
-		}
-		if (command.isActionId("viewPort")) {
-			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
+		} else if (command.isActionId("viewPort")) {
 			Notification.show("账号设置", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
-		}
-		if (command.isActionId("disable")) {
+		} else if (command.isActionId("disable")) {
 			Notification.show("账号设置", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+		} else if (command.isActionId("edit")) {
+			this.navigateToView("member_edit.view/id=" + parameters[0]);
 		}
 	}
 
@@ -64,16 +66,16 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		
+
 		List<KeyValueObject> list = new ArrayList<>();
-		list.add(new KeyValueObject("0", "真实会员"));
-		list.add(new KeyValueObject("1", "运营会员"));
-		
-		searchAgent.addField(new FormField("会员类型", "member_type", new SelectFieldEditor(list, "key", "value"), false, null, false));
-		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的ID或手机号"));
+		list.add(new KeyValueObject("1", "会员ID"));
+		list.add(new KeyValueObject("2", "手机号"));
+
+		searchAgent.addField(new FormField("", "member_type", new SelectFieldEditor(list, "key", "value"), false, null, false).setInputDescr("请选择搜索条件类型"));
+		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("请输入要搜索的内容"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
-		form.setWidth("100%");
+		form.setWidth("50%");
 		form.setSpacing(true);
 
 		layout.addComponent(form);
@@ -94,10 +96,8 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Member member = (Member) item;
-//		return new DataGridRow(member.getId(), new Object[] { member.getId(), member.getNickName(), "男", "18612345678", "2016-10-11 12:41:25", "是",
-//				"正常", "2016-10-11 12:41:25", "12", "32", "3", "32", "3", "50000", "10000", "40000" });
-		return null;
+		 return new DataGridRow("100000001", new Object[] { "100000001", "张三", "男", "18612345678", "2016-10-11 12:41:25", "是",
+		 "正常", "2016-10-11 12:41:25", "12", "32", "3", "32", "3", "50000", "10000", "40000" });
 	}
 
 	@Override
@@ -108,18 +108,20 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 
-//		List<Member> members = new ArrayList<Member>();
-//		Member member = new Member();
-//		member.setId("2017011000001");
-//		member.setNickName("张三");
-//		member.setType("1");
-//		member.setEmail("test001@lashou-inc.com");
-//		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-//		member.setStatus("1");
-//		member.setAdditionalProperty("测试", "111111111");
-//		members.add(member);
-//		return members;
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		// List<Member> members = new ArrayList<Member>();
+		// Member member = new Member();
+		// member.setId("2017011000001");
+		// member.setNickName("张三");
+		// member.setType("1");
+		// member.setEmail("test001@lashou-inc.com");
+		// member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
+		// member.setStatus("1");
+		// member.setAdditionalProperty("测试", "111111111");
+		// members.add(member);
+		// return members;
+		return list;
 	}
 
 	@Override
@@ -142,8 +144,12 @@ public class MemberListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addColumn(new DataGridColumn("可提现金额(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("冻结金额(元)", String.class));
 
-		gridModel.addCommonAction(new ActionCommand("create", "新增运营会员"));
 		gridModel.addItemAction(new ActionCommand("disable", "禁/启用"));
-		gridModel.addItemAction(new ActionCommand("viewPort", "查看潜能报告"));
+		if ("1".equals(memberFlag)) {
+			gridModel.addItemAction(new ActionCommand("viewPort", "查看潜能报告"));
+		} else {
+			gridModel.addCommonAction(new ActionCommand("create", "新增运营会员"));
+			gridModel.addItemAction(new ActionCommand("edit", "编辑"));
+		}
 	}
 }

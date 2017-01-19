@@ -18,6 +18,7 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 
 /**
  * 角色列表页
@@ -52,7 +53,10 @@ public class RoleListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("role_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			System.out.println("del");
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+		}
+		if (command.isActionId("enable")) {
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
 
@@ -115,5 +119,6 @@ public class RoleListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addCommonAction(new ActionCommand("create", "新增权限组"));
 		gridModel.addItemAction(new ActionCommand("del", "删除"));
 		gridModel.addItemAction(new ActionCommand("edit", "编辑"));
+		gridModel.addItemAction(new ActionCommand("enable", "禁/启用"));
 	}
 }

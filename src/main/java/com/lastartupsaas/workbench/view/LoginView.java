@@ -21,6 +21,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.event.MouseEvents.ClickListener;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
@@ -194,6 +195,7 @@ public class LoginView extends VerticalLayout implements View {
 		// 登录按钮
 		loginBtn = new Button("登 录");
 		loginBtn.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		loginBtn.setClickShortcut(KeyCode.ENTER);
 		loginBtn.setWidth("100%");
 
 		loginForm.addComponents(userName, password, captchLayout, passwordBtns, loginBtn);
@@ -253,6 +255,7 @@ public class LoginView extends VerticalLayout implements View {
 				showNotification(new Notification("Hint: Try anything"));
 			}
 		});
+		
 	}
 
 	/**
