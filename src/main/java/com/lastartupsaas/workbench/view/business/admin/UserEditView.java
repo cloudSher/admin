@@ -35,8 +35,8 @@ public class UserEditView extends BaseWorkBenchEditorView {
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
 		List<FormField> base_message = new ArrayList<FormField>();
-		base_message.add(new FormField("员工号", "jobNumber", InputFieldEditor.class, true, null, true).setInputDescr("6-10位数字"));
 		base_message.add(new FormField("登录名", "loginName", InputFieldEditor.class, true, null, true).setInputDescr("3-20位字符，可由中文、英文及数字”组成"));
+		base_message.add(new FormField("员工ID", "jobNumber", InputFieldEditor.class, true, null, true).setInputDescr("6-10位数字"));
 		base_message.add(new FormField("姓名", "realName", InputFieldEditor.class, true, null, true).setInputDescr("2-4位汉字组成"));
 		List<Post> postList = new ArrayList<>();
 		postList.add(new Post(1L, "执行总裁", null, null, null, null, null, null));

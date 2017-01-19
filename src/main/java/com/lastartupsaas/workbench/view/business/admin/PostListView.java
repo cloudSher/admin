@@ -15,6 +15,7 @@ import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 /**
@@ -46,7 +47,7 @@ public class PostListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("post_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			System.out.println("del");
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 		if (command.isActionId("lowerPost")) {
 			LowerPostListView lowerPostListView = new LowerPostListView();

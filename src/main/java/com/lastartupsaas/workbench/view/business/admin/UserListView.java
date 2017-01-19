@@ -19,6 +19,7 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 
 /**
  * 管理员列表页
@@ -55,7 +56,7 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("user_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			System.out.println("del");
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
 
@@ -91,8 +92,8 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public DataGridRow convertRowData(Object item) {
 		User user = (User) item;
-		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
+		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(), user.getLastLoadTime(),
+				user.getPost() == null ? "" : user.getPost().getPostName() });
 	}
 
 	@Override
@@ -119,10 +120,10 @@ public class UserListView extends BaseWorkBenchListWithSearchView {
 	protected void setupGridModel(DataGridModel gridModel) {
 
 		gridModel.addColumn(new DataGridColumn("登录名", String.class));
-		gridModel.addColumn(new DataGridColumn("员工号", String.class));
+		gridModel.addColumn(new DataGridColumn("员工ID", String.class));
 		gridModel.addColumn(new DataGridColumn("姓名", String.class));
-		gridModel.addColumn(new DataGridColumn("岗位", String.class));
 		gridModel.addColumn(new DataGridColumn("上次登录时间", String.class));
+		gridModel.addColumn(new DataGridColumn("岗位", String.class));
 
 		gridModel.addCommonAction(new ActionCommand("create", "新增管理员"));
 		gridModel.addItemAction(new ActionCommand("del", "删除"));

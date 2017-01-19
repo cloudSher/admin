@@ -18,6 +18,7 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 
 /**
  * 资源列表页
@@ -48,10 +49,9 @@ public class ResourceListView extends BaseWorkbenchTreeListView {
 			this.navigateToView("resource_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			System.out.println("del");
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
-
 	@Override
 	protected void createFilterForm(HorizontalLayout layout) {
 		searchAgent = new FormAgent();

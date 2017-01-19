@@ -11,6 +11,7 @@ import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
 import com.vaadin.spring.annotation.SpringView;
 
@@ -34,6 +35,7 @@ public class MemberEditView extends BaseWorkBenchEditorView {
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
 		List<FormField> base_message = new ArrayList<FormField>();
+		base_message.add(new FormField("话题ID", "id", new LabelFieldEditor("系统自动生成", "100%"), false, null, true));
 		base_message.add(new FormField("所属员工ID", "jobNumber", InputFieldEditor.class, true, null, true).setInputDescr("6-10位数字"));
 		base_message.add(new FormField("昵称", "nickName", InputFieldEditor.class, true, null, true).setInputDescr("3-20位字符，可由中文、英文及数字”组成"));
 		base_message.add(new FormField("会员头像", "header_img", ImageUploadEditor.class, true, null, true));

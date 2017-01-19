@@ -10,6 +10,7 @@ import com.lastartupsaas.workbench.view.datagrid.DataGridRow;
 import com.lastartupsaas.workbench.view.datagrid.DataListRequest;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 
 /**
  * KPI指标配置列表页
@@ -41,7 +42,7 @@ public class KpiConfigListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("kpi_target_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			System.out.println("del");
+			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
 

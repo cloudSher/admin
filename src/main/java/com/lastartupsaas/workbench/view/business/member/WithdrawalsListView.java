@@ -1,10 +1,13 @@
-package com.lastartupsaas.workbench.view.business.transaction.order;
+package com.lastartupsaas.workbench.view.business.member;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.domain.KeyValueObject;
+import com.lastartupsaas.workbench.domain.admin.Post;
+import com.lastartupsaas.workbench.domain.admin.User;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
+import com.lastartupsaas.workbench.view.business.admin.PasswordEditWindow;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -20,40 +23,38 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 /**
- * 交易管理列表页
+ * 管理员列表页
  * 
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = OrderListView.VIEW_NAME)
-public class OrderListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = WithdrawalsListView.VIEW_NAME)
+public class WithdrawalsListView extends BaseWorkBenchListWithSearchView {
 
-	private static final long serialVersionUID = 3830671701433487097L;
-	public static final String VIEW_NAME = "order.view";
+	private static final long serialVersionUID = 1842229739731945391L;
+	public static final String VIEW_NAME = "withdrawals_list.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
-	private String processFlag;// 流程标识：1加盟流程、2服务流程、3服务完成
 
-	public OrderListView() {
+	public WithdrawalsListView() {
+		this("当前位置：系统管理 > 权限管理 > 管理员");
 	}
-	
-	public OrderListView(String processFlag) {
-		this.processFlag = processFlag;
+
+	public WithdrawalsListView(String caption) {
+		this.setViewCaption(caption);
 		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
 		if (command.isActionId("view")) {
-			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
-		}
-		if (command.isActionId("cancel")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			WithdrawalsViewWindow formWindow = new WithdrawalsViewWindow("");
+			UI.getCurrent().addWindow(formWindow);
 		}
 	}
 
@@ -62,9 +63,8 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 		searchAgent = new FormAgent();
 		searchAgent.setDataHelper(new FormDataHelper());
 		searchAgent.setSearchMode(true);
-		searchAgent.setFieldColumnCount(4);
+		searchAgent.setFieldColumnCount(2);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		
 		List<KeyValueObject> list = new ArrayList<>();
 		list.add(new KeyValueObject("1", "会员ID"));
 		list.add(new KeyValueObject("2", "手机号"));
@@ -74,7 +74,7 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("请输入要搜索的内容"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
-		form.setWidth("100%");
+		form.setWidth("50%");
 		form.setSpacing(true);
 
 		layout.addComponent(form);
@@ -89,16 +89,14 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	protected void doSearchAction() {
-		this.searchName = (String) this.searchAgent.getFieldValue("param");
+		this.searchName = (String) this.searchAgent.getFieldValue("name");
 		this.dataGrid.reloadDatas();
 	}
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Member member = (Member) item;
-//		return new DataGridRow(member.getId(), new Object[] { member.getId(),"2016-10-11 12:41:25","1000000001", member.getNickName(), "18612345678",  "30000",
-//				"10001", "黄焖鸡米饭", "待支付启动金"});
-		return null;
+		return new DataGridRow("10000001",
+				new Object[] { "10000001", "12380091", "马云", "18688888888", "300", "2017-02-03 17:00", "招商银行", "6215***********6793", "马云", "已支付" });
 	}
 
 	@Override
@@ -108,37 +106,25 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-
-//		List<Member> members = new ArrayList<Member>();
-//		Member member = new Member();
-//		member.setId("2017011000001");
-//		member.setNickName("张三");
-//		member.setType("1");
-//		member.setEmail("test001@lashou-inc.com");
-//		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-//		member.setStatus("1");
-//		member.setAdditionalProperty("测试", "111111111");
-//		members.add(member);
-//		return members;
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("订单编号", String.class));
+		gridModel.addColumn(new DataGridColumn("提现ID", String.class));
+		gridModel.addColumn(new DataGridColumn("会员ID", String.class));
+		gridModel.addColumn(new DataGridColumn("会员昵称", String.class));
+		gridModel.addColumn(new DataGridColumn("会员手机", String.class));
+		gridModel.addColumn(new DataGridColumn("提现金额(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("申请时间", String.class));
-		gridModel.addColumn(new DataGridColumn("用户id", String.class));
-		gridModel.addColumn(new DataGridColumn("申请用户", String.class));
-		gridModel.addColumn(new DataGridColumn("用户手机号", String.class));
-		gridModel.addColumn(new DataGridColumn("启动金额(元)", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
-		gridModel.addColumn(new DataGridColumn("订单状态", String.class));
+		gridModel.addColumn(new DataGridColumn("收款银行", String.class));
+		gridModel.addColumn(new DataGridColumn("收款账号", String.class));
+		gridModel.addColumn(new DataGridColumn("开户名称", String.class));
+		gridModel.addColumn(new DataGridColumn("支付状态", String.class));
 
 		gridModel.addItemAction(new ActionCommand("view", "查看"));
-		if ("1".equals(processFlag)) {
-			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
-		}
 	}
 }
