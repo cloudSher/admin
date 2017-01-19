@@ -9,8 +9,6 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mozilla.javascript.tools.debugger.Main;
-
 import com.lastartupsaas.workbench.view.form.BaseFormFieldEditor;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
@@ -43,10 +41,10 @@ public class ImageUploadEditor extends BaseFormFieldEditor {
 	private ImageUploader receiver = new ImageUploader();
 
 	private String width = "100%";
-	private String fileUploadPath = ImageUploadEditor.class.getClassLoader().getResource("").getPath() + "/tmp/uploads/image/";
+	private String fileUploadPath = System.getProperty("user.dir") + "/tmp/uploads/image/";
 	private boolean multipleFlag = false;
-    private String image_name_prefix = UUID.randomUUID().toString();
-    private Set<String> image_names = new LinkedHashSet<>();
+	private String image_name_prefix = UUID.randomUUID().toString();
+	private Set<String> image_names = new LinkedHashSet<>();
 
 	public ImageUploadEditor() {
 	}
@@ -55,12 +53,12 @@ public class ImageUploadEditor extends BaseFormFieldEditor {
 		super();
 		this.width = width;
 	}
-	
+
 	public ImageUploadEditor(boolean multipleFlag) {
 		super();
 		this.multipleFlag = multipleFlag;
 	}
-	
+
 	public ImageUploadEditor(String width, boolean multipleFlag) {
 		super();
 		this.width = width;

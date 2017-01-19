@@ -3,7 +3,7 @@ package com.lastartupsaas.workbench.view.business.admin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ import com.vaadin.spring.annotation.SpringView;
 @SpringView(name = ResourceEditView.VIEW_NAME)
 public class ResourceEditView extends BaseWorkBenchEditorView {
 
-	private static final long serialVersionUID = -9186249530389566221L;
+	private static final long serialVersionUID = -796860637052680159L;
 	private Logger logger = LoggerFactory.getLogger(CaptchaUtil.class);
 	public static final String VIEW_NAME = "resource_edit.view";
 

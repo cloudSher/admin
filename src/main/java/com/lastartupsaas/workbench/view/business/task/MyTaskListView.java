@@ -1,7 +1,9 @@
-package com.lastartupsaas.workbench.view.business.community.topic;
+package com.lastartupsaas.workbench.view.business.task;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.lastartupsaas.workbench.domain.KeyValueObject;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
@@ -12,44 +14,43 @@ import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
-import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 
 /**
- * 话题推荐列表页
+ * 我的任务列表页
  * 
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = RecommendListView.VIEW_NAME)
-public class RecommendListView extends BaseWorkBenchListWithSearchView {
+@SpringView(name = MyTaskListView.VIEW_NAME)
+public class MyTaskListView extends BaseWorkBenchListWithSearchView {
 
-	private static final long serialVersionUID = 8782207053101461308L;
-	public static final String VIEW_NAME = "recommend_topic.view";
+	private static final long serialVersionUID = 6834992791154072035L;
+	public static final String VIEW_NAME = "my_task.view";
 
 	private FormAgent searchAgent;
 
 	private String searchName;
-	private String recommendFlag;// 推荐标识：1首页、2热门
+	private String taskType;// 任务标识：1待处理、2已处理
 
-	public RecommendListView() {
+	public MyTaskListView() {
 	}
 	
-	public RecommendListView(String processFlag) {
-		this.recommendFlag = processFlag;
-		this.withFilterSection = false;
+	public MyTaskListView(String taskType) {
+		this.taskType = taskType;
+		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
-		if (command.isActionId("view")) {
-			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
+		if (command.isActionId("operation")) {
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
-		if (command.isActionId("cancel")) {
+		if (command.isActionId("del")) {
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 	}
@@ -62,7 +63,17 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		
-		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的订单编号或手机号"));
+		List<KeyValueObject> typeList = new ArrayList<>();
+		typeList.add(new KeyValueObject("1", "全部类型"));
+		typeList.add(new KeyValueObject("2", "话题审核"));
+		typeList.add(new KeyValueObject("3", "品牌审核"));
+		searchAgent.addField(new FormField("任务类型", "type", new SelectFieldEditor(typeList, "key", "value","1","100%"), true, null, true).setInputDescr("选择任务类型"));
+		List<KeyValueObject> dealTypeList = new ArrayList<>();
+		dealTypeList.add(new KeyValueObject("1", "全部未处理"));
+		dealTypeList.add(new KeyValueObject("2", "超过8小时未处理"));
+		dealTypeList.add(new KeyValueObject("3", "超过12小时未处理"));
+		dealTypeList.add(new KeyValueObject("4", "超过24小时未处理"));
+		searchAgent.addField(new FormField("任务类型", "dealType", new SelectFieldEditor(typeList, "key", "value","1","100%"), true, null, true));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -117,22 +128,18 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("排序", String.class));
-		gridModel.addColumn(new DataGridColumn("话题ID", String.class));
-		gridModel.addColumn(new DataGridColumn("话题名称", String.class));
-		gridModel.addColumn(new DataGridColumn("话题图片", String.class));
-		gridModel.addColumn(new DataGridColumn("二级标签", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌话题", String.class));
-		gridModel.addColumn(new DataGridColumn("创建用户", String.class));
-		gridModel.addColumn(new DataGridColumn("创建时间", String.class));
-		gridModel.addColumn(new DataGridColumn("关注人数", String.class));
-		gridModel.addColumn(new DataGridColumn("动态数", String.class));
-		gridModel.addColumn(new DataGridColumn("状态", String.class));
-		gridModel.addColumn(new DataGridColumn("备注", String.class));
+		gridModel.addColumn(new DataGridColumn("任务类型", String.class));
+		gridModel.addColumn(new DataGridColumn("任务状态", String.class));
+		gridModel.addColumn(new DataGridColumn("处理状态", String.class));
+		gridModel.addColumn(new DataGridColumn("处理人", String.class));
+		gridModel.addColumn(new DataGridColumn("任务领取时间", String.class));
+		gridModel.addColumn(new DataGridColumn("处理时间", String.class));
+		gridModel.addColumn(new DataGridColumn("详情", String.class));
 
-		gridModel.addItemAction(new ActionCommand("del", "删除"));
-//		if ("1".equals(recommendFlag)) {
-//			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
-//		}
+		gridModel.addItemAction(new ActionCommand("view", "查看"));
+		if ("1".equals(taskType)) {
+			gridModel.addItemAction(new ActionCommand("operation", "处理"));
+			gridModel.addItemAction(new ActionCommand("del", "删除"));
+		}
 	}
 }

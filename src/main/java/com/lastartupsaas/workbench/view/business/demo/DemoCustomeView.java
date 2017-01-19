@@ -3,11 +3,9 @@ package com.lastartupsaas.workbench.view.business.demo;
 
 import com.lastartupsaas.workbench.view.BaseWorkbenchView;
 import com.lastartupsaas.workbench.view.ViewContext;
-import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 /**

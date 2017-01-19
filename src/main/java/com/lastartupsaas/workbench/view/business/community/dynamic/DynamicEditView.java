@@ -5,7 +5,7 @@ import java.util.List;
 
 //import javax.ws.rs.core.Response;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ import com.lastartupsaas.workbench.view.form.impl.TextFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * 品牌商编辑页面
+ * 动态管理编辑页面
  * 
  * @author lifeilong
  * @date: 2016-12-09

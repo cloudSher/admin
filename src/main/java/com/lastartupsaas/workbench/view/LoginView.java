@@ -2,7 +2,7 @@ package com.lastartupsaas.workbench.view;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -26,7 +26,6 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.UserError;
-import com.vaadin.server.VaadinService;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -47,6 +46,7 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringView(name = LoginView.VIEW_NAME)
 public class LoginView extends VerticalLayout implements View {
 
+	private static final long serialVersionUID = 5372247249478359691L;
 	private static final Logger logger = LoggerFactory.getLogger(LoginView.class);
 	public static final String VIEW_NAME = "login";
 
@@ -74,6 +74,8 @@ public class LoginView extends VerticalLayout implements View {
 
 		userName.setValue(SessionUtil.getFromCookie(ETERNIT_WORKBENCH_USERNAME));
 		password.setValue(SessionUtil.getFromCookie(ETERNIT_WORKBENCH_PASSWORD));
+		userName.setValue("admin");
+		password.setValue("123456");
 		userName.focus();
 	}
 
@@ -272,8 +274,8 @@ public class LoginView extends VerticalLayout implements View {
 		}
 
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password.getValue());
-//		token.setRememberMe(remberPassword.getValue());
-//		token.setHost(VaadinService.getCurrentRequest().getRemoteHost());
+		// token.setRememberMe(remberPassword.getValue());
+		// token.setHost(VaadinService.getCurrentRequest().getRemoteHost());
 		// 获取当前的Subject
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
@@ -312,7 +314,7 @@ public class LoginView extends VerticalLayout implements View {
 			loginListener.loginSuccessful();
 		} else {
 			token.clear();
-//			showNotification(new Notification("登录失败", "您输入的帐号或密码有误", Notification.Type.WARNING_MESSAGE));
+			// showNotification(new Notification("登录失败", "您输入的帐号或密码有误", Notification.Type.WARNING_MESSAGE));
 			userName.focus();
 		}
 	}

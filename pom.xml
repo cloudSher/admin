@@ -71,7 +71,7 @@
             <version>2.2.8.Final</version>
         </dependency>
 
-        <!-- s-api-client -->
+        <!-- s-api-client
         <dependency>
             <groupId>com.lastartupsaas.api.client</groupId>
             <artifactId>s-api-client</artifactId>
@@ -94,6 +94,11 @@
                     <artifactId>rhino</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency> -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.2.1</version>
         </dependency>
 
         <!-- dubbo -->

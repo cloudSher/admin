@@ -3,7 +3,7 @@ package com.lastartupsaas.workbench.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.lastartupsaas.workbench.domain.admin.Resource;
 
@@ -39,7 +39,7 @@ public class MenuDataTest {
 		brand_business.appenMenuItem(new Resource(100102L, "服务合同", false, false, null, null, "service_contract_list.view"));
 		brand_business.appenMenuItem(new Resource(100103L, "加盟合同", false, false, null, null, "role_list.view"));
 		brand_business.appenMenuItem(new Resource(100104L, "品牌商审核", false, false, null, null, "role_list.view"));
-		
+
 		Resource brand = new Resource(1002L, "品牌", false, false, null, null, "user_list.view");
 		brand_manage.appenMenuItem(brand);
 		brand.appenMenuItem(new Resource(100201L, "品牌列表", false, false, null, null, "user_list.view"));
@@ -75,17 +75,39 @@ public class MenuDataTest {
 		menuList.add(community_manage);
 
 		Resource marketing_manage = new Resource(4000L, "营销", false, false, null, null, null);
-		marketing_manage.appenMenuItem(new Resource(4001L, "创业学院", false, false, null, null, "user_list.view"));
-		marketing_manage.appenMenuItem(new Resource(4002L, "创业助力", false, false, null, null, "role_list.view"));
-		marketing_manage.appenMenuItem(new Resource(4003L, "留言咨询", false, false, null, null, "role_list.view"));
+		Resource college_manage = new Resource(4001L, "创业学院", false, false, null, null, null);
+		marketing_manage.appenMenuItem(college_manage);
+		college_manage.appenMenuItem(new Resource(400101L, "分类管理", false, false, null, null, "classify_list.view"));
+		college_manage.appenMenuItem(new Resource(400102L, "文章管理", false, false, null, null, "article_list.view"));
+		Resource assistance_manage = new Resource(4002L, "创业助力", false, false, null, null, null);
+		marketing_manage.appenMenuItem(assistance_manage);
+		assistance_manage.appenMenuItem(new Resource(400201L, "助力管理", false, false, null, null, "assistance_list.view"));
+		assistance_manage.appenMenuItem(new Resource(400202L, "助理金查看", false, false, null, null, "receive_list.view"));
+		Resource consult_manage = new Resource(4003L, "留言咨询", false, false, null, null, null);
+		marketing_manage.appenMenuItem(consult_manage);
+		consult_manage.appenMenuItem(new Resource(400301L, "留言管理", false, false, null, null, "leave_message_list.view"));
+		Resource message_push_manage = new Resource(4004L, "消息推送", false, false, null, null, null);
+		marketing_manage.appenMenuItem(message_push_manage);
+		message_push_manage.appenMenuItem(new Resource(400401L, "push管理", false, false, null, null, "message_push_list.view"));
+		message_push_manage.appenMenuItem(new Resource(400402L, "消息用户管理", false, false, null, null, "message_user_list.view"));
 		menuList.add(marketing_manage);
 
 		Resource vip_manage = new Resource(5000L, "会员", false, false, null, null, null);
-		vip_manage.appenMenuItem(new Resource(5001L, "会员管理", false, false, null, null, null));
-		vip_manage.appenMenuItem(new Resource(500101L, "会员列表", false, false, null, null, "member_list.view"));
-		vip_manage.appenMenuItem(new Resource(5002L, "潜能报告", false, false, null, null, null));
-		vip_manage.appenMenuItem(new Resource(500201L, "潜能报告", false, false, null, null, "role_list.view"));
+		Resource vip_list = new Resource(5001L, "会员管理", false, false, null, null, null);
+		vip_manage.appenMenuItem(vip_list);
+		vip_list.appenMenuItem(new Resource(500101L, "会员列表", false, false, null, null, "member_list.view"));
+		vip_list.appenMenuItem(new Resource(500102L, "提现管理", false, false, null, null, "member_list.view"));
+		Resource potential_report = new Resource(5002L, "潜能报告", false, false, null, null, null);
+		vip_manage.appenMenuItem(potential_report);
+		potential_report.appenMenuItem(new Resource(500201L, "潜能报告", false, false, null, null, "role_list.view"));
 		menuList.add(vip_manage);
+
+		Resource task_manage = new Resource(7000L, "待办任务", false, false, null, null, null);
+		task_manage.appenMenuItem(new Resource(7001L, "待办任务", false, false, null, null, null));
+		task_manage.appenMenuItem(new Resource(700101L, "我的任务", false, false, null, null, "my_task_list.view"));
+		task_manage.appenMenuItem(new Resource(700102L, "绩效统计", false, false, null, null, "performance_list.view"));
+		task_manage.appenMenuItem(new Resource(700103L, "任务库", false, false, null, null, "task_library_list.view"));
+		menuList.add(task_manage);
 
 		Resource system_manage = new Resource(6000L, "系统管理", false, false, null, null, null);
 		Resource authority_manage = new Resource(6001L, "权限管理", false, false, null, null, null);
@@ -94,6 +116,10 @@ public class MenuDataTest {
 		authority_manage.appenMenuItem(new Resource(600102L, "岗位", false, false, null, null, "post_list.view"));
 		authority_manage.appenMenuItem(new Resource(600103L, "角色", false, false, null, null, "role_list.view"));
 		authority_manage.appenMenuItem(new Resource(600104L, "资源", false, false, null, null, "resource_list.view"));
+		Resource kpi_manage = new Resource(6002L, "KIP管理", false, false, null, null, null);
+		system_manage.appenMenuItem(kpi_manage);
+		kpi_manage.appenMenuItem(new Resource(600201L, "KIP数据项", false, false, null, null, "kpi_config_list.view"));
+		kpi_manage.appenMenuItem(new Resource(600202L, "KPI指标配置", false, false, null, null, "kpi_target_list.view"));
 		menuList.add(system_manage);
 
 		return menuList;

@@ -1,6 +1,6 @@
 package com.lastartupsaas.workbench.view.form.impl;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.lastartupsaas.workbench.view.form.BaseFormFieldEditor;
 import com.vaadin.ui.Component;
@@ -26,7 +26,7 @@ public class LabelFieldEditor extends BaseFormFieldEditor {
 		super();
 		this.width = width;
 	}
-	
+
 	public LabelFieldEditor(String defaultValue, String width) {
 		super();
 		this.defaultValue = defaultValue;

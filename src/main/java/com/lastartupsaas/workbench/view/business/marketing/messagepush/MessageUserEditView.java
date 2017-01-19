@@ -1,43 +1,48 @@
-package com.lastartupsaas.workbench.view.business.community.setup;
+package com.lastartupsaas.workbench.view.business.marketing.messagepush;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.lastartupsaas.workbench.domain.KeyValueObject;
 import com.lastartupsaas.workbench.domain.admin.User;
 import com.lastartupsaas.workbench.view.BaseWorkBenchEditorView;
 import com.lastartupsaas.workbench.view.ViewContext;
 import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
-import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * 关键词屏蔽编辑页
+ * 消息用户管理编辑页
  * 
  * @author lifeilong
  * @date 2016-12-26
  */
-@SpringView(name = KeywordEditView.VIEW_NAME)
-public class KeywordEditView extends BaseWorkBenchEditorView {
+@SpringView(name = MessageUserEditView.VIEW_NAME)
+public class MessageUserEditView extends BaseWorkBenchEditorView {
 
-	private static final long serialVersionUID = -3699172478466125818L;
-	public static final String VIEW_NAME = "keyword_edit.view";
+	private static final long serialVersionUID = -6553600325165000639L;
+	public static final String VIEW_NAME = "message_user_edit.view";
 
 	@Override
 	protected String getObjectName(Object obj) {
-		return "当前位置：社区运营 > 设置 > 关键词屏蔽";
+		return "当前位置：社区运营 > 消息推送 > 消息用户管理";
 	}
 
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
 		List<FormField> base_message = new ArrayList<FormField>();
-		base_message.add(new FormField("关键词ID", "id", new LabelFieldEditor("系统自动生成", "100%"), false, null, true));
-		base_message.add(new FormField("关键词", "loginName", InputFieldEditor.class, true, null, true));
-
-		formAgent.addFieldListToMap("关键词信息", base_message);
+		
+		List<KeyValueObject> typeList = new ArrayList<>();
+		typeList.add(new KeyValueObject("1", "版本1"));
+		typeList.add(new KeyValueObject("2", "版本2"));
+		base_message.add(new FormField("用户分类名称", "type", new SelectFieldEditor(typeList, "key", "value"), true, null, true).setInputDescr("选择版本"));
+		base_message.add(new FormField("选择用户文件", "url", InputFieldEditor.class, true, null, true));
+		
+		formAgent.addFieldListToMap("消息用户信息", base_message);
 	}
 
 	@Override
@@ -66,6 +71,6 @@ public class KeywordEditView extends BaseWorkBenchEditorView {
 
 	@Override
 	protected String getReturnViewUrl() {
-		return "keyword_list.view";
+		return "message_user_list.view";
 	}
 }

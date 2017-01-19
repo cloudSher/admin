@@ -2,8 +2,6 @@ package com.lastartupsaas.workbench.view.business.community.setup;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
@@ -21,7 +19,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 
 /**
- * 品牌商列表页面
+ * 关键词屏蔽列表页面
  * 
  * @author lifeilong
  * @date: 2016-12-09
@@ -36,7 +34,7 @@ public class KeywordListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 	private int totalCount;
 
-	@Autowired
+//	@Autowired
 //	private TopicsResource topicsResource;
 	private String xLaAuthorization = "oauth2.0";
 //	private XLaFormat xLaFormat = XLaFormat.json;

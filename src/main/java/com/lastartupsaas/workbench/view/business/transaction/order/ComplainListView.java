@@ -19,7 +19,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 
 /**
- * 会员列表页
+ * 投诉管理列表页
  * 
  * @author lifeilong
  * @date 2016-12-26
