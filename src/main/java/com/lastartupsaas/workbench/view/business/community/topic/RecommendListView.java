@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.community.topic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -13,10 +14,15 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * 话题推荐列表页
@@ -37,7 +43,7 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 
 	public RecommendListView() {
 	}
-	
+
 	public RecommendListView(String processFlag) {
 		this.recommendFlag = processFlag;
 		this.withFilterSection = false;
@@ -45,12 +51,16 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
-		if (command.isActionId("view")) {
-			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
-		}
-		if (command.isActionId("cancel")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+		if (command.isActionId("del")) {
+			showConfirmDialog("提示", "确定要删除该话题吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "话题删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -61,7 +71,7 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		
+
 		searchAgent.addField(new FormField("", "param", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的订单编号或手机号"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
@@ -86,10 +96,32 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Member member = (Member) item;
-//		return new DataGridRow(member.getId(), new Object[] { member.getId(),"2016-10-11 12:41:25","1000000001", member.getNickName(), "18612345678",  "30000",
-//				"10001", "黄焖鸡米饭", "待支付启动金"});
-		return null;
+
+		HorizontalLayout layout = new HorizontalLayout();
+		TextField field = new TextField();
+		field.setValue("1");
+		field.addStyleName(ValoTheme.TEXTFIELD_SMALL);
+		field.addStyleName(ValoTheme.TEXTFIELD_ALIGN_CENTER);
+		field.setWidth("50px");
+		Button button = new Button("编辑", new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				showConfirmDialog("提示", "确定要修改顺序 ?",  new ConfirmYesNoDialog.ConfirmListener() {
+                    @Override
+                    public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+                        if(event.isConfirm()){
+                        	Notification.show("恭喜你", "顺序设置成功", Notification.Type.HUMANIZED_MESSAGE);
+                        }
+                    }
+                });
+			}
+		});
+		button.addStyleName(ValoTheme.BUTTON_SMALL);
+		button.addStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
+		layout.addComponent(field, 0);
+		layout.addComponent(button, 1);
+		return new DataGridRow("00000003",
+				new Object[] { layout, "00000003", "成功故事", "", "否", "是", "1000000001", "2016-10-11 12:41:25", "1678", "768", "未审核", "成功故事话题" });
 	}
 
 	@Override
@@ -100,24 +132,15 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 
-//		List<Member> members = new ArrayList<Member>();
-//		Member member = new Member();
-//		member.setId("2017011000001");
-//		member.setNickName("张三");
-//		member.setType("1");
-//		member.setEmail("test001@lashou-inc.com");
-//		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-//		member.setStatus("1");
-//		member.setAdditionalProperty("测试", "111111111");
-//		members.add(member);
-//		return members;
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("排序", String.class));
+		gridModel.addColumn(new DataGridColumn("排序", HorizontalLayout.class));
 		gridModel.addColumn(new DataGridColumn("话题ID", String.class));
 		gridModel.addColumn(new DataGridColumn("话题名称", String.class));
 		gridModel.addColumn(new DataGridColumn("话题图片", String.class));
@@ -131,8 +154,8 @@ public class RecommendListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addColumn(new DataGridColumn("备注", String.class));
 
 		gridModel.addItemAction(new ActionCommand("del", "删除"));
-//		if ("1".equals(recommendFlag)) {
-//			gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
-//		}
+		// if ("1".equals(recommendFlag)) {
+		// gridModel.addItemAction(new ActionCommand("cancel", "取消加盟"));
+		// }
 	}
 }

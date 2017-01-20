@@ -17,14 +17,18 @@ public class ModalWindow extends Window {
     private BaseWorkbenchView view;
 
     public ModalWindow(String caption, BaseWorkbenchView view) {
-        super(caption);
+        this(caption, view, "750px");
+    }
+    
+    public ModalWindow(String caption, BaseWorkbenchView view, String width) {
+    	super(caption);
 
         this.setModal(true);
         this.center();
-        this.setWidth("750px");
+        this.setWidth(width);
         this.view = view;
         this.setup();
-    }
+	}
 
     private void setup() {
 

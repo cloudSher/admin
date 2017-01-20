@@ -15,6 +15,7 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -39,7 +40,7 @@ public class MyTaskListView extends BaseWorkBenchListWithSearchView {
 
 	public MyTaskListView() {
 	}
-	
+
 	public MyTaskListView(String taskType) {
 		this.taskType = taskType;
 		this.withFilterSection = true;
@@ -51,7 +52,15 @@ public class MyTaskListView extends BaseWorkBenchListWithSearchView {
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除该任务吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "任务删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -62,18 +71,19 @@ public class MyTaskListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		
+
 		List<KeyValueObject> typeList = new ArrayList<>();
 		typeList.add(new KeyValueObject("1", "全部类型"));
 		typeList.add(new KeyValueObject("2", "话题审核"));
 		typeList.add(new KeyValueObject("3", "品牌审核"));
-		searchAgent.addField(new FormField("任务类型", "type", new SelectFieldEditor(typeList, "key", "value","1","100%"), true, null, true).setInputDescr("选择任务类型"));
+		searchAgent.addField(new FormField("任务类型", "type", new SelectFieldEditor(typeList, "key", "value", "1", "100%"), true, null, true)
+				.setInputDescr("选择任务类型"));
 		List<KeyValueObject> dealTypeList = new ArrayList<>();
 		dealTypeList.add(new KeyValueObject("1", "全部未处理"));
 		dealTypeList.add(new KeyValueObject("2", "超过8小时未处理"));
 		dealTypeList.add(new KeyValueObject("3", "超过12小时未处理"));
 		dealTypeList.add(new KeyValueObject("4", "超过24小时未处理"));
-		searchAgent.addField(new FormField("任务类型", "dealType", new SelectFieldEditor(typeList, "key", "value","1","100%"), true, null, true));
+		searchAgent.addField(new FormField("任务类型", "dealType", new SelectFieldEditor(typeList, "key", "value", "1", "100%"), true, null, true));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -97,10 +107,8 @@ public class MyTaskListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Member member = (Member) item;
-//		return new DataGridRow(member.getId(), new Object[] { member.getId(),"2016-10-11 12:41:25","1000000001", member.getNickName(), "18612345678",  "30000",
-//				"10001", "黄焖鸡米饭", "待支付启动金"});
-		return null;
+
+		return new DataGridRow("00000003", new Object[] { "话题审核", "领取待完成", "待处理", "张三", "2016-10-11 12:41:25", "2016-10-11 12:41:25", "详情" });
 	}
 
 	@Override
@@ -110,19 +118,9 @@ public class MyTaskListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-
-//		List<Member> members = new ArrayList<Member>();
-//		Member member = new Member();
-//		member.setId("2017011000001");
-//		member.setNickName("张三");
-//		member.setType("1");
-//		member.setEmail("test001@lashou-inc.com");
-//		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-//		member.setStatus("1");
-//		member.setAdditionalProperty("测试", "111111111");
-//		members.add(member);
-//		return members;
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override

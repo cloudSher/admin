@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.brand;
+package com.lastartupsaas.workbench.view.business.brand.supplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.DateFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
@@ -35,8 +36,8 @@ public class ServiceContractEditView extends BaseWorkBenchEditorView {
 	@Override
 	protected void declareFormAgent(FormAgent formAgent) {
 		List<FormField> base_message = new ArrayList<FormField>();
-		base_message.add(new FormField("系统服务合同编号", "contractNo", InputFieldEditor.class, false, null, true));
-		base_message.add(new FormField("线下服务合同编号", "contractNo", InputFieldEditor.class, false, null, true));
+		base_message.add(new FormField("系统服务合同编号", "businessLicenseNo", new LabelFieldEditor("系统自动生成", "100%"), false, null, true));
+		base_message.add(new FormField("线下服务合同编号", "contractNo", InputFieldEditor.class, false, null, true).setInputDescr("线下合同编号，手动填写"));
 		base_message.add(new FormField("品牌编号", "firstParty", InputFieldEditor.class, true, null, true));
 		base_message.add(new FormField("甲方", "firstParty", InputFieldEditor.class, true, null, true));
 		base_message.add(new FormField("乙方", "secondParty", InputFieldEditor.class, true, null, true));
@@ -45,10 +46,10 @@ public class ServiceContractEditView extends BaseWorkBenchEditorView {
 		formAgent.addFieldListToMap("基本信息", base_message);
 		
 		List<FormField> firstParty_message = new ArrayList<FormField>();
-		firstParty_message.add(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, true, null, true));
+		firstParty_message.add(new FormField("工商执照注册号", "businessLicenseNo1", InputFieldEditor.class, true, null, true));
 		firstParty_message.add(new FormField("税务登记证号", "taxNo", InputFieldEditor.class, true, null, true));
 		firstParty_message.add(new FormField("法定代表人", "legalPerson", InputFieldEditor.class, true, null, true));
-		formAgent.addFieldListToMap("甲方信息", firstParty_message);
+		formAgent.addFieldListToMap("甲方基本信息", firstParty_message);
 		
 		List<FormField> settlement_message = new ArrayList<FormField>();
 		settlement_message.add(new FormField("平台抽佣比率", "settlementPeriod", InputFieldEditor.class, true, null, true));

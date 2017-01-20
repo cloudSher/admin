@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.marketing.college;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -13,9 +14,11 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
 /**
@@ -37,7 +40,7 @@ public class ArticleListView extends BaseWorkBenchListWithSearchView {
 	public ArticleListView() {
 		this("当前位置：社区运营 > 创业学院 > 文章管理");
 	}
-	
+
 	public ArticleListView(String caption) {
 		this.setViewCaption(caption);
 		this.withFilterSection = false;
@@ -49,13 +52,33 @@ public class ArticleListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("article_edit.view");
 		}
 		if (command.isActionId("batch_delete")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			if (parameters.length == 0) {
+				Notification.show("提示", "至少需要选中一条数据", Notification.Type.ERROR_MESSAGE);
+			} else {
+				showConfirmDialog("提示", "确定要删除选中的文章吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+					@Override
+					public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+						if (event.isConfirm()) {
+							Notification.show("提示", "文章批量删除成功", Notification.Type.HUMANIZED_MESSAGE);
+						} else {
+						}
+					}
+				});
+			}
 		}
 		if (command.isActionId("edit")) {
 			this.navigateToView("article_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除该文章吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "文章删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 		if (command.isActionId("preview")) {
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
@@ -93,10 +116,10 @@ public class ArticleListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		User user = (User) item;
-//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
-		return null;
+		Label title_label = new Label("故事案例...");
+		title_label.setDescription("故事案例之加盟肯德基月入千万");
+		
+		return new DataGridRow("00000003", new Object[] { title_label, "加盟故事", "是", "2016-10-11 12:41:25" });
 	}
 
 	@Override
@@ -106,13 +129,15 @@ public class ArticleListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("文章标题", String.class));
+		gridModel.addColumn(new DataGridColumn("文章标题", Label.class));
 		gridModel.addColumn(new DataGridColumn("所属分类", String.class));
 		gridModel.addColumn(new DataGridColumn("是否显示", String.class));
 		gridModel.addColumn(new DataGridColumn("创建日期", String.class));

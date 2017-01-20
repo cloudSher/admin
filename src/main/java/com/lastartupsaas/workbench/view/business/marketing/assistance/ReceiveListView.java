@@ -40,7 +40,7 @@ public class ReceiveListView extends BaseWorkBenchListWithSearchView {
 	public ReceiveListView() {
 		this("当前位置：社区运营 > 创业助力 > 助理金查看");
 	}
-	
+
 	public ReceiveListView(String caption) {
 		this.setViewCaption(caption);
 		this.withFilterSection = true;
@@ -55,7 +55,7 @@ public class ReceiveListView extends BaseWorkBenchListWithSearchView {
 		searchAgent = new FormAgent();
 		searchAgent.setDataHelper(new FormDataHelper());
 		searchAgent.setSearchMode(true);
-		searchAgent.setFieldColumnCount(2);
+		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("领取时间", "start_time", DateFieldEditor.class, false, null, false).setInputDescr("开始领取时间"));
 		searchAgent.addField(new FormField("~", "end_time", DateFieldEditor.class, false, null, false).setInputDescr("结束领取时间"));
@@ -87,10 +87,9 @@ public class ReceiveListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		User user = (User) item;
-//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
-		return null;
+
+		return new DataGridRow("00000001",
+				new Object[] { "00000001", "鸟叔", "2424243", "13222222222", "200", "2018-03-03 10:22", "2018-03-03 10:22", "美食", "黄焖鸡米饭", "已使用" });
 	}
 
 	@Override
@@ -100,7 +99,9 @@ public class ReceiveListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override

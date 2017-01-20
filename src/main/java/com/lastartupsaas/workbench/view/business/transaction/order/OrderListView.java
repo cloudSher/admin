@@ -20,6 +20,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 /**
  * 交易管理列表页
@@ -49,8 +50,8 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
 		if (command.isActionId("view")) {
-			// this.navigateToView("Member_edit.view/id=" + parameters[0]);
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			OrderViewWindow formWindow = new OrderViewWindow("");
+			UI.getCurrent().addWindow(formWindow);
 		}
 		if (command.isActionId("cancel")) {
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
@@ -66,8 +67,8 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		
 		List<KeyValueObject> list = new ArrayList<>();
-		list.add(new KeyValueObject("1", "会员ID"));
-		list.add(new KeyValueObject("2", "手机号"));
+		list.add(new KeyValueObject("1", "订单编号"));
+		list.add(new KeyValueObject("2", "用户手机号"));
 
 		searchAgent.addField(
 				new FormField("", "member_type", new SelectFieldEditor(list, "key", "value"), false, null, false).setInputDescr("请选择搜索条件类型"));
@@ -95,10 +96,16 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Member member = (Member) item;
-//		return new DataGridRow(member.getId(), new Object[] { member.getId(),"2016-10-11 12:41:25","1000000001", member.getNickName(), "18612345678",  "30000",
-//				"10001", "黄焖鸡米饭", "待支付启动金"});
-		return null;
+		if ("1".equals(processFlag)) {
+			return new DataGridRow("00000001", new Object[] { "00000001","2016-10-11 12:41:25","1000000001", "雷军", "18612345678",  "30000.00",
+					"10001", "黄焖鸡米饭", "待支付启动金"});
+		} else if ("2".equals(processFlag)) {
+			return new DataGridRow("00000002", new Object[] { "00000002","2017-02-01 12:41:25","1000000002", "马化腾", "18612345678",  "30000.00",
+					"10001", "肯德基", "后期款项未确认"});
+		} else {
+			return new DataGridRow("00000003", new Object[] { "00000003","2016-10-11 12:41:25","1000000001", "周宏文", "18612345678",  "30000.00",
+					"10001", "德克士", "加盟成功"});
+		}
 	}
 
 	@Override
@@ -108,19 +115,9 @@ public class OrderListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-
-//		List<Member> members = new ArrayList<Member>();
-//		Member member = new Member();
-//		member.setId("2017011000001");
-//		member.setNickName("张三");
-//		member.setType("1");
-//		member.setEmail("test001@lashou-inc.com");
-//		member.setHeadImg("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-//		member.setStatus("1");
-//		member.setAdditionalProperty("测试", "111111111");
-//		members.add(member);
-//		return members;
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override

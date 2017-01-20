@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.marketing.college;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -13,10 +14,15 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * 分类管理列表页
@@ -52,7 +58,15 @@ public class ClassifyListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("classify_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除该分类吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "分类删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -87,10 +101,31 @@ public class ClassifyListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		User user = (User) item;
-//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
-		return null;
+		HorizontalLayout layout = new HorizontalLayout();
+		TextField field = new TextField();
+		field.setValue("1");
+		field.addStyleName(ValoTheme.TEXTFIELD_SMALL);
+		field.addStyleName(ValoTheme.TEXTFIELD_ALIGN_CENTER);
+		field.setWidth("50px");
+		Button button = new Button("编辑", new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				showConfirmDialog("提示", "确定要修改顺序 ?",  new ConfirmYesNoDialog.ConfirmListener() {
+                    @Override
+                    public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+                        if(event.isConfirm()){
+                        	Notification.show("恭喜你", "顺序设置成功", Notification.Type.HUMANIZED_MESSAGE);
+                        }
+                    }
+                });
+			}
+		});
+		button.addStyleName(ValoTheme.BUTTON_SMALL);
+		button.addStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
+		layout.addComponent(field, 0);
+		layout.addComponent(button, 1);
+		return new DataGridRow("00000003",
+				new Object[] { layout, "", "加盟知识" });
 	}
 
 	@Override
@@ -100,13 +135,15 @@ public class ClassifyListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("排序", String.class));
+		gridModel.addColumn(new DataGridColumn("排序", HorizontalLayout.class));
 		gridModel.addColumn(new DataGridColumn("图片", String.class));
 		gridModel.addColumn(new DataGridColumn("分类名称", String.class));
 

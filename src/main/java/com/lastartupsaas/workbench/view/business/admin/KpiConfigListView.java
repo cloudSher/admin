@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -8,6 +9,7 @@ import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
 import com.lastartupsaas.workbench.view.datagrid.DataGridRow;
 import com.lastartupsaas.workbench.view.datagrid.DataListRequest;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
@@ -42,7 +44,15 @@ public class KpiConfigListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("kpi_target_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除此KPI指标配置吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "KPI指标配置删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -60,22 +70,24 @@ public class KpiConfigListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		return null;
+		return new DataGridRow("00000003", new Object[] { "一次通过率", "'合同一次通过数' / '合同录入数'", "服务合同" });
 	}
 
 	@Override
 	public int getDataCount() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
-		gridModel.addColumn(new DataGridColumn("业务名称", Long.class));
+		gridModel.addColumn(new DataGridColumn("业务名称", String.class));
 		gridModel.addColumn(new DataGridColumn("公式", String.class));
 		gridModel.addColumn(new DataGridColumn("所属分类", String.class));
 

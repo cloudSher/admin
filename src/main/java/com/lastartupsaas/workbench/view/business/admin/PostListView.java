@@ -12,6 +12,7 @@ import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
 import com.lastartupsaas.workbench.view.datagrid.DataGridRow;
 import com.lastartupsaas.workbench.view.datagrid.DataListRequest;
 import com.lastartupsaas.workbench.view.form.FormAgent;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.HorizontalLayout;
@@ -47,7 +48,15 @@ public class PostListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("post_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除此岗位吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "岗位删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 		if (command.isActionId("lowerPost")) {
 			LowerPostListView lowerPostListView = new LowerPostListView();

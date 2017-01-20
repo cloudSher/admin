@@ -86,9 +86,8 @@ public class NotOutAccountListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		// Post post = (Post) item;
-		// return new DataGridRow(post.getId(), new Object[] { post.getId(), post.getPostName() });
-		return null;
+		return new DataGridRow("00000001", new Object[] { "汉丽轩", "00000001", "1000000001", "2016-10-11 12:41:25", "122100031", "18612345678", "30.00",
+				"2.40", "27.60", "3213123123" });
 	}
 
 	@Override
@@ -98,12 +97,14 @@ public class NotOutAccountListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
-		gridModel.addColumn(new DataGridColumn("品牌名称", Long.class));
+		gridModel.addColumn(new DataGridColumn("品牌名称", String.class));
 		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
 		gridModel.addColumn(new DataGridColumn("交易单号", String.class));
 		gridModel.addColumn(new DataGridColumn("用户确认时间", String.class));

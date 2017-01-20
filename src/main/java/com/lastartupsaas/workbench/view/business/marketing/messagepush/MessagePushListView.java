@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.marketing.messagepush;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -13,9 +14,11 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
 /**
@@ -28,6 +31,7 @@ import com.vaadin.ui.Notification;
 public class MessagePushListView extends BaseWorkBenchListWithSearchView {
 
 	private static final long serialVersionUID = -1874068477634669367L;
+
 	public static final String VIEW_NAME = "message_push_list.view";
 
 	private FormAgent searchAgent;
@@ -37,7 +41,7 @@ public class MessagePushListView extends BaseWorkBenchListWithSearchView {
 	public MessagePushListView() {
 		this("当前位置：社区运营 > 消息推送 > push管理");
 	}
-	
+
 	public MessagePushListView(String caption) {
 		this.setViewCaption(caption);
 		this.withFilterSection = true;
@@ -52,7 +56,15 @@ public class MessagePushListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("message_push_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除该推送消息吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "推送消息删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -87,10 +99,13 @@ public class MessagePushListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		User user = (User) item;
-//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
-		return null;
+
+		Label title_label = new Label("标题标题...");
+		title_label.setDescription("标题标题故事案例之加盟肯德基月入千万");
+		Label content_label = new Label("内容内容...");
+		content_label.setDescription("内容内容故事案例之加盟肯德基月入千万");
+		return new DataGridRow("00000001",
+				new Object[] { "00000001", title_label, content_label, "系统通知", "IOS", "1.0", "2017-03-03 10:22:11", "已推送" });
 	}
 
 	@Override
@@ -100,15 +115,17 @@ public class MessagePushListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
 		gridModel.addColumn(new DataGridColumn("ID", String.class));
-		gridModel.addColumn(new DataGridColumn("标题", String.class));
-		gridModel.addColumn(new DataGridColumn("内容", String.class));
+		gridModel.addColumn(new DataGridColumn("标题", Label.class));
+		gridModel.addColumn(new DataGridColumn("内容", Label.class));
 		gridModel.addColumn(new DataGridColumn("类型", String.class));
 		gridModel.addColumn(new DataGridColumn("平台", String.class));
 		gridModel.addColumn(new DataGridColumn("版本", String.class));
