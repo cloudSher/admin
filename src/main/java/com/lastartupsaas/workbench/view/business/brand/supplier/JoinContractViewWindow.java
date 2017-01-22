@@ -4,16 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.form.FormAgent;
-import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
-import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
-import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
-import com.lastartupsaas.workbench.widgets.FormActionButton;
 import com.lastartupsaas.workbench.widgets.FormWindow;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Notification;
 
 /**
  * 品牌 > 品牌商 > 加盟合同查看页面

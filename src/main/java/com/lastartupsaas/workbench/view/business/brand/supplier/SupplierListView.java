@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.lastartupsaas.workbench.domain.brand.BrandBusiness;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
+import com.lastartupsaas.workbench.view.business.brand.brand.BrandEditTabView;
+import com.lastartupsaas.workbench.view.business.brand.brand.BrandListView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -15,13 +17,15 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
-import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
+import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.themes.ValoTheme;
+import com.vaadin.ui.UI;
 
 /**
  * 品牌商列表页面
@@ -50,21 +54,28 @@ public class SupplierListView extends BaseWorkBenchListWithSearchView {
 		if (command.isActionId("create")) {
 			// 新增品牌商
 			this.navigateToView("brand_business_edit.view");
-			
+
 		} else if (command.isActionId("edit")) {
 			// 编辑品牌商
 			this.navigateToView("brand_business_edit.view/id=" + parameters[0]);
-			
+
 		} else if (command.isActionId("export")) {
 			// 导出数据
 			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
-			
+
 		} else if (command.isActionId("brand_list")) {
 			// 品牌列表
-			
-			
+			BrandListView firstView = new BrandListView();
+			firstView.initView();
+			ModalWindow formWindow = new ModalWindow("", firstView, "90%");
+			UI.getCurrent().addWindow(formWindow);
+
 		} else if (command.isActionId("add_brand")) {
 			// 新增品牌
+			BrandEditTabView firstView = new BrandEditTabView();
+			firstView.initView();
+			ModalWindow formWindow = new ModalWindow("", firstView, "90%");
+			UI.getCurrent().addWindow(formWindow);
 		}
 	}
 
@@ -77,7 +88,8 @@ public class SupplierListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("品牌商编号", "id", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的品牌商编号"));
 		searchAgent.addField(new FormField("品牌商名称", "enterpriseName", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的品牌商名称"));
-		searchAgent.addField(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的工商执照注册号"));
+		searchAgent
+				.addField(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的工商执照注册号"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
 		form.setWidth("100%");
@@ -102,8 +114,18 @@ public class SupplierListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public DataGridRow convertRowData(Object item) {
 		BrandBusiness brandBusiness = (BrandBusiness) item;
+
+		Button button = new Button(brandBusiness.getId(), new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				SupplierViewWindow formWindow = new SupplierViewWindow("");
+				UI.getCurrent().addWindow(formWindow);
+			}
+		});
+		button.addStyleName(ValoTheme.BUTTON_LINK);
+
 		return new DataGridRow(brandBusiness.getId(),
-				new Object[] { brandBusiness.getId(), brandBusiness.getEnterpriseName(), brandBusiness.getBusinessLicenseNo(), brandBusiness.getContactPhone(),
+				new Object[] { button, brandBusiness.getEnterpriseName(), brandBusiness.getBusinessLicenseNo(), brandBusiness.getContactPhone(),
 						brandBusiness.getEnterpriseAddress(), brandBusiness.getReviewState(), brandBusiness.getLastOperateTime(),
 						brandBusiness.getSmsFlag() });
 	}
@@ -116,17 +138,17 @@ public class SupplierListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 		List<BrandBusiness> brandBusinessList = new ArrayList<BrandBusiness>();
+		brandBusinessList.add(
+				new BrandBusiness("100000001", "久久鸭", "100201612090011", "北京市朝阳区望京东路1号摩托罗拉大厦8层", "张三", "5000", "通过", "是", "2016-12-09 16:26:22"));
 		brandBusinessList
-				.add(new BrandBusiness(1L, "久久鸭", "100201612090011", "北京市朝阳区望京东路1号摩托罗拉大厦8层", "张三", "5000", "通过", "是", "2016-12-09 16:26:22"));
-		brandBusinessList
-				.add(new BrandBusiness(2L, "庆丰包子", "202201612090012", "北京市朝阳区望京东路1号", "李四", "30000", "拒绝", "否", "2016-12-09 16:26:22"));
+				.add(new BrandBusiness("100000002", "庆丰包子", "202201612090012", "北京市朝阳区望京东路1号", "李四", "30000", "拒绝", "否", "2016-12-09 16:26:22"));
 		return brandBusinessList;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("品牌商编号", Long.class));
+		gridModel.addColumn(new DataGridColumn("品牌商编号", Button.class));
 		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
 		gridModel.addColumn(new DataGridColumn("工商执照注册号", String.class));
 		gridModel.addColumn(new DataGridColumn("品牌商企业规模(人)", String.class));

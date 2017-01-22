@@ -19,7 +19,7 @@ public class TaskLibraryTabView extends BaseWorkbenchTabView {
 	public static final String VIEW_NAME = "task_library_list.view";
 
 	public TaskLibraryTabView() {
-		this.setViewCaption("当前位置：待办任务 > 待办任务 > 任务库");
+		this.setViewCaption("当前位置：待办任务 > 任务库");
 	}
 	
 	@Override

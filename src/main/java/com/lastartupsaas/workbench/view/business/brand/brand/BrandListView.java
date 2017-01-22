@@ -8,6 +8,7 @@ import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
 import com.lastartupsaas.workbench.view.business.brand.supplier.JoinContractViewWindow;
 import com.lastartupsaas.workbench.view.business.brand.supplier.ServiceContractEditView;
 import com.lastartupsaas.workbench.view.business.brand.supplier.ServiceContractViewWindow;
+import com.lastartupsaas.workbench.view.business.brand.supplier.SupplierViewWindow;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -25,11 +26,10 @@ import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -202,7 +202,7 @@ public class BrandListView extends BaseWorkBenchListWithSearchView {
 		Button view_supplier = new Button("呷哺呷哺股份有限公司", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				JoinContractViewWindow formWindow = new JoinContractViewWindow("");
+				SupplierViewWindow formWindow = new SupplierViewWindow("");
 				UI.getCurrent().addWindow(formWindow);
 			}
 		});

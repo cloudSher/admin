@@ -36,7 +36,7 @@ public class PerformanceListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 
 	public PerformanceListView() {
-		this("当前位置：待办任务 > 待办任务 > 绩效统计");
+		this("当前位置：待办任务 > 绩效统计");
 	}
 
 	public PerformanceListView(String caption) {

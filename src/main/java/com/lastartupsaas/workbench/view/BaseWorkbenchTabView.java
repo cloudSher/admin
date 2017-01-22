@@ -36,8 +36,9 @@ public abstract class BaseWorkbenchTabView extends BaseWorkbenchView {
 
 				tabSheet.addTab(view, key);
 			}
-			tabSheet.setWidth("100%");
-			tabSheet.setHeight("100%");
+			tabSheet.setSelectedTab(1);
+			tabSheet.setSelectedTab(0);
+			tabSheet.setSizeFull();
 			tabSheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
 			tabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
 			this.getViewRoot().addComponent(tabSheet);

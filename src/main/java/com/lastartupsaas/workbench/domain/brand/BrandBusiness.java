@@ -7,7 +7,7 @@ import com.lastartupsaas.workbench.domain.BaseObject;
  * Date: 2016-12-09
  */
 public class BrandBusiness extends BaseObject {
-	private Long id;// 品牌商编号
+	private String id;// 品牌商编号
 	private String enterpriseName;// 企业名称
 	private String businessLicenseNo;// 工商执照注册号
 	private String enterpriseAddress;// 企业地址
@@ -20,7 +20,7 @@ public class BrandBusiness extends BaseObject {
 	public BrandBusiness() {
 	}
 
-	public BrandBusiness(Long id, String enterpriseName, String businessLicenseNo, String enterpriseAddress, String contact, String contactPhone,
+	public BrandBusiness(String id, String enterpriseName, String businessLicenseNo, String enterpriseAddress, String contact, String contactPhone,
 			String reviewState, String smsFlag, String lastOperateTime) {
 		super();
 		this.id = id;
@@ -34,11 +34,11 @@ public class BrandBusiness extends BaseObject {
 		this.lastOperateTime = lastOperateTime;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

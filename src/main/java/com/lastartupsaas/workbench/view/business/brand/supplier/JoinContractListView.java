@@ -101,7 +101,7 @@ public class JoinContractListView extends BaseWorkBenchListWithSearchView {
 		Button button1 = new Button("呷哺呷哺股份有限公司", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				JoinContractViewWindow formWindow = new JoinContractViewWindow("");
+				SupplierViewWindow formWindow = new SupplierViewWindow("");
 				UI.getCurrent().addWindow(formWindow);
 			}
 		});
@@ -115,7 +115,7 @@ public class JoinContractListView extends BaseWorkBenchListWithSearchView {
 		});
 		button2.addStyleName(ValoTheme.BUTTON_LINK);
 
-		return new DataGridRow("00000010", new Object[] { button, "00000001", button1, "张三", "13212345678", button2, "100,0000.00", "300,0000.00",
+		return new DataGridRow("00000010", new Object[] { button, "00000001", button1, "张三", "13212345678", "呷哺呷哺", "100,0000.00", "300,0000.00",
 				"2016-12-09 16:26:22", "5年", "2016-12-09 16:26:22", "李四", "审核通过", "备注信息" });
 	}
 
@@ -140,7 +140,7 @@ public class JoinContractListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addColumn(new DataGridColumn("品牌商名称", Button.class));
 		gridModel.addColumn(new DataGridColumn("加盟者", String.class));
 		gridModel.addColumn(new DataGridColumn("加盟者联系方式", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌名称", Button.class));
+		gridModel.addColumn(new DataGridColumn("品牌名称", String.class));
 		gridModel.addColumn(new DataGridColumn("加盟费(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("加盟总费用(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("合同签约时间", String.class));
