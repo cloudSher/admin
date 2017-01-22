@@ -21,8 +21,8 @@ public class RadioboxYesOrNoEditor extends BaseFormFieldEditor {
 	private String itemNoCaption;
 
 	public RadioboxYesOrNoEditor() {
-		this.itemYesCaption = "是";
-		this.itemNoCaption = "否";
+		this("是", "否");
+		
 	}
 
 	public RadioboxYesOrNoEditor(String itemYesCaption, String itemNoCaption) {

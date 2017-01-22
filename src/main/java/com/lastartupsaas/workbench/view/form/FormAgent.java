@@ -218,6 +218,65 @@ public class FormAgent {
 		}
 		return formLayout;
 	}
+	
+	public FormBuildLayout buildViewForm() {
+		if (formFieldListMap != null && !formFieldListMap.isEmpty()) {
+			Iterator<String> iterator = formFieldListMap.keySet().iterator();
+			int panelIndex = 0;
+			while (iterator.hasNext()) {
+				String key = iterator.next();
+				List<FormField> fieldList = formFieldListMap.get(key);
+				Panel panel = new Panel(key);
+				if (fieldList != null && fieldList.size() > 0) {
+					int columnCount = this.fieldColumnCount * 2;
+
+					int rowCount = fieldList.size() / this.fieldColumnCount;
+					if (fieldList.size() % this.fieldColumnCount != 0) {
+						rowCount += 1;
+					}
+					GridLayout gridLayout = new GridLayout(columnCount, rowCount);
+					gridLayout.setStyleName("h-form-build");
+					gridLayout.setWidth("100%");
+					gridLayout.setSpacing(true);
+					gridLayout.setMargin(true);
+
+					int row = 0;
+					int col = 0;
+					for (FormField field : fieldList) {
+						Label label = this.createFieldLabel(field);
+						IFormFieldEditor editor = this.getFieldEditor(field);
+						if (editor == null)
+							continue;
+						editor.setField(field);
+						editor.setFormAgent(this);
+
+						FormFieldMapping fm = new FormFieldMapping();
+						fm.setField(field);
+						fm.setFieldEditor(editor);
+						fm.setFieldLabel(label);
+
+						gridLayout.addComponent(fm.getFieldLabel(), col, row);
+						gridLayout.addComponent(fm.getFieldEditor().getEditorComponent(), col + 1, row);
+						gridLayout.setComponentAlignment(fm.getFieldLabel(), this.captionAlignment);
+						gridLayout.setComponentAlignment(fm.getFieldEditor().getEditorComponent(), Alignment.MIDDLE_LEFT);
+						gridLayout.setColumnExpandRatio(col + 1, 1);
+
+						col += 2;
+						if (col >= columnCount) {
+							col = 0;
+							row++;
+						}
+
+						this.mappings.add(fm);
+						this.mappingMap.put(field.getName(), fm);
+					}
+					panel.setContent(gridLayout);
+					formLayout.addFormFieldComponent(panel, panelIndex++);
+				}
+			}
+		}
+		return formLayout;
+	}
 
 	/**
 	 * 设置form表单的某一行隐藏

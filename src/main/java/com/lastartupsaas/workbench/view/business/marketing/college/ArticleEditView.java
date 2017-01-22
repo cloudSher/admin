@@ -13,7 +13,7 @@ import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
-import com.lastartupsaas.workbench.view.form.impl.TextFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.RichTextAreaEditor;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
@@ -41,7 +41,7 @@ public class ArticleEditView extends BaseWorkBenchEditorView {
 		base_message.add(new FormField("列表图片", "image", ImageUploadEditor.class, true, null, true).setInputDescr("尺寸要求宽度为***像素，高度为***像素；支持格式gif,jpg,png"));
 		base_message.add(new FormField("是否显示", "order", RadioboxYesOrNoEditor.class, true, null, true));
 		base_message.add(new FormField("视频内容", "order", InputFieldEditor.class, true, null, true));
-		base_message.add(new FormField("内容", "order", TextFieldEditor.class, true, null, true));
+		base_message.add(new FormField("内容", "order", RichTextAreaEditor.class, true, null, true));
 
 		formAgent.addFieldListToMap("文章信息", base_message);
 	}

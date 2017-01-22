@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.marketing.messagepush;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -13,6 +14,7 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -37,7 +39,7 @@ public class MessageUserListView extends BaseWorkBenchListWithSearchView {
 	public MessageUserListView() {
 		this("当前位置：社区运营 > 消息推送 > 消息用户管理");
 	}
-	
+
 	public MessageUserListView(String caption) {
 		this.setViewCaption(caption);
 		this.withFilterSection = true;
@@ -52,7 +54,15 @@ public class MessageUserListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("message_user_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除该消息用户吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "消息用户删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -87,10 +97,8 @@ public class MessageUserListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		User user = (User) item;
-//		return new DataGridRow(user.getId(), new Object[] { user.getLoginName(), user.getJobNumber(), user.getRealName(),
-//				user.getPost() == null ? "" : user.getPost().getPostName(), user.getLastLoadTime() });
-		return null;
+		return new DataGridRow("00000001",
+				new Object[] { "00000001", "优质用户", "user_id_file/1461898268_user_list_id.txt", "3124234", "2017-03-03 10:22:11" });
 	}
 
 	@Override
@@ -100,7 +108,9 @@ public class MessageUserListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class TaskLibraryListView extends BaseWorkBenchListWithSearchView {
 
 	public TaskLibraryListView() {
 	}
-	
+
 	public TaskLibraryListView(String taskType) {
 		this.taskType = taskType;
 		this.withFilterSection = true;
@@ -64,19 +64,20 @@ public class TaskLibraryListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		
+
 		List<KeyValueObject> typeList = new ArrayList<>();
 		typeList.add(new KeyValueObject("1", "全部类型"));
 		typeList.add(new KeyValueObject("2", "话题审核"));
 		typeList.add(new KeyValueObject("3", "品牌审核"));
-		searchAgent.addField(new FormField("任务类型", "type", new SelectFieldEditor(typeList, "key", "value","1","100%"), true, null, true).setInputDescr("选择任务类型"));
+		searchAgent.addField(new FormField("任务类型", "type", new SelectFieldEditor(typeList, "key", "value", "1", "100%"), true, null, true)
+				.setInputDescr("选择任务类型"));
 		List<KeyValueObject> dealTypeList = new ArrayList<>();
 		dealTypeList.add(new KeyValueObject("1", "全部未处理"));
 		dealTypeList.add(new KeyValueObject("2", "超过8小时未处理"));
 		dealTypeList.add(new KeyValueObject("3", "超过12小时未处理"));
 		dealTypeList.add(new KeyValueObject("4", "超过24小时未处理"));
-		searchAgent.addField(new FormField("任务类型", "dealType", new SelectFieldEditor(typeList, "key", "value","1","100%"), true, null, true));
-		
+		searchAgent.addField(new FormField("任务类型", "dealType", new SelectFieldEditor(typeList, "key", "value", "1", "100%"), true, null, true));
+
 		if ("2".equals(taskType)) {
 			searchAgent.addField(new FormField("审核人", "brand_name", InputFieldEditor.class, false, null, false));
 		} else if ("3".equals(taskType)) {
@@ -106,10 +107,7 @@ public class TaskLibraryListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Member member = (Member) item;
-//		return new DataGridRow(member.getId(), new Object[] { member.getId(),"2016-10-11 12:41:25","1000000001", member.getNickName(), "18612345678",  "30000",
-//				"10001", "黄焖鸡米饭", "待支付启动金"});
-		return null;
+		return new DataGridRow("00000003", new Object[] { "话题审核", "领取待完成", "待处理", "张三", "2016-10-11 12:41:25", "2016-10-11 12:41:25", "详情" });
 	}
 
 	@Override
@@ -120,7 +118,9 @@ public class TaskLibraryListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override

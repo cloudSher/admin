@@ -23,15 +23,21 @@ public class CheckboxMultilevelGroupEditor extends BaseFormFieldEditor {
 	private List<?> items;
 	private String valuePropertyName;
 	private String displayPropertyName;
+	private String stylename;
 
 	public CheckboxMultilevelGroupEditor() {
 	}
 
 	public CheckboxMultilevelGroupEditor(List<?> items, String valuePropertyName, String displayPropertyName) {
+		this(items, valuePropertyName, displayPropertyName, "horizontal");
+	}
+
+	public CheckboxMultilevelGroupEditor(List<?> items, String valuePropertyName, String displayPropertyName, String stylename) {
 		super();
 		this.items = items;
 		this.valuePropertyName = valuePropertyName;
 		this.displayPropertyName = displayPropertyName;
+		this.stylename = stylename;
 	}
 
 	public List<?> getItems() {
@@ -93,12 +99,10 @@ public class CheckboxMultilevelGroupEditor extends BaseFormFieldEditor {
 	@Override
 	protected Component createComponent() {
 		VerticalLayout vl = new VerticalLayout();
-		// vl.setWidth("100%");
 		vl.setSizeUndefined();
 		vl.setSpacing(true);
 		this.optionGroup = new OptionGroup();
-		// this.optionGroup.setWidth("100%");
-		this.optionGroup.setStyleName("horizontal");
+		this.optionGroup.setStyleName(stylename);
 		this.optionGroup.setMultiSelect(true);
 		if (field.getDictType() != null && field.getDictType().length() > 0) {
 

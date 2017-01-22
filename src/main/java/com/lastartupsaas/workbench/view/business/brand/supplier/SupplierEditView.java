@@ -1,4 +1,4 @@
-package com.lastartupsaas.workbench.view.business.brand;
+package com.lastartupsaas.workbench.view.business.brand.supplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ import com.vaadin.spring.annotation.SpringView;
  * @author lifeilong
  * @date: 2016-12-09
  */
-@SpringView(name = BrandBusinessEditView.VIEW_NAME)
-public class BrandBusinessEditView extends BaseWorkBenchEditorView {
+@SpringView(name = SupplierEditView.VIEW_NAME)
+public class SupplierEditView extends BaseWorkBenchEditorView {
 
 	private static final long serialVersionUID = 257577382163845423L;
 	public static final String VIEW_NAME = "brand_business_edit.view";
@@ -35,12 +35,11 @@ public class BrandBusinessEditView extends BaseWorkBenchEditorView {
 	protected void declareFormAgent(FormAgent formAgent) {
 		List<FormField> fields = new ArrayList<FormField>();
 
-		fields.add(new FormField("品牌商编号", "id", LabelFieldEditor.class, false, null, true));
-		fields.add(new FormField("企业名称", "enterpriseName", InputFieldEditor.class, true, null, true));
+		fields.add(new FormField("品牌商编号", "id", new LabelFieldEditor("系统自动生成", "100%"), false, null, true));
+		fields.add(new FormField("品牌商名称", "enterpriseName", InputFieldEditor.class, true, null, true));
+		fields.add(new FormField("品牌商企业规模(人)", "contactPhone", InputFieldEditor.class, true, null, true));
+		fields.add(new FormField("品牌商地址", "enterpriseAddress", InputFieldEditor.class, true, null, false));
 		fields.add(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, true, null, true));
-		fields.add(new FormField("工商执照注册号", "businessLicenseNo", InputFieldEditor.class, true, null, true));
-		fields.add(new FormField("姓名", "contact", InputFieldEditor.class, true, null, false));
-		fields.add(new FormField("手机号", "contactPhone", InputFieldEditor.class, true, null, true));
 
 		formAgent.addFieldListToMap("品牌商信息", fields);
 	}
@@ -64,7 +63,7 @@ public class BrandBusinessEditView extends BaseWorkBenchEditorView {
 	protected Object loadEdittingDataFromContext(ViewContext vc) {
 		String id = vc.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
-			BrandBusiness brandBusiness = new BrandBusiness(1L, "久久鸭", "100201612090011", "北京市朝阳区望京东路1号摩托罗拉大厦8层", "张三", "18612345678", "通过", "是",
+			BrandBusiness brandBusiness = new BrandBusiness(1L, "久久鸭", "100201612090011", "北京市朝阳区望京东路1号摩托罗拉大厦8层", "张三", "10000", "通过", "是",
 					"2016-12-09 16:26:22");
 			return brandBusiness;
 		}

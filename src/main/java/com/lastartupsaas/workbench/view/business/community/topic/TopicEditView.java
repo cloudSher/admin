@@ -16,6 +16,7 @@ import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
+import com.lastartupsaas.workbench.view.form.impl.RadioboxYesOrNoEditor;
 import com.lastartupsaas.workbench.view.form.impl.TextFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 
@@ -53,10 +54,11 @@ public class TopicEditView extends BaseWorkBenchEditorView {
     	base_message.add(new FormField("话题名称", "title", InputFieldEditor.class, true, null, true));
     	base_message.add(new FormField("话题描述", "desc", TextFieldEditor.class, true, null, true));
     	base_message.add(new FormField("话题图片", "image", ImageUploadEditor.class, true, null, true));
-    	base_message.add(new FormField("是否有子标签", "tags", InputFieldEditor.class, true, null, true));
-    	base_message.add(new FormField("品牌话题", "tags", InputFieldEditor.class, true, null, true));
-    	base_message.add(new FormField("推荐首页", "status", InputFieldEditor.class, true, null, true));
-    	base_message.add(new FormField("推荐热门", "status", InputFieldEditor.class, true, null, true));
+    	base_message.add(new FormField("是否有子标签", "tags", RadioboxYesOrNoEditor.class, true, null, true));
+    	base_message.add(new FormField("品牌话题", "tags", RadioboxYesOrNoEditor.class, true, null, true));
+    	base_message.add(new FormField("推荐首页", "status", RadioboxYesOrNoEditor.class, true, null, true));
+    	base_message.add(new FormField("推荐热门", "status", RadioboxYesOrNoEditor.class, true, null, true));
+    	base_message.add(new FormField("创建人权限", "status",new RadioboxYesOrNoEditor("保留", "取消"), true, null, true));
         formAgent.addFieldListToMap("话题信息", base_message);
     }
 

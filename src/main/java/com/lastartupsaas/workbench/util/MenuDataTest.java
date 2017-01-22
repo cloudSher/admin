@@ -37,14 +37,12 @@ public class MenuDataTest {
 		brand_manage.appenMenuItem(brand_business);
 		brand_business.appenMenuItem(new Resource(100101L, "品牌商列表", false, false, null, null, "brand_business_list.view"));
 		brand_business.appenMenuItem(new Resource(100102L, "服务合同", false, false, null, null, "service_contract_list.view"));
-		brand_business.appenMenuItem(new Resource(100103L, "加盟合同", false, false, null, null, "role_list.view"));
-		brand_business.appenMenuItem(new Resource(100104L, "品牌商审核", false, false, null, null, "role_list.view"));
+		brand_business.appenMenuItem(new Resource(100103L, "加盟合同", false, false, null, null, "join_contract_list.view"));
 
 		Resource brand = new Resource(1002L, "品牌", false, false, null, null, "user_list.view");
 		brand_manage.appenMenuItem(brand);
-		brand.appenMenuItem(new Resource(100201L, "品牌列表", false, false, null, null, "user_list.view"));
-		brand.appenMenuItem(new Resource(100202L, "品牌类型", false, false, null, null, "role_list.view"));
-		brand.appenMenuItem(new Resource(100203L, "品牌审核", false, false, null, null, "role_list.view"));
+		brand.appenMenuItem(new Resource(100201L, "品牌列表", false, false, null, null, "brand_list.view"));
+		brand.appenMenuItem(new Resource(100202L, "品牌类型", false, false, null, null, "brand_type_list.view"));
 		menuList.add(brand_manage);
 
 		Resource trade_manage = new Resource(2000L, "交易", false, false, null, null, null);
@@ -103,10 +101,9 @@ public class MenuDataTest {
 		menuList.add(vip_manage);
 
 		Resource task_manage = new Resource(7000L, "待办任务", false, false, null, null, null);
-		task_manage.appenMenuItem(new Resource(7001L, "待办任务", false, false, null, null, null));
-		task_manage.appenMenuItem(new Resource(700101L, "我的任务", false, false, null, null, "my_task_list.view"));
-		task_manage.appenMenuItem(new Resource(700102L, "绩效统计", false, false, null, null, "performance_list.view"));
-		task_manage.appenMenuItem(new Resource(700103L, "任务库", false, false, null, null, "task_library_list.view"));
+		task_manage.appenMenuItem(new Resource(7001L, "我的任务", false, false, null, null, "my_task_list.view"));
+		task_manage.appenMenuItem(new Resource(7002L, "绩效统计", false, false, null, null, "performance_list.view"));
+		task_manage.appenMenuItem(new Resource(7003L, "任务库", false, false, null, null, "task_library_list.view"));
 		menuList.add(task_manage);
 
 		Resource system_manage = new Resource(6000L, "系统管理", false, false, null, null, null);

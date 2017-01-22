@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.community.topic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -38,14 +40,6 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 	private int totalCount;
 
-//	@Autowired
-//	private TopicsResource topicsResource;
-	private String xLaAuthorization = "oauth2.0";
-//	private XLaFormat xLaFormat = XLaFormat.json;
-	private String xLaAppKey = "123456";
-//	private XLaSignMethod xLaSignMethod = XLaSignMethod.MD5;
-	private String sign = "C71F538BC1243D2903D3AB935949379B";
-
 	public TopicListView() {
 		logger.info("进入话题列表页面");
 		this.setViewCaption("当前位置：社区运营 > 话题 > 话题列表");
@@ -61,7 +55,15 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("topic_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除该话题吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "话题删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -96,21 +98,22 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Topic topic = (Topic) item;
-//		return new DataGridRow(topic.getId(),
-//				new Object[] { topic.getId(), // 话题ID
-//						topic.getTitle(), // 话题名称
-//						topic.getTags(), // 二级标签
-//						topic.getTags(), // 品牌话题
-//						topic.getPublisher().getName(), // 创建用户
-//						topic.getPublishTime(), // 创建时间
-//						topic.getFans().getTotalCount(), // 关注人数
-//						topic.getPosters().getTotalCount(), // 动态数
-//						topic.getStatus(), // 状态
-//						topic.getPublisher().getName(), // 审核人
-//						topic.getPublishTime(), // 审核时间
-//						topic.getDesc() });// 备注
-		return null;
+		// Topic topic = (Topic) item;
+		// return new DataGridRow(topic.getId(),
+		// new Object[] { topic.getId(), // 话题ID
+		// topic.getTitle(), // 话题名称
+		// topic.getTags(), // 二级标签
+		// topic.getTags(), // 品牌话题
+		// topic.getPublisher().getName(), // 创建用户
+		// topic.getPublishTime(), // 创建时间
+		// topic.getFans().getTotalCount(), // 关注人数
+		// topic.getPosters().getTotalCount(), // 动态数
+		// topic.getStatus(), // 状态
+		// topic.getPublisher().getName(), // 审核人
+		// topic.getPublishTime(), // 审核时间
+		// topic.getDesc() });// 备注
+		return new DataGridRow("00000003", new Object[] { "00000003", "成功故事", "", "否", "是", "1000000001", "2016-10-11 12:41:25", "1678", "768", "未审核",
+				"张三", "2016-10-11 12:41:25", "成功故事话题" });
 
 	}
 
@@ -122,30 +125,34 @@ public class TopicListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public List<?> getDataList(DataListRequest request) {
 		try {
-//			Response response = topicsResource.getTopicsByFieldSelectors(":()", xLaAuthorization, xLaFormat, xLaAppKey, xLaSignMethod, "", "", 10, 1,
-//					sign);
-//			logger.info("查询话题列表结束,返回状态码[{}]", response.getStatus());
-//			if (response.getStatus() == 200) {
-//				Topics topics = (Topics) response.getEntity();
-//				if (topics != null) {
-//					totalCount = topics.getTotalCount().intValue();
-//					return topics.getTopics();
-//				}
-//			}
+			// Response response = topicsResource.getTopicsByFieldSelectors(":()", xLaAuthorization, xLaFormat, xLaAppKey, xLaSignMethod, "", "", 10,
+			// 1,
+			// sign);
+			// logger.info("查询话题列表结束,返回状态码[{}]", response.getStatus());
+			// if (response.getStatus() == 200) {
+			// Topics topics = (Topics) response.getEntity();
+			// if (topics != null) {
+			// totalCount = topics.getTotalCount().intValue();
+			// return topics.getTopics();
+			// }
+			// }
 		} catch (Exception e) {
 			logger.error("查询话题列表发生错误", e);
 		}
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("话题ID", Long.class));
+		gridModel.addColumn(new DataGridColumn("话题ID", String.class));
 		gridModel.addColumn(new DataGridColumn("话题名称", String.class));
+		gridModel.addColumn(new DataGridColumn("话题图片", String.class));
 		gridModel.addColumn(new DataGridColumn("二级标签", String.class));
 		gridModel.addColumn(new DataGridColumn("品牌话题", String.class));
-		gridModel.addColumn(new DataGridColumn("创建用户", String.class));
+		gridModel.addColumn(new DataGridColumn("创建用户ID", String.class));
 		gridModel.addColumn(new DataGridColumn("创建时间", String.class));
 		gridModel.addColumn(new DataGridColumn("关注人数", String.class));
 		gridModel.addColumn(new DataGridColumn("动态数", String.class));

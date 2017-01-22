@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -8,6 +9,7 @@ import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
 import com.lastartupsaas.workbench.view.datagrid.DataGridRow;
 import com.lastartupsaas.workbench.view.datagrid.DataListRequest;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
@@ -27,7 +29,7 @@ public class KpiTargetListView extends BaseWorkBenchListWithSearchView {
 	public KpiTargetListView() {
 		this("当前位置：系统管理 > KIP管理 > KIP数据项");
 	}
-	
+
 	public KpiTargetListView(String caption) {
 		this.setViewCaption(caption);
 		this.withFilterSection = false;
@@ -42,7 +44,15 @@ public class KpiTargetListView extends BaseWorkBenchListWithSearchView {
 			this.navigateToView("kpi_config_edit.view/id=" + parameters[0]);
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除此KIP数据项吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "KIP数据项删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -60,17 +70,19 @@ public class KpiTargetListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		return null;
+		return new DataGridRow("00000003", new Object[] { "社区-话题-话题列表", "编辑：发文章数，发话题数" });
 	}
 
 	@Override
 	public int getDataCount() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.lastartupsaas.workbench.view.business.transaction.order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
@@ -16,6 +17,7 @@ import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
 /**
@@ -57,8 +59,7 @@ public class ComplainListView extends BaseWorkBenchListWithSearchView {
 		searchAgent.setSearchMode(true);
 		searchAgent.setFieldColumnCount(4);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
-		
-		
+
 		searchAgent.addField(new FormField("订单编号", "order_no", InputFieldEditor.class, false, null, false).setInputDescr("输入要搜索的订单编号"));
 
 		FormBuildLayout form = searchAgent.buildSearchForm();
@@ -83,7 +84,10 @@ public class ComplainListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		return null;
+		Label content = new Label("欺骗加盟者,品牌...");
+		content.setDescription("欺骗加盟者,品牌知名度不符合现实情况，与介绍差别太大,欺骗加盟者,品牌知名度不符合现实情况，与介绍差别太大");
+		return new DataGridRow("00000001", new Object[] { "00000001", "32423423423", "刘强东", content, "2015-06-12 10:42:40", "黄焖鸡米饭", "42423424",
+				"待处理", "张三", "2015-06-12 10:42:40", "恶意诽谤，警告处理" });
 	}
 
 	@Override
@@ -93,8 +97,9 @@ public class ComplainListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
@@ -103,7 +108,7 @@ public class ComplainListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addColumn(new DataGridColumn("订单ID", String.class));
 		gridModel.addColumn(new DataGridColumn("投诉用户ID", String.class));
 		gridModel.addColumn(new DataGridColumn("投诉用户昵称", String.class));
-		gridModel.addColumn(new DataGridColumn("投诉内容", String.class));
+		gridModel.addColumn(new DataGridColumn("投诉内容", Label.class));
 		gridModel.addColumn(new DataGridColumn("投诉时间", String.class));
 		gridModel.addColumn(new DataGridColumn("被投诉品牌", String.class));
 		gridModel.addColumn(new DataGridColumn("被投诉品牌ID", String.class));

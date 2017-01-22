@@ -1,8 +1,10 @@
 package com.lastartupsaas.workbench.view.business.community.comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
+import com.lastartupsaas.workbench.view.business.community.dynamic.DynamicViewWindow;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -14,9 +16,11 @@ import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.DateFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
 /**
@@ -35,26 +39,42 @@ public class CommentListView extends BaseWorkBenchListWithSearchView {
 	private String searchName;
 	private int totalCount;
 
-//	@Autowired
-//	private TopicsResource topicsResource;
-	private String xLaAuthorization = "oauth2.0";
-//	private XLaFormat xLaFormat = XLaFormat.json;
-	private String xLaAppKey = "123456";
-//	private XLaSignMethod xLaSignMethod = XLaSignMethod.MD5;
-	private String sign = "C71F538BC1243D2903D3AB935949379B";
-
 	public CommentListView() {
-		this.setViewCaption("当前位置：社区运营 > 评论 > 评论管理");
+		this("当前位置：社区运营 > 评论 > 评论管理");
+	}
+
+	public CommentListView(String caption) {
+		this.setViewCaption(caption);
 		this.withFilterSection = true;
 	}
 
 	@Override
 	public void performAction(ActionCommand command, Object... parameters) {
-		if (command.isActionId("multi_del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+		if (command.isActionId("batch_delete")) {
+			if (parameters.length == 0) {
+				Notification.show("提示", "至少需要选中一条数据", Notification.Type.ERROR_MESSAGE);
+			} else {
+				showConfirmDialog("提示", "确定要删除选中的评论吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+					@Override
+					public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+						if (event.isConfirm()) {
+							Notification.show("提示", "评论批量删除成功", Notification.Type.HUMANIZED_MESSAGE);
+						} else {
+						}
+					}
+				});
+			}
 		}
 		if (command.isActionId("del")) {
-			Notification.show("提示", "功能正在建设中。。。", Notification.Type.HUMANIZED_MESSAGE);
+			showConfirmDialog("提示", "确定要删除此条评论吗 ?", new ConfirmYesNoDialog.ConfirmListener() {
+				@Override
+				public void confirmClick(ConfirmYesNoDialog.ConfirmEvent event) {
+					if (event.isConfirm()) {
+						Notification.show("提示", "评论删除成功", Notification.Type.HUMANIZED_MESSAGE);
+					} else {
+					}
+				}
+			});
 		}
 	}
 
@@ -63,7 +83,7 @@ public class CommentListView extends BaseWorkBenchListWithSearchView {
 		searchAgent = new FormAgent();
 		searchAgent.setDataHelper(new FormDataHelper());
 		searchAgent.setSearchMode(true);
-		searchAgent.setFieldColumnCount(2);
+		searchAgent.setFieldColumnCount(3);
 		searchAgent.setCaptionAlignment(Alignment.MIDDLE_LEFT);
 		searchAgent.addField(new FormField("评论时间", "start_time", DateFieldEditor.class, false, null, false));
 		searchAgent.addField(new FormField("~", "end_time", DateFieldEditor.class, false, null, false));
@@ -91,22 +111,10 @@ public class CommentListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-//		Topic topic = (Topic) item;
-//		return new DataGridRow(topic.getId(),
-//				new Object[] { topic.getId(), // 话题ID
-//						topic.getTitle(), // 话题名称
-//						topic.getTags(), // 二级标签
-//						topic.getTags(), // 品牌话题
-//						topic.getPublisher().getName(), // 创建用户
-//						topic.getPublishTime(), // 创建时间
-//						topic.getFans().getTotalCount(), // 关注人数
-//						topic.getPosters().getTotalCount(), // 动态数
-//						topic.getStatus(), // 状态
-//						topic.getPublisher().getName(), // 审核人
-//						topic.getPublishTime(), // 审核时间
-//						topic.getDesc() });// 备注
-		return null;
+		Label content_label = new Label("我来评论一...");
+		content_label.setDescription("我来评论一下，楼主说的真不错");
 
+		return new DataGridRow("100000001", new Object[] { content_label, "张三", "2340000014", "12200001", "2016-10-11 12:41:25" });
 	}
 
 	@Override
@@ -116,32 +124,21 @@ public class CommentListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public List<?> getDataList(DataListRequest request) {
-		try {
-//			Response response = topicsResource.getTopicsByFieldSelectors(":()", xLaAuthorization, xLaFormat, xLaAppKey, xLaSignMethod, "", "", 10, 1,
-//					sign);
-//			logger.info("查询话题列表结束,返回状态码[{}]", response.getStatus());
-//			if (response.getStatus() == 200) {
-//				Topics topics = (Topics) response.getEntity();
-//				if (topics != null) {
-//					totalCount = topics.getTotalCount().intValue();
-//					return topics.getTopics();
-//				}
-//			}
-		} catch (Exception e) {
-		}
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		return list;
 	}
 
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("评论内容", Long.class));
+		gridModel.addColumn(new DataGridColumn("评论内容", Label.class));
 		gridModel.addColumn(new DataGridColumn("评论用户", String.class));
 		gridModel.addColumn(new DataGridColumn("评论用户ID", String.class));
 		gridModel.addColumn(new DataGridColumn("动态ID", String.class));
 		gridModel.addColumn(new DataGridColumn("评论时间", String.class));
 
-		gridModel.addListAction(new ActionCommand("multi_del", "批量删除"));
+		gridModel.addListAction(new ActionCommand("batch_delete", "批量删除"));
 		gridModel.addItemAction(new ActionCommand("del", "删除"));
 	}
 }
