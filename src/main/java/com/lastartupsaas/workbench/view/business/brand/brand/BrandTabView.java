@@ -7,31 +7,31 @@ import com.lastartupsaas.workbench.view.BaseWorkbenchView;
 import com.vaadin.spring.annotation.SpringView;
 
 /**
- * 品牌编辑页面
+ * 品牌查看页面
  * 
  * @author lifeilong
  * @date: 2016-12-09
  */
-@SpringView(name = BrandEditTabView.VIEW_NAME)
-public class BrandEditTabView extends BaseWorkbenchTabView {
+@SpringView(name = BrandTabView.VIEW_NAME)
+public class BrandTabView extends BaseWorkbenchTabView {
 
-	private static final long serialVersionUID = -3703538365554722112L;
-	public static final String VIEW_NAME = "brand_edit.view";
+	private static final long serialVersionUID = -6324125283540388369L;
+	public static final String VIEW_NAME = "brand.view";
 
-	public BrandEditTabView() {
-		this.setViewCaption("当前位置：品牌 > 品牌 > 品牌列表");
+	public BrandTabView() {
+		this.setViewCaption("");
 	}
 
 	@Override
 	protected void setupViews(Map<String, BaseWorkbenchView> viewsMap) {
 
-		BaseMessageEditView firstView = new BaseMessageEditView();
+		BaseMessageView firstView = new BaseMessageView();
 		firstView.initView();
-		IntroductionEditView secondView = new IntroductionEditView();
+		IntroductionView secondView = new IntroductionView();
 		secondView.initView();
-		ProcessEditView thirdView = new ProcessEditView();
+		ProcessView thirdView = new ProcessView();
 		thirdView.initView();
-		ProfitEditView fourthView = new ProfitEditView();
+		ProfitView fourthView = new ProfitView();
 		fourthView.initView();
 		InvestmentAnalysisListView fifthView = new InvestmentAnalysisListView();
 		fifthView.initView();

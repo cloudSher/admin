@@ -191,6 +191,16 @@ public class BrandListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	public DataGridRow convertRowData(Object item) {
 
+		Button view_brand = new Button("00000001", new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				BrandTabView firstView = new BrandTabView();
+				firstView.initView();
+				ModalWindow formWindow = new ModalWindow("品牌信息查看", firstView, "80%");
+				UI.getCurrent().addWindow(formWindow);
+			}
+		});
+		view_brand.addStyleName(ValoTheme.BUTTON_LINK);
 		Button view_account = new Button("432.00", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -215,7 +225,7 @@ public class BrandListView extends BaseWorkBenchListWithSearchView {
 			}
 		});
 		view_contract.addStyleName(ValoTheme.BUTTON_LINK);
-		return new DataGridRow("00000001", new Object[] { "00000001", "呷哺呷哺", "已上线", "正常", view_account, "餐饮", view_supplier, view_contract,
+		return new DataGridRow("00000001", new Object[] { view_brand, "呷哺呷哺", "已上线", "正常", view_account, "餐饮", view_supplier, view_contract,
 				"100000322555555", "是", "北京分部", "2020-10-11 12:41:25", "2016-10-11 12:41:25", "审核通过", "备注信息" });
 	}
 
@@ -235,7 +245,7 @@ public class BrandListView extends BaseWorkBenchListWithSearchView {
 	@Override
 	protected void setupGridModel(DataGridModel gridModel) {
 
-		gridModel.addColumn(new DataGridColumn("品牌编号", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌编号", Button.class));
 		gridModel.addColumn(new DataGridColumn("品牌名称", String.class));
 		gridModel.addColumn(new DataGridColumn("品牌状态", String.class));
 		gridModel.addColumn(new DataGridColumn("品牌账户状态", String.class));

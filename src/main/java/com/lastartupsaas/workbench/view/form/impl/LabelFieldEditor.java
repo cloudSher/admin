@@ -3,6 +3,7 @@ package com.lastartupsaas.workbench.view.form.impl;
 import org.apache.commons.lang3.StringUtils;
 
 import com.lastartupsaas.workbench.view.form.BaseFormFieldEditor;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.ValoTheme;
@@ -64,6 +65,8 @@ public class LabelFieldEditor extends BaseFormFieldEditor {
 		this.label = new Label();
 		this.label.addStyleName(ValoTheme.LABEL_SMALL);
 		this.label.addStyleName(ValoTheme.LABEL_LIGHT);
+		this.label.setContentMode(ContentMode.HTML);
+		this.label.setCaptionAsHtml(true);
 		this.label.setWidth(this.width);
 		if (StringUtils.isNotBlank(defaultValue)) {
 			this.label.setValue(defaultValue);

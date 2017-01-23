@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormField;
-import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
+import com.lastartupsaas.workbench.view.form.impl.ImageViewComponent;
 import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
 import com.lastartupsaas.workbench.widgets.FormWindow;
 
@@ -63,7 +63,7 @@ public class JoinContractViewWindow extends FormWindow {
 		formAgent.addFieldListToMap("加盟者基本信息", settlement_message);
 		
 		List<FormField> img_message = new ArrayList<FormField>();
-		img_message.add(new FormField("合同照片", "businessLicenceImg", ImageUploadEditor.class, false, null, true));
+		img_message.add(new FormField("合同照片", "businessLicenceImg", ImageViewComponent.class, false, null, true));
 		formAgent.addFieldListToMap("附件", img_message);
 	}
 }

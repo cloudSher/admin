@@ -32,7 +32,7 @@ public class IntroductionEditView extends BaseWorkBenchEditorView {
 		List<FormField> base_message = new ArrayList<FormField>();
 		base_message.add(new FormField("品牌介绍", "firstParty", RichTextAreaEditor.class, true, null, true));
 		base_message.add(new FormField("产品介绍", "contractNo", RichTextAreaEditor.class, false, null, true));
-		base_message.add(new FormField("商机亮点", "firstParty", RichTextAreaEditor.class, true, null, true));
+		base_message.add(new FormField("商机亮点", "businessLicenseNo", RichTextAreaEditor.class, true, null, true));
 		formAgent.addFieldListToMap("品牌介绍", base_message);
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
+import com.lastartupsaas.workbench.view.business.brand.brand.BrandTabView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -15,6 +16,7 @@ import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.DateFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
+import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -90,32 +92,34 @@ public class JoinContractListView extends BaseWorkBenchListWithSearchView {
 
 	@Override
 	public DataGridRow convertRowData(Object item) {
-		Button button = new Button("00000010", new Button.ClickListener() {
+		Button view_contract = new Button("00000010", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				JoinContractViewWindow formWindow = new JoinContractViewWindow("");
 				UI.getCurrent().addWindow(formWindow);
 			}
 		});
-		button.addStyleName(ValoTheme.BUTTON_LINK);
-		Button button1 = new Button("呷哺呷哺股份有限公司", new Button.ClickListener() {
+		view_contract.addStyleName(ValoTheme.BUTTON_LINK);
+		Button view_supplier = new Button("呷哺呷哺股份有限公司", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				SupplierViewWindow formWindow = new SupplierViewWindow("");
 				UI.getCurrent().addWindow(formWindow);
 			}
 		});
-		button1.addStyleName(ValoTheme.BUTTON_LINK);
-		Button button2 = new Button("呷哺呷哺", new Button.ClickListener() {
+		view_supplier.addStyleName(ValoTheme.BUTTON_LINK);
+		Button view_brand = new Button("周黑鸭", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				JoinContractViewWindow formWindow = new JoinContractViewWindow("");
+				BrandTabView firstView = new BrandTabView();
+				firstView.initView();
+				ModalWindow formWindow = new ModalWindow("品牌信息查看", firstView, "80%");
 				UI.getCurrent().addWindow(formWindow);
 			}
 		});
-		button2.addStyleName(ValoTheme.BUTTON_LINK);
+		view_brand.addStyleName(ValoTheme.BUTTON_LINK);
 
-		return new DataGridRow("00000010", new Object[] { button, "00000001", button1, "张三", "13212345678", "呷哺呷哺", "100,0000.00", "300,0000.00",
+		return new DataGridRow("00000010", new Object[] { view_contract, "00000001", view_supplier, "张三", "13212345678", view_brand, "100,0000.00", "300,0000.00",
 				"2016-12-09 16:26:22", "5年", "2016-12-09 16:26:22", "李四", "审核通过", "备注信息" });
 	}
 
@@ -140,7 +144,7 @@ public class JoinContractListView extends BaseWorkBenchListWithSearchView {
 		gridModel.addColumn(new DataGridColumn("品牌商名称", Button.class));
 		gridModel.addColumn(new DataGridColumn("加盟者", String.class));
 		gridModel.addColumn(new DataGridColumn("加盟者联系方式", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌名称", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌名称", Button.class));
 		gridModel.addColumn(new DataGridColumn("加盟费(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("加盟总费用(元)", String.class));
 		gridModel.addColumn(new DataGridColumn("合同签约时间", String.class));

@@ -6,7 +6,7 @@ import java.util.List;
 import com.lastartupsaas.workbench.view.form.FormAgent;
 import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormField;
-import com.lastartupsaas.workbench.view.form.impl.ImageUploadEditor;
+import com.lastartupsaas.workbench.view.form.impl.ImageViewComponent;
 import com.lastartupsaas.workbench.view.form.impl.LabelFieldEditor;
 import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.lastartupsaas.workbench.widgets.FormActionButton;
@@ -64,9 +64,9 @@ public class ServiceContractViewWindow extends FormWindow {
 		formAgent.addFieldListToMap("联系人信息", person_message);
 		
 		List<FormField> attachment_message = new ArrayList<FormField>();
-		attachment_message.add(new FormField("营业执照照片:", "oldrd311b", ImageUploadEditor.class, false, null, true));
-		attachment_message.add(new FormField("组织机构代码照片:", "oldrd312b", ImageUploadEditor.class, false, null, true));
-		attachment_message.add(new FormField("合同照片:", "oldrd312bd", ImageUploadEditor.class, false, null, true));
+		attachment_message.add(new FormField("营业执照照片:", "oldrd311b", ImageViewComponent.class, false, null, true));
+		attachment_message.add(new FormField("组织机构代码照片:", "oldrd312b", ImageViewComponent.class, false, null, true));
+		attachment_message.add(new FormField("合同照片:", "oldrd312bd", ImageViewComponent.class, false, null, true));
 		formAgent.addFieldListToMap("附件", attachment_message);
 	}
 

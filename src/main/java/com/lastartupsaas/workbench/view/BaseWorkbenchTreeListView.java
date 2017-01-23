@@ -12,13 +12,17 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 
 /**
- * Author: alvin
- * Date: 2016-08-22
+ * 树形list列表
+ * 
+ * @author lifeilong
+ * @date 2017-01-12
  */
 public abstract class BaseWorkbenchTreeListView extends BaseWorkbenchView implements IDataProvider,
         IActionCommandHandler, IDataGridRowConverter {
 
-    protected boolean withFilterSection;
+	private static final long serialVersionUID = -1776440823760116259L;
+
+	protected boolean withFilterSection;
 
     protected DataGridModel gridModel;
 
