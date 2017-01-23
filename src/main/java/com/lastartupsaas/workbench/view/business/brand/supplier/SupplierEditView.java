@@ -63,7 +63,7 @@ public class SupplierEditView extends BaseWorkBenchEditorView {
 	protected Object loadEdittingDataFromContext(ViewContext vc) {
 		String id = vc.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
-			BrandBusiness brandBusiness = new BrandBusiness(1L, "久久鸭", "100201612090011", "北京市朝阳区望京东路1号摩托罗拉大厦8层", "张三", "10000", "通过", "是",
+			BrandBusiness brandBusiness = new BrandBusiness("100000001", "久久鸭", "100201612090011", "北京市朝阳区望京东路1号摩托罗拉大厦8层", "张三", "10000", "通过", "是",
 					"2016-12-09 16:26:22");
 			return brandBusiness;
 		}

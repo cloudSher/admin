@@ -7,7 +7,6 @@ import com.lastartupsaas.workbench.view.form.FormBuildLayout;
 import com.lastartupsaas.workbench.view.form.FormDataHelper;
 import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
 import com.lastartupsaas.workbench.widgets.FormActionButton;
-import com.lastartupsaas.workbench.widgets.SubPanel;
 import com.vaadin.ui.Button;
 
 /**
@@ -17,7 +16,6 @@ import com.vaadin.ui.Button;
 public abstract class BaseWorkBenchEditorView extends BaseWorkbenchView {
 
     private static final long serialVersionUID = 124283188287494386L;
-    private SubPanel formPanel;
     private FormAgent formAgent;
 
     private Object edittingData;

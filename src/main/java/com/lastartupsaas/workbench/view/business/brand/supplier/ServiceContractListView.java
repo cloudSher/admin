@@ -10,6 +10,7 @@ import com.lastartupsaas.workbench.domain.KeyValueObject;
 //import com.lastartupsaas.api.model.Topic;
 import com.lastartupsaas.workbench.domain.brand.ServiceContract;
 import com.lastartupsaas.workbench.view.BaseWorkBenchListWithSearchView;
+import com.lastartupsaas.workbench.view.business.brand.brand.BrandTabView;
 import com.lastartupsaas.workbench.view.datagrid.ActionCommand;
 import com.lastartupsaas.workbench.view.datagrid.DataGridColumn;
 import com.lastartupsaas.workbench.view.datagrid.DataGridModel;
@@ -22,6 +23,7 @@ import com.lastartupsaas.workbench.view.form.FormField;
 import com.lastartupsaas.workbench.view.form.impl.InputFieldEditor;
 import com.lastartupsaas.workbench.view.form.impl.SelectFieldEditor;
 import com.lastartupsaas.workbench.widgets.ConfirmYesNoDialog;
+import com.lastartupsaas.workbench.widgets.ModalWindow;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -124,9 +126,27 @@ public class ServiceContractListView extends BaseWorkBenchListWithSearchView {
 			}
 		});
 		button.addStyleName(ValoTheme.BUTTON_LINK);
+		Button view_supplier = new Button(serviceContract.getSecondParty(), new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				SupplierViewWindow formWindow = new SupplierViewWindow("");
+				UI.getCurrent().addWindow(formWindow);
+			}
+		});
+		view_supplier.addStyleName(ValoTheme.BUTTON_LINK);
+		Button view_brand = new Button(serviceContract.getFirstParty(), new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				BrandTabView firstView = new BrandTabView();
+				firstView.initView();
+				ModalWindow formWindow = new ModalWindow("品牌信息查看", firstView, "80%");
+				UI.getCurrent().addWindow(formWindow);
+			}
+		});
+		view_brand.addStyleName(ValoTheme.BUTTON_LINK);
 
 		return new DataGridRow(serviceContract.getId(),
-				new Object[] { button, serviceContract.getContractNo(), serviceContract.getFirstParty(), serviceContract.getFirstParty(),
+				new Object[] { button, serviceContract.getContractNo(), view_brand, view_supplier,
 						serviceContract.getSignTime(), serviceContract.getSplitFlag(), serviceContract.getLegalPerson(),
 						serviceContract.getAccountNo(), serviceContract.getLastOperateTime(), serviceContract.getOperator(), "审核通过", "备注信息" });
 	}
@@ -157,8 +177,8 @@ public class ServiceContractListView extends BaseWorkBenchListWithSearchView {
 
 		gridModel.addColumn(new DataGridColumn("系统服务合同编号", Button.class));
 		gridModel.addColumn(new DataGridColumn("线下服务合同编号", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌名称", String.class));
-		gridModel.addColumn(new DataGridColumn("品牌商名称", String.class));
+		gridModel.addColumn(new DataGridColumn("品牌名称", Button.class));
+		gridModel.addColumn(new DataGridColumn("品牌商名称", Button.class));
 		gridModel.addColumn(new DataGridColumn("合同签约时间", String.class));
 		gridModel.addColumn(new DataGridColumn("合同状态", String.class));
 		gridModel.addColumn(new DataGridColumn("联系人", String.class));
